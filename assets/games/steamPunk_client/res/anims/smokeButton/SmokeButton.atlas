@@ -1,0 +1,76 @@
+
+SmokeButton.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+SmokeFx_00009
+  rotate: false
+  xy: 1, 405
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00007
+  rotate: false
+  xy: 623, 1
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00004
+  rotate: false
+  xy: 312, 1
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00006
+  rotate: false
+  xy: 1, 203
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00008
+  rotate: false
+  xy: 312, 405
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00000
+  rotate: false
+  xy: 1, 809
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00001
+  rotate: false
+  xy: 623, 203
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00005
+  rotate: false
+  xy: 1, 1
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00003
+  rotate: false
+  xy: 1, 607
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1
+SmokeFx_00002
+  rotate: false
+  xy: 312, 203
+  size: 309, 200
+  orig: 309, 200
+  offset: 0, 0
+  index: -1

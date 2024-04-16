@@ -138,6 +138,7 @@ export default class ScrollView extends ViewGroup {
     if (this.content) {
       let contentComp = this.content.getComponent(ScrollContent) as ScrollContent;
       if (!contentComp) {
+        console.log("add scrolconten");
         contentComp = this.content.addComponent(ScrollContent);
       }
       contentComp.scrollView = this;
@@ -534,7 +535,7 @@ export default class ScrollView extends ViewGroup {
   }
 
   protected _onTouchBegan(event: cc.EventTouch, captureListeners: any[]) {
-    // cc.log(`[Scrollview] _onTouchBegan`);
+    console.log(`[Scrollview] _onTouchBegan`);
     if (!this.enabledInHierarchy!) return;
     if (this._hasNestedViewGroup(event, captureListeners)) return;
 
@@ -794,6 +795,7 @@ export default class ScrollView extends ViewGroup {
   }
 
   protected _registerEvent() {
+    console.log("come in register");
     this.node.on(cc.Node.EventType.TOUCH_START, this._onTouchBegan, this, true);
     this.node.on(cc.Node.EventType.TOUCH_MOVE, this._onTouchMoved, this, true);
     this.node.on(cc.Node.EventType.TOUCH_END, this._onTouchEnded, this, true);

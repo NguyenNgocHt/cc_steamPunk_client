@@ -123,4 +123,16 @@ export default class Utils {
   public static cloneArray<T>(a: T[]): T[] {
     return [...a];
   }
+  public static parseUrlData(url: string = null) {
+    if (!url) {
+      url = window.location.href;
+    }
+    let iUrl = new URL(url);
+    let dataBase64 = iUrl.searchParams.get("data");
+    if (dataBase64) {
+      let dataDecode = atob(dataBase64);
+      return JSON.parse(dataDecode);
+    }
+    return null;
+  }
 }

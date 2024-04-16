@@ -1,0 +1,13 @@
+
+edge_round_polish.png
+size: 260,260
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+polishLightSide
+  rotate: false
+  xy: 2, 2
+  size: 32, 256
+  orig: 32, 256
+  offset: 0, 0
+  index: -1

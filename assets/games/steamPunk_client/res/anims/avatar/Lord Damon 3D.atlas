@@ -1,0 +1,41 @@
+
+Lord Damon 3D.png
+size: 544,166
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+library/Blink
+  rotate: true
+  xy: 438, 37
+  size: 127, 104
+  orig: 127, 104
+  offset: 0, 0
+  index: -1
+library/Body 4
+  rotate: false
+  xy: 2, 21
+  size: 255, 143
+  orig: 260, 151
+  offset: 2, 8
+  index: -1
+library/Head_White-eye 3
+  rotate: false
+  xy: 259, 4
+  size: 177, 160
+  orig: 177, 160
+  offset: 0, 0
+  index: -1
+library/Heart 2
+  rotate: false
+  xy: 438, 2
+  size: 43, 33
+  orig: 43, 33
+  offset: 0, 0
+  index: -1
+library/iris 3
+  rotate: false
+  xy: 2, 6
+  size: 12, 13
+  orig: 63, 16
+  offset: 0, 0
+  index: -1

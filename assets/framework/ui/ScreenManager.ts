@@ -928,6 +928,7 @@ export default class ScreenManager extends cc.Component {
   loadScreen(screen: cc.Prefab, callback: Function) {
     if (screen) {
       let node = cc.instantiate(screen);
+      console.log("screen", screen);
       var comp = node.getComponent(BaseScreen);
       if (!comp) comp = node.addComponent(BaseScreen);
       callback && callback(comp);
