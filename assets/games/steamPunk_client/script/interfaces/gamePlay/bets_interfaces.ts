@@ -1,14 +1,18 @@
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('bets_interfaces')
-export class bets_interfaces extends Component {
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-        
-    }
+import { SettingsData } from "../../dataModel/GameInfoDataType";
+export interface IBtnBetGroupView {
+  startGameEffect();
 }
-
+
+export interface IBetController {
+  onGameEffect();
+}
+
+export interface IBetLineGroupView {
+  setCurrentBetLineValue(currentBetLineValue: number);
+}
+
+export interface IBetAmoutGroupView {
+  getListDenominations(data: number[]);
+
+  getListSettings(data: SettingsData);
+}

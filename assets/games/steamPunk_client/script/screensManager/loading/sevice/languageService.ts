@@ -1,4 +1,3 @@
-import { loginData } from "./../../../dataModel/LoginDataType_sendToSever";
 import { _decorator, Component, Node } from "cc";
 import { ILanguegeService } from "../../../interfaces/Loading_interfaces";
 import Utils from "../../../../../../framework/utils/Utils";

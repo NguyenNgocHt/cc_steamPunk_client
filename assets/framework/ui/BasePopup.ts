@@ -1,5 +1,5 @@
 import * as cc from 'cc';
-import { EventListener, EventListenerName } from '../common/EventListener';
+import { EventBus, EventBusName } from '../common/EventBus';
 import ViewGroup from './ViewGroup';
 
 const { ccclass, property } = cc._decorator;
@@ -129,7 +129,7 @@ export default class BasePopup extends ViewGroup {
     }
 
     public hide() {
-        EventListener.dispatchEvent(EventListenerName.REMOVE_BASE_POPUP, this);
+        EventBus.dispatchEvent(EventBusName.REMOVE_BASE_POPUP, this);
     }
 
     popupWillAppear() {

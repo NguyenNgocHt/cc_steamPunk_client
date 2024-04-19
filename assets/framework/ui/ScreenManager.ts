@@ -1,5 +1,5 @@
 import * as cc from "cc";
-import { EventListener, EventListenerName } from "../common/EventListener";
+import { EventBus, EventBusName } from "../common/EventBus";
 import Utils from "../utils/Utils";
 import BasePopup from "./BasePopup";
 import BaseScreen from "./BaseScreen";
@@ -101,8 +101,8 @@ export default class ScreenManager extends cc.Component {
 
     this.zOrderMax.active = false;
 
-    EventListener.on(EventListenerName.REMOVE_BASE_POPUP, this.removePopup, this);
-    EventListener.on(EventListenerName.RESIZE_WINDOW_EVENT, this.resizeWindowAdapt, this);
+    EventBus.on(EventBusName.REMOVE_BASE_POPUP, this.removePopup, this);
+    EventBus.on(EventBusName.RESIZE_WINDOW_EVENT, this.resizeWindowAdapt, this);
   }
 
   resizeWindowAdapt() {
@@ -302,8 +302,8 @@ export default class ScreenManager extends cc.Component {
     this._screenStack.splice(0, this._screenStack.length);
     this.assetBundle.releaseAll();
     ScreenManager._instance = null;
-    EventListener.off(EventListenerName.REMOVE_BASE_POPUP, this.removePopup, this);
-    EventListener.off(EventListenerName.RESIZE_WINDOW_EVENT, this.resizeWindowAdapt, this);
+    EventBus.off(EventBusName.REMOVE_BASE_POPUP, this.removePopup, this);
+    EventBus.off(EventBusName.RESIZE_WINDOW_EVENT, this.resizeWindowAdapt, this);
   }
 
   private _registerEvent() {

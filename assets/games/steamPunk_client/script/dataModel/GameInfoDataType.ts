@@ -9,3 +9,15 @@ export type GameInfoData = {
   pending?: any;
   denominations?: number[];
 };
+export type PendingData = {
+  freeSpins: number;
+  refId: string;
+  roundId: string;
+  stake: number;
+};
+export type SettingsData = {
+  Denominations: number[];
+  MaxBet: number;
+  MinBet: number;
+  currency: string;
+};

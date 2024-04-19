@@ -9,10 +9,22 @@ export const GAME_EVENT = {
   RESOURCE_LOADING_ERR: "resource loading error",
   SCREEN_CHANGE: "screen change",
 
-  //player info
+  //game play controller
   SEND_TO_PLAYER_INFO: "send to player info",
+  SEND_GAME_INFO: "send game info",
   //game info
   SEND_TO_GAME_INFO: "send to game info",
+  //landingGroup
+  END_SHOW_LANDING: "end show landing",
+  //play screen view
+  BET_LAYER_TO_UP_END: "bet layer to up end",
+  //BetLineGroup
+  ONCLICK_SUB_LINE: "onClick sub line",
+  ONCLICK_ADD_LINE: " onClick add line",
+  SEND_CURRENT_BET_LINE: "send current bet line",
+  //betAmoutgroup
+  GET_GAME_INFO: "get game info",
+  CURRENT_BET_VALUE: "current bet value",
 };
 export const SOCKET_EVENT = {
   //sys event---------

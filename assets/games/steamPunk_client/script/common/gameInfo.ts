@@ -1,5 +1,5 @@
 import { _decorator } from "cc";
-import { EventListener } from "../../../../framework/common/EventListener";
+import { EventBus } from "../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../network/networkDefine";
 import { GameInfoData } from "../dataModel/GameInfoDataType";
 import { sys } from "cc";
@@ -23,10 +23,10 @@ export default class GameInfo implements IGameInfo {
     this.registerEvent();
   }
   registerEvent() {
-    EventListener.on(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
+    EventBus.on(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
   }
   offEvent() {
-    EventListener.off(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
+    EventBus.off(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
   }
   setGameInfo(data: GameInfoData) {
     console.log("come in game info", data);
@@ -45,12 +45,6 @@ export default class GameInfo implements IGameInfo {
     let dataJson = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
     if (dataJson == null) {
       sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO, JSON.stringify(gameInfo));
-    }
-  }
-  getGameInfo(): GameInfoData {
-    let gameInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (gameInfo) {
-      return gameInfo;
     }
   }
 }

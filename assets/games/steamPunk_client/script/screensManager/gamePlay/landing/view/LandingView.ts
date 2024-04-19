@@ -5,6 +5,8 @@ import { ILandingController, ILandingView } from "../../../../interfaces/gamePla
 import { Root } from "cc";
 import { TiledObjectGroup } from "cc";
 import { UIOpacity } from "cc";
+import { EventBus } from "../../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../../network/networkDefine";
 
 const { ccclass, property } = _decorator;
 
@@ -82,14 +84,17 @@ export class LandingView extends Component implements ILandingView {
     let logoOpacity = this.logo.getComponent(UIOpacity);
     let daskOpacity = this.dask.getComponent(UIOpacity);
     console.log("daskOpacity", daskOpacity);
-    this.setOpacityNode(logoOpacity, this.tagetOpacityIndex);
-    this.setOpacityNode(daskOpacity, this.tagetOpacityIndex);
+    this.setOpacityNode(logoOpacity, this.tagetOpacityIndex, false);
+    this.setOpacityNode(daskOpacity, this.tagetOpacityIndex, true);
   }
-  setOpacityNode(uiOpacity: UIOpacity, numberTaget: number) {
+  setOpacityNode(uiOpacity: UIOpacity, numberTaget: number, isSendMsg: boolean) {
     tween(uiOpacity)
       .to(this.duration, { opacity: numberTaget })
       .call(() => {
         console.log("start game");
+        if (isSendMsg) {
+          EventBus.dispatchEvent(GAME_EVENT.END_SHOW_LANDING);
+        }
       })
       .start();
   }

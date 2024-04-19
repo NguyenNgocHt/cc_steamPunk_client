@@ -3,7 +3,7 @@ import { playerInfo, playerInfoPackage } from "./../dataModel/PlayerDataType";
 import { _decorator, Component, Node } from "cc";
 import { LOCAL_STORAGE_KEY_WORD } from "./Path";
 import { EventHandler } from "cc";
-import { EventListener } from "../../../../framework/common/EventListener";
+import { EventBus } from "../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../network/networkDefine";
 import { IPLayerInfo } from "../interfaces/Common_interfaces";
 const { ccclass, property } = _decorator;
@@ -15,10 +15,10 @@ export class PlayerInfo implements IPLayerInfo {
     this.registerEvent();
   }
   registerEvent() {
-    EventListener.on(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
+    EventBus.on(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
   }
   offEvent() {
-    EventListener.off(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
+    EventBus.off(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
   }
   handlePlayerInfo(data: playerInfo) {
     console.log("come in player info", data);

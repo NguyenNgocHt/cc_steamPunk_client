@@ -85,12 +85,12 @@ export class OneToMultiListener {
   }
 }
 
-@ccclass("EventListener")
-export class EventListener extends OneToMultiListener {
+@ccclass("EventBus")
+export class EventBus extends OneToMultiListener {
   static handlers = {};
 }
 
-export const EventListenerName = {
+export const EventBusName = {
   REMOVE_BASE_POPUP: "EL.RBP",
   RESIZE_WINDOW_EVENT: "EL.RWE",
 };
