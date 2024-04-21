@@ -9,20 +9,19 @@ const { ccclass, property } = _decorator;
 export class PlayerController extends Component implements IPlayerController {
   @property(PlayerInfoController)
   playerInfoControl: PlayerInfoController = null;
+
   @property(TrendHistoryController)
   trendHistoryControl: TrendHistoryController = null;
 
   _playerInfoControl: IPlayerInfoController = null;
   _trendHistoryControl: ITrendHidtoryController = null;
+
   start() {
     this.init();
   }
-  init() {
-    this._playerInfoControl = this.playerInfoControl;
-    this._trendHistoryControl = this.trendHistoryControl;
-  }
+
+  init() {}
   setPlayerInfo(data: playerInfo) {
-    console.log(data);
-    this._playerInfoControl.setPlayerInfo(data);
+    this.playerInfoControl.setPlayerInfo(data);
   }
 }

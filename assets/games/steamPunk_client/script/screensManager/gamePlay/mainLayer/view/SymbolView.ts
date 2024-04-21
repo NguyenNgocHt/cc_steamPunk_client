@@ -1,0 +1,192 @@
+import { Vec3 } from "cc";
+import { SpriteFrame } from "cc";
+import { Sprite } from "cc";
+import { JsonAsset } from "cc";
+import { tween } from "cc";
+import { _decorator, Component, Node, sp } from "cc";
+import { EventBus } from "../../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../../network/networkDefine";
+import { Vec2 } from "cc";
+import { Size } from "cc";
+import { UITransform } from "cc";
+const { ccclass, property } = _decorator;
+
+@ccclass("SymbolView")
+export class SymbolView extends Component {
+  @property(Node)
+  symbolImage: Node = null;
+
+  @property(Node)
+  symbolAnim: Node = null;
+
+  @property(sp.SkeletonData)
+  AnimJsonDataList: sp.SkeletonData[] = [];
+
+  @property(SpriteFrame)
+  symbolImageList: SpriteFrame[] = [];
+
+  nodeScaleList: Number[] = [];
+
+  symbolPosList: Vec2[] = [];
+
+  symbolSizeList: Size[] = [];
+
+  rowIndex: number = 0;
+  columnIndex: number = 0;
+
+  distanceRow: number = 240;
+
+  positionYTop: number = 1815;
+  positionYBottom: number = -825;
+
+  symbolIndex: number = 0;
+
+  start() {
+    this.setInitState();
+  }
+
+  setInitState() {
+    this.symbolImage.active = true;
+    this.symbolAnim.active = false;
+  }
+
+  setRowIndex(row: number) {
+    this.rowIndex = row;
+  }
+
+  getRowIndex(): number {
+    return this.rowIndex;
+  }
+
+  setColumnIndex(column: number) {
+    this.columnIndex = column;
+  }
+
+  getColumnIndex(): number {
+    return this.columnIndex;
+  }
+
+  setSymbolIndex(symbolIndex: number) {
+    this.symbolIndex = symbolIndex;
+  }
+
+  setSymbolPosList(symbolPosList: Vec2[]) {
+    this.symbolPosList = symbolPosList;
+  }
+
+  setSymbolSizeList(symbolSizeList: Size[]) {
+    this.symbolSizeList = symbolSizeList;
+  }
+
+  setNodeScaleList(nodeScaleList: Number[]) {
+    this.nodeScaleList = nodeScaleList;
+    console.log("scale list", this.nodeScaleList);
+  }
+
+  showPositionSymbol() {
+    console.log("symbolInfo", this.rowIndex, this.columnIndex, this.node.getWorldPosition(), this.node.name);
+  }
+
+  spin() {
+    let timeMove_startSpinning = 1;
+    let timeDelay: number = 0;
+    let downIndex = -1;
+    let posStart = this.node.getWorldPosition();
+    if (this.columnIndex == 0) {
+      timeDelay = 0.1;
+    } else if (this.columnIndex == 1) {
+      timeDelay = 0.3;
+    } else if (this.columnIndex == 2) {
+      timeDelay = 0.5;
+    }
+
+    let action_startSpinning = () => {
+      tween(this.node)
+        .by(timeMove_startSpinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) }, { easing: "backInOut" })
+        .start();
+    };
+    let action_spinning = () => {
+      let timeMove_spinning = 0.06;
+      tween(this.node)
+        .by(timeMove_spinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) })
+        .call(() => {
+          let currentPos = this.node.getWorldPosition();
+          if (currentPos.y <= this.positionYBottom) {
+            this.node.setWorldPosition(posStart.x, this.positionYTop, 0);
+            if (this.symbolIndex != parseInt(this.node.name)) {
+              this.changeSpriteFrameAndSkeletonData();
+            }
+          }
+        })
+        .union()
+        .repeat(21)
+        .start();
+    };
+    let action_stopSpining = () => {
+      let timeMove_spinning = 0.5;
+      tween(this.node)
+        .by(timeMove_spinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) }, { easing: "elasticOut" })
+        .call(() => {
+          let currentPos = this.node.getWorldPosition();
+          if (currentPos.y <= this.positionYBottom) {
+            this.node.setWorldPosition(posStart.x, this.positionYTop, 0);
+          }
+        })
+        .start();
+    };
+    tween(this.node)
+      .delay(timeDelay)
+      .call(action_startSpinning)
+      .delay(0.5)
+      .call(action_spinning)
+      .delay(1.27)
+      .call(action_stopSpining)
+      .delay(0.5)
+      .call(() => {
+        if (this.rowIndex == 11 && this.columnIndex == 2) {
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP);
+        }
+      })
+      .start();
+  }
+
+  changeSpriteFrameAndSkeletonData() {
+    this.changeSymbolImage();
+
+    this.changeSkeletonData();
+  }
+
+  changeSymbolImage() {
+    let symbolPos = this.symbolPosList[this.symbolIndex - 1];
+
+    let symbolUiTransform = this.symbolImage.getComponent(UITransform);
+
+    let spriteSymbol = this.symbolImage.getComponent(Sprite);
+
+    spriteSymbol.spriteFrame = this.symbolImageList[this.symbolIndex - 1];
+
+    this.symbolImage.setPosition(symbolPos.x, symbolPos.y, 0);
+
+    symbolUiTransform.setContentSize(this.symbolSizeList[this.symbolIndex - 1]);
+  }
+
+  changeSkeletonData() {
+    this.symbolAnim.active = true;
+
+    let skeletonNode = this.symbolAnim.getComponent(sp.Skeleton);
+
+    skeletonNode.skeletonData = this.AnimJsonDataList[this.symbolIndex - 1];
+    if (this.symbolIndex == 6) {
+      skeletonNode.setAnimation(0, "Girl-Nice", true);
+    } else {
+      skeletonNode.setAnimation(0, "animtion0", true);
+    }
+    this.node.name = this.symbolIndex.toString();
+
+    let symbolScale = this.nodeScaleList[this.symbolIndex - 1] as number;
+
+    this.symbolAnim.setScale(symbolScale, symbolScale, 0);
+
+    this.symbolAnim.active = false;
+  }
+}

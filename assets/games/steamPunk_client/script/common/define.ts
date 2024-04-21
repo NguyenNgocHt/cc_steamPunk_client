@@ -31,3 +31,16 @@ export const ANIM_NAME = {
   ANIM_SMALL_WIN: "small win",
   ANIM_IDLE: "idle",
 };
+export const MAP_SYMBOL = {
+  a: 1,
+  j: 2,
+  q: 3,
+  k: 4,
+  gear: 5,
+  girl: 6,
+  guys: 7,
+  wild: 8,
+  jackpot: 9,
+  freespin: 10,
+};
+

@@ -1,0 +1,160 @@
+
+FREE_SPIN.png
+size: 672,1073
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Glow
+  rotate: true
+  xy: 2, 382
+  size: 172, 195
+  orig: 172, 195
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: true
+  xy: 199, 430
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 10
+  rotate: false
+  xy: 254, 177
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 11
+  rotate: false
+  xy: 254, 50
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 12
+  rotate: true
+  xy: 380, 265
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 13
+  rotate: true
+  xy: 507, 265
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 14
+  rotate: true
+  xy: 380, 139
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 15
+  rotate: true
+  xy: 507, 139
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 16
+  rotate: false
+  xy: 380, 12
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 17
+  rotate: true
+  xy: 506, 13
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 2
+  rotate: true
+  xy: 326, 391
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: true
+  xy: 199, 304
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: true
+  xy: 2, 256
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 5
+  rotate: true
+  xy: 453, 391
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 6
+  rotate: false
+  xy: 2, 129
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 7
+  rotate: false
+  xy: 2, 2
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 8
+  rotate: false
+  xy: 128, 129
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 9
+  rotate: false
+  xy: 128, 2
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Text
+  rotate: false
+  xy: 2, 875
+  size: 437, 196
+  orig: 437, 196
+  offset: 0, 0
+  index: -1
+gear
+  rotate: true
+  xy: 2, 556
+  size: 317, 345
+  orig: 317, 345
+  offset: 0, 0
+  index: -1
+plus
+  rotate: true
+  xy: 349, 517
+  size: 293, 297
+  orig: 293, 297
+  offset: 0, 0
+  index: -1
+spotlight
+  rotate: true
+  xy: 441, 812
+  size: 259, 229
+  orig: 259, 229
+  offset: 0, 0
+  index: -1

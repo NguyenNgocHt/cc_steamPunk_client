@@ -53,6 +53,7 @@ export class LandingView extends Component implements ILandingView {
   onClickStartBtn() {
     this.callMoveCompleteCallback();
   }
+
   moveAllCutrain() {
     this.moveCutrainToLeft();
     this.moveCutranToRight();
@@ -60,6 +61,7 @@ export class LandingView extends Component implements ILandingView {
     this.moveStartGroupToDown();
     this.setOpacity();
   }
+
   moveCutrainToLeft() {
     this.moveCutrainToTaget(this.CutrainLeft, this.LeftTagetPos);
   }
@@ -71,6 +73,7 @@ export class LandingView extends Component implements ILandingView {
   moveCutranToUp() {
     this.moveCutrainToTaget(this.CutrainUp, this.UpTagetPos);
   }
+
   moveStartGroupToDown() {
     this.moveCutrainToTaget(this.startGroup, this.DownTagetPos);
   }
@@ -80,6 +83,7 @@ export class LandingView extends Component implements ILandingView {
       .to(this.duration, { position: new Vec3(nodeTaget.position.x, nodeTaget.position.y) }, { easing: "sineIn" })
       .start();
   }
+
   setOpacity() {
     let logoOpacity = this.logo.getComponent(UIOpacity);
     let daskOpacity = this.dask.getComponent(UIOpacity);
@@ -87,6 +91,7 @@ export class LandingView extends Component implements ILandingView {
     this.setOpacityNode(logoOpacity, this.tagetOpacityIndex, false);
     this.setOpacityNode(daskOpacity, this.tagetOpacityIndex, true);
   }
+
   setOpacityNode(uiOpacity: UIOpacity, numberTaget: number, isSendMsg: boolean) {
     tween(uiOpacity)
       .to(this.duration, { opacity: numberTaget })

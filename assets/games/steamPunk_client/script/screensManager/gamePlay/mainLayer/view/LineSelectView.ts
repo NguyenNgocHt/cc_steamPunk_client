@@ -5,10 +5,12 @@ import { tween } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("LineSelectView")
-export class LineSelectView extends Component implements ILineSelectView {
+export class LineSelectView extends Component {
   @property(Node)
   lineSelectGroup: Node[] = [];
+
   linesShowStatus: number[] = [];
+
   onLoad() {
     this.initLinesShowStatus();
   }
@@ -45,10 +47,12 @@ export class LineSelectView extends Component implements ILineSelectView {
       }
     }
   }
+
   setUpOpacityForLines(lineNode: Node) {
     let opacityLine = lineNode.getComponent(UIOpacity);
     tween(opacityLine).to(0.3, { opacity: 255 }).start();
   }
+
   setDownOpacityForLines(lineNode: Node) {
     let opacityLine = lineNode.getComponent(UIOpacity);
     tween(opacityLine)

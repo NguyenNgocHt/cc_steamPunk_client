@@ -79,4 +79,7 @@ export class BetAmoutGroupView extends Component {
     this.lbLineValue.string = this.currentBetLineValue.toString();
     EventBus.dispatchEvent(GAME_EVENT.CURRENT_BET_VALUE, this.currentBetLineValue);
   }
+  getCurrentBetLineValue(): number {
+    return this.currentBetLineValue;
+  }
 }

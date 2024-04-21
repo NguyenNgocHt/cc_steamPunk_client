@@ -1,0 +1,195 @@
+
+Girl.png
+size: 254,1742
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Images/Heart
+  rotate: false
+  xy: 109, 77
+  size: 108, 84
+  orig: 108, 84
+  offset: 0, 0
+  index: -1
+Images/Layer 1
+  rotate: false
+  xy: 129, 1184
+  size: 123, 125
+  orig: 126, 125
+  offset: 1, 0
+  index: -1
+Images/Layer 10
+  rotate: true
+  xy: 2, 935
+  size: 123, 125
+  orig: 126, 125
+  offset: 1, 0
+  index: -1
+Images/Layer 11
+  rotate: true
+  xy: 2, 438
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 12
+  rotate: false
+  xy: 129, 422
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 13
+  rotate: true
+  xy: 2, 314
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 14
+  rotate: true
+  xy: 2, 191
+  size: 121, 125
+  orig: 126, 125
+  offset: 3, 0
+  index: -1
+Images/Layer 15
+  rotate: false
+  xy: 129, 930
+  size: 123, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 16
+  rotate: false
+  xy: 129, 295
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 17
+  rotate: true
+  xy: 2, 810
+  size: 123, 125
+  orig: 126, 125
+  offset: 1, 0
+  index: -1
+Images/Layer 2
+  rotate: false
+  xy: 129, 803
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 3
+  rotate: true
+  xy: 2, 686
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 4
+  rotate: true
+  xy: 2, 1185
+  size: 124, 125
+  orig: 126, 125
+  offset: 1, 0
+  index: -1
+Images/Layer 5
+  rotate: true
+  xy: 2, 1060
+  size: 123, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 6
+  rotate: false
+  xy: 129, 1057
+  size: 123, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 7
+  rotate: false
+  xy: 129, 676
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 8
+  rotate: true
+  xy: 2, 562
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Layer 9
+  rotate: false
+  xy: 129, 549
+  size: 122, 125
+  orig: 126, 125
+  offset: 2, 0
+  index: -1
+Images/Ponytail-hair
+  rotate: false
+  xy: 2, 1572
+  size: 222, 168
+  orig: 222, 169
+  offset: 0, 1
+  index: -1
+Images/Text-001
+  rotate: false
+  xy: 2, 1311
+  size: 246, 73
+  orig: 246, 73
+  offset: 0, 0
+  index: -1
+Images/body
+  rotate: false
+  xy: 2, 1386
+  size: 193, 184
+  orig: 193, 207
+  offset: 0, 0
+  index: -1
+Images/hat
+  rotate: false
+  xy: 2, 97
+  size: 105, 92
+  orig: 105, 92
+  offset: 0, 0
+  index: -1
+Images/hat-back
+  rotate: true
+  xy: 191, 8
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: -1
+Images/head
+  rotate: true
+  xy: 100, 2
+  size: 73, 89
+  orig: 89, 89
+  offset: 5, 0
+  index: -1
+Images/iris
+  rotate: true
+  xy: 197, 1494
+  size: 76, 52
+  orig: 76, 52
+  offset: 0, 0
+  index: -1
+Images/spotlight
+  rotate: true
+  xy: 129, 163
+  size: 130, 115
+  orig: 130, 115
+  offset: 0, 0
+  index: -1
+Images/wink 1
+  rotate: false
+  xy: 2, 23
+  size: 96, 72
+  orig: 96, 72
+  offset: 0, 0
+  index: -1

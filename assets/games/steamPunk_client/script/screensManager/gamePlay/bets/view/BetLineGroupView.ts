@@ -1,5 +1,4 @@
 import { _decorator, Component } from "cc";
-import { IBetLineGroupView } from "../../../../interfaces/gamePlay/bets_interfaces";
 import { Label } from "cc";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
@@ -8,7 +7,7 @@ import { HtmlTextParser } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("BetLineGroupView")
-export class BetLineGroupView extends Component implements IBetLineGroupView {
+export class BetLineGroupView extends Component {
   @property(Label)
   lbNumberBetLine: Label = null;
   @property(Label)
@@ -40,6 +39,7 @@ export class BetLineGroupView extends Component implements IBetLineGroupView {
       return newBetLine;
     });
   }
+
   onClickAddLine() {
     this.onChangeBetLine(function computeNewBetLine(currenrtBetLine) {
       let newBetLine = currenrtBetLine + 1;
@@ -68,5 +68,9 @@ export class BetLineGroupView extends Component implements IBetLineGroupView {
       totalBet = parseFloat(totalBet.toFixed(3));
     }
     this.lbTotal.string = totalBet.toString();
+  }
+
+  getCurrentBetLine(): number {
+    return this.currentBetLine;
   }
 }

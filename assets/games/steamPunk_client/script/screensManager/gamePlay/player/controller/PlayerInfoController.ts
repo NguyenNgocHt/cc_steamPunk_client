@@ -9,13 +9,12 @@ export class PlayerInfoController extends Component implements IPlayerInfoContro
   @property(PlayerInfoView)
   playerInfoView: PlayerInfoView = null;
 
-  _playerInfoView: IPlayerInfoView = null;
   start() {
     this.init();
   }
-  init() {
-    this._playerInfoView = this.playerInfoView;
-  }
+
+  init() {}
+
   setPlayerInfo(data: playerInfo) {
     console.log("data in player info controller", data);
     this.playerInfoView.setPlayerInfo(data);

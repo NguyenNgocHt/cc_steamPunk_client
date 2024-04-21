@@ -1,14 +1,11 @@
 import { _decorator, Component, Node } from "cc";
-import { IGearView } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { SpiningAnim } from "../../../../animControl/SpiningAnim";
-import { TERRAIN_SOUTH_INDEX } from "cc";
-import { ISpiningAnim } from "../../../../interfaces/Common_interfaces";
 import { tween } from "cc";
 import { Vec3 } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("GearView")
-export class GearView extends Component implements IGearView {
+export class GearView extends Component {
   @property(Node)
   lightStart: Node = null;
 
@@ -20,30 +17,21 @@ export class GearView extends Component implements IGearView {
   @property(Node)
   lbWinStatus: Node = null;
 
-  _spinAnimGearBig: ISpiningAnim = null;
-  _spinAnimGearSmall: ISpiningAnim = null;
   onLoad() {
     this.init();
   }
-  init() {
-    this.initSpinAnimGear();
-  }
-
-  initSpinAnimGear() {
-    this._spinAnimGearBig = this.GearBig;
-    this._spinAnimGearSmall = this.GearSmall;
-  }
+  init() {}
 
   onSpinAnimGear() {
     this.GearBig.node.active = true;
     this.GearSmall.node.active = true;
-    this._spinAnimGearBig.spinningStart();
-    this._spinAnimGearSmall.spinningStart();
+    this.GearBig.spinningStart();
+    this.GearSmall.spinningStart();
   }
 
   offSpinAnimGear() {
-    this._spinAnimGearBig.spinningStop();
-    this._spinAnimGearSmall.spinningStop();
+    this.GearBig.spinningStop();
+    this.GearSmall.spinningStop();
     this.GearBig.node.active = false;
     this.GearSmall.node.active = false;
   }

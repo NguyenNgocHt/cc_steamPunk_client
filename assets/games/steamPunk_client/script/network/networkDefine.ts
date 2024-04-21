@@ -25,6 +25,12 @@ export const GAME_EVENT = {
   //betAmoutgroup
   GET_GAME_INFO: "get game info",
   CURRENT_BET_VALUE: "current bet value",
+  //slotControl
+  LIST_SYMBOL_INDEX: "list symbol index",
+  //btn Bet
+  ON_CLICK_BET_BUTTON: "on click bet button",
+  //symbol view
+  SPINING_STOP: "spinning stop",
 };
 export const SOCKET_EVENT = {
   //sys event---------

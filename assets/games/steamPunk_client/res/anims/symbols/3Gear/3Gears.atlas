@@ -1,0 +1,160 @@
+
+3Gears.png
+size: 1594,415
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Gear 2
+  rotate: false
+  xy: 2, 2
+  size: 405, 411
+  orig: 405, 411
+  offset: 0, 0
+  index: -1
+Gear2
+  rotate: true
+  xy: 409, 143
+  size: 270, 265
+  orig: 270, 265
+  offset: 0, 0
+  index: -1
+Glow
+  rotate: false
+  xy: 788, 4
+  size: 172, 195
+  orig: 172, 195
+  offset: 0, 0
+  index: -1
+Group-1
+  rotate: true
+  xy: 676, 201
+  size: 212, 195
+  orig: 212, 195
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: false
+  xy: 536, 16
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 10
+  rotate: false
+  xy: 1214, 161
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 11
+  rotate: false
+  xy: 1251, 288
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 12
+  rotate: false
+  xy: 1214, 34
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 13
+  rotate: true
+  xy: 1340, 162
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 14
+  rotate: false
+  xy: 1377, 288
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 15
+  rotate: true
+  xy: 1467, 162
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 16
+  rotate: false
+  xy: 1340, 35
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 17
+  rotate: true
+  xy: 1466, 36
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 2
+  rotate: false
+  xy: 662, 16
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: false
+  xy: 873, 288
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: false
+  xy: 962, 161
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 5
+  rotate: false
+  xy: 999, 288
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 6
+  rotate: false
+  xy: 962, 34
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 7
+  rotate: false
+  xy: 1088, 161
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 8
+  rotate: false
+  xy: 1125, 288
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 9
+  rotate: false
+  xy: 1088, 34
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+ray
+  rotate: false
+  xy: 409, 16
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1

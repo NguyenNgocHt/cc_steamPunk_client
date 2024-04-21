@@ -11,13 +11,11 @@ import { playerInfo } from "../../../../dataModel/PlayerDataType";
 import { PlayerInfo } from "../../../../common/PlayerInfo";
 import { IGameInfo, IPLayerInfo } from "../../../../interfaces/Common_interfaces";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
-import { IPlayerController } from "../../../../interfaces/gamePlay/player_interfaces";
 import { landingController } from "../../landing/controller/LandingController";
 import { MainLayerController } from "../../mainLayer/controller/MainLayerController";
-import { IMainLayerControl, IPlayScreenView } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { PlayScreenView } from "../view/PlayScreenView";
 import { BetController } from "../../bets/controller/BetController";
-import { IBetController } from "../../../../interfaces/gamePlay/bets_interfaces";
+import { BetData } from "../../../../dataModel/BetDataType";
 
 const { ccclass, property } = _decorator;
 
@@ -40,10 +38,6 @@ export class gamePlayController extends BaseScreen {
 
   _playerInfo: IPLayerInfo = null;
   _gameInfo: IGameInfo = null;
-  _playerController: IPlayerController = null;
-  _mainLayerControl: IMainLayerControl = null;
-  _playScreenView: IPlayScreenView = null;
-  _betController: IBetController = null;
   onLoad() {
     this.landingGroup.node.active = true;
   }
@@ -57,10 +51,6 @@ export class gamePlayController extends BaseScreen {
   init() {
     this._playerInfo = new PlayerInfo();
     this._gameInfo = new GameInfo();
-    this._playerController = this.PlayerControl;
-    this._mainLayerControl = this.mainLayerControl;
-    this._playScreenView = this.playScreenView;
-    this._betController = this.betControl;
   }
 
   registerPlayerInfo() {
@@ -92,6 +82,7 @@ export class gamePlayController extends BaseScreen {
       console.log("auth", auth);
     }
   }
+
   protected initEventNetwork() {
     LogUtil.log("Game info command:");
     SocketIoClient.instance.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this));
@@ -105,6 +96,7 @@ export class gamePlayController extends BaseScreen {
     SocketIoClient.instance.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this));
     SocketIoClient.instance.on(SOCKET_EVENT.BET, this.onBetHandler.bind(this));
   }
+
   protected getAuthLogin(url_string: string) {
     let dataDecode = Utils.parseUrlData(url_string);
     if (!dataDecode) {
@@ -113,13 +105,21 @@ export class gamePlayController extends BaseScreen {
     LogUtil.ENV = dataDecode.env;
     return dataDecode;
   }
+
   resetUi() {}
 
-  onBetHandler() {}
+  onBetHandler(msg) {
+    console.log("msg bet", msg);
+    let betData: BetData = null;
+    betData = msg as BetData;
+    let betResultData = betData.result;
+    this.mainLayerControl.handleBetResult(betResultData);
+  }
 
   onLogin(msg) {
     console.log("come in onLogin", msg);
   }
+
   onGameInfo(data) {
     this.gameInfoData = data as GameInfoData;
     this.playerInfoData = {
@@ -131,8 +131,9 @@ export class gamePlayController extends BaseScreen {
     console.log("player info", this.playerInfoData);
     EventBus.dispatchEvent(GAME_EVENT.SEND_TO_PLAYER_INFO, this.playerInfoData);
     EventBus.dispatchEvent(GAME_EVENT.SEND_TO_GAME_INFO, this.gameInfoData);
-    this._playerController.setPlayerInfo(this.playerInfoData);
+    this.PlayerControl.setPlayerInfo(this.playerInfoData);
   }
+
   onUpdateBalance() {}
 
   onUpdateCoin() {}
@@ -148,13 +149,14 @@ export class gamePlayController extends BaseScreen {
   onConnection() {
     console.log();
   }
+
   goToGameMain() {
-    console.log("set game main", this._mainLayerControl);
-    this._mainLayerControl.moveMetalgateToUp();
-    this._playScreenView.betGroupToUp();
+    this.mainLayerControl.moveMetalgateToUp();
+    this.playScreenView.betGroupToUp();
   }
+
   initStartGame() {
-    this._mainLayerControl.startGameEffect();
-    this._betController.onGameEffect();
+    this.mainLayerControl.startGameEffect();
+    this.betControl.onGameEffect();
   }
 }

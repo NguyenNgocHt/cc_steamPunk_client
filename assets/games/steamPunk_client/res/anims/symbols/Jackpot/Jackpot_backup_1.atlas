@@ -1,0 +1,188 @@
+
+Jackpot_backup_1.png
+size: 572,2101
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+JACKPOT-001 1
+  rotate: true
+  xy: 2, 273
+  size: 864, 314
+  orig: 864, 314
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: true
+  xy: 318, 760
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 10
+  rotate: true
+  xy: 445, 256
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 11
+  rotate: false
+  xy: 2, 129
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 12
+  rotate: false
+  xy: 2, 2
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 13
+  rotate: true
+  xy: 128, 147
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 14
+  rotate: false
+  xy: 128, 20
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 15
+  rotate: false
+  xy: 254, 20
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 16
+  rotate: true
+  xy: 380, 130
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 17
+  rotate: false
+  xy: 380, 3
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 2
+  rotate: true
+  xy: 445, 760
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: true
+  xy: 318, 634
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: true
+  xy: 445, 634
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 5
+  rotate: true
+  xy: 318, 508
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 6
+  rotate: true
+  xy: 445, 508
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 7
+  rotate: true
+  xy: 318, 382
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 8
+  rotate: true
+  xy: 445, 382
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 9
+  rotate: true
+  xy: 318, 256
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Middle-gear
+  rotate: false
+  xy: 373, 1899
+  size: 176, 200
+  orig: 176, 200
+  offset: 0, 0
+  index: -1
+box
+  rotate: false
+  xy: 2, 1139
+  size: 331, 259
+  orig: 331, 259
+  offset: 0, 0
+  index: -1
+cover
+  rotate: true
+  xy: 373, 1584
+  size: 313, 131
+  orig: 517, 458
+  offset: 99, 168
+  index: -1
+left-gear
+  rotate: true
+  xy: 345, 1378
+  size: 204, 208
+  orig: 204, 208
+  offset: 0, 0
+  index: -1
+right-gear
+  rotate: true
+  xy: 2, 1400
+  size: 328, 341
+  orig: 328, 341
+  offset: 0, 0
+  index: -1
+sparkle1
+  rotate: false
+  xy: 2, 1730
+  size: 369, 369
+  orig: 369, 369
+  offset: 0, 0
+  index: -1
+sparkle2
+  rotate: true
+  xy: 335, 1147
+  size: 229, 230
+  orig: 229, 230
+  offset: 0, 0
+  index: -1
+spotlight
+  rotate: true
+  xy: 335, 886
+  size: 259, 229
+  orig: 259, 229
+  offset: 0, 0
+  index: -1

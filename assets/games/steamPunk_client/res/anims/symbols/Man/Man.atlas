@@ -1,0 +1,181 @@
+
+Man.png
+size: 1024,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: true
+  xy: 175, 19
+  size: 246, 169
+  orig: 246, 180
+  offset: 0, 0
+  index: -1
+Eye-close
+  rotate: false
+  xy: 130, 2
+  size: 43, 31
+  orig: 43, 31
+  offset: 0, 0
+  index: -1
+Glow
+  rotate: false
+  xy: 346, 70
+  size: 172, 195
+  orig: 172, 195
+  offset: 0, 0
+  index: -1
+Head_White-eye
+  rotate: false
+  xy: 346, 10
+  size: 134, 58
+  orig: 134, 121
+  offset: 0, 63
+  index: -1
+Heart
+  rotate: true
+  xy: 898, 37
+  size: 108, 84
+  orig: 108, 84
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: false
+  xy: 381, 401
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 10
+  rotate: false
+  xy: 646, 20
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 11
+  rotate: false
+  xy: 759, 401
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 12
+  rotate: false
+  xy: 759, 274
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 13
+  rotate: false
+  xy: 772, 147
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 14
+  rotate: false
+  xy: 772, 20
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 15
+  rotate: false
+  xy: 885, 401
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 16
+  rotate: false
+  xy: 885, 274
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 17
+  rotate: false
+  xy: 898, 147
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 2
+  rotate: false
+  xy: 381, 274
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: false
+  xy: 507, 401
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: false
+  xy: 507, 274
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 5
+  rotate: false
+  xy: 520, 147
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 6
+  rotate: false
+  xy: 520, 20
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 7
+  rotate: false
+  xy: 633, 401
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 8
+  rotate: false
+  xy: 633, 274
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Layer 9
+  rotate: false
+  xy: 646, 147
+  size: 124, 125
+  orig: 124, 125
+  offset: 0, 0
+  index: -1
+Text-001
+  rotate: true
+  xy: 2, 35
+  size: 491, 146
+  orig: 491, 146
+  offset: 0, 0
+  index: -1
+iris
+  rotate: false
+  xy: 2, 2
+  size: 126, 31
+  orig: 126, 31
+  offset: 0, 0
+  index: -1
+spotlight
+  rotate: true
+  xy: 150, 267
+  size: 259, 229
+  orig: 259, 229
+  offset: 0, 0
+  index: -1

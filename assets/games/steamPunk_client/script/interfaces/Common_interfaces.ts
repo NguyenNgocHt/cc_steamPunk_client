@@ -16,6 +16,7 @@ export interface IGameInfo {
 export interface ISpiningAnim {
   spinningStart();
   spinningStop();
+  changeTimeLoopSpinning(newTimeLoop: number);
 }
 
 export interface IGameInfoService {
@@ -23,4 +24,9 @@ export interface IGameInfoService {
   getListDenominations(): number[];
   getListPending(): PendingData;
   getlistSettings(): SettingsData;
+}
+export interface IPoolController {
+  init();
+  getSymbolNode(symbolNumber: number): any;
+  pushSymbolNode(symbolName, symbolNode);
 }

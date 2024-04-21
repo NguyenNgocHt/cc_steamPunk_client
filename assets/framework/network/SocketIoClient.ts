@@ -48,6 +48,7 @@ export class SocketIoClient {
         if (!LOGS_SKIPS.includes(socketEvent)) {
           LogUtil.logS("%c" + `-->>socket recive: ${socketEvent}: ${JSON.stringify(msg)}`, "color:#ffe000");
         }
+        console.log(msg);
         callbackData(msg);
       });
     }
@@ -61,10 +62,11 @@ export class SocketIoClient {
     if (!LOGS_SKIPS.includes(socketEvent)) {
       LogUtil.logS("%c" + `-->>socket send: ${socketEvent}: ${JSON.stringify(data)}`, "color:#00ff0c");
     }
-    if (!this.isConnected) {
-      NotifyUtil.instance.emit(BNotifyType.SHOW_DISCONNECT);
-      return;
-    }
+    // if (!this.isConnected) {
+    //   NotifyUtil.instance.emit(BNotifyType.SHOW_DISCONNECT);
+    //   return;
+    // }
+    console.log(data);
     this.socket && this.socket.emit(socketEvent, data);
   }
 

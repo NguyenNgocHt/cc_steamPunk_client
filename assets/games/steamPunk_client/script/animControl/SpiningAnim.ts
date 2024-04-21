@@ -28,4 +28,9 @@ export class SpiningAnim extends Component implements ISpiningAnim {
       this.tweenSpin.start();
     }, 0.1);
   }
+  changeTimeLoopSpinning(newTimeLoop: number) {
+    this.timeLoopSpinning = newTimeLoop;
+    this.initSpinningGear();
+    this.spinningStart();
+  }
 }

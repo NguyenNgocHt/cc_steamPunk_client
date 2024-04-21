@@ -5,11 +5,12 @@ import { SpriteFrame } from "cc";
 import { Sprite } from "cc";
 import { EventTouch } from "cc";
 import { Vec3 } from "cc";
-import { IBtnBetGroupView } from "../../../../interfaces/gamePlay/bets_interfaces";
+import { EventBus } from "../../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("BtnBetGroupView")
-export class BtnBetGroupView extends Component implements IBtnBetGroupView {
+export class BtnBetGroupView extends Component {
   @property(Node)
   btnBet: Node = null;
 
@@ -30,17 +31,15 @@ export class BtnBetGroupView extends Component implements IBtnBetGroupView {
   @property(sp.Skeleton)
   tapAnim: sp.Skeleton = null;
 
-  _spinAnimSmallGear: ISpiningAnim = null;
-  _spinAnimBigGear: ISpiningAnim = null;
-
   start() {
     this.init();
     this.registerEvent();
   }
+
   init() {
-    this.initSpinningGear();
     this.initAnim();
   }
+
   initAnim() {
     this.tapAnim.node.active = false;
     this.animBetRound.node.active = false;
@@ -49,56 +48,61 @@ export class BtnBetGroupView extends Component implements IBtnBetGroupView {
       this.animBetPress.node.active = false;
     });
   }
+
   registerEvent() {
     this.btnBet.on(Node.EventType.TOUCH_START, this.onBetTouchDown.bind(this));
     this.btnBet.on(Node.EventType.TOUCH_END, this.onBetTouchEnd.bind(this));
   }
 
-  initSpinningGear() {
-    this._spinAnimSmallGear = this.union;
-    this._spinAnimBigGear = this.bigGear;
-    console.log("big gear", this._spinAnimBigGear);
-  }
-
   onClickBtnBet() {
     this.changeSpriteBtnBet(this.btnBetPress);
+    this.senActionToBetControl();
   }
 
   startGameEffect() {
     this.startSpinBigGear();
+
     this.startAnimBetRound();
   }
 
   startSpinBigGear() {
-    this._spinAnimBigGear.spinningStart();
+    this.bigGear.spinningStart();
   }
 
   startAnimBetRound() {
     this.animBetRound.node.active = true;
   }
-  
+
   startSpinSmallGear() {
-    console.log(this, this._spinAnimSmallGear);
-    this._spinAnimSmallGear.spinningStart();
+    this.union.spinningStart();
   }
 
   stopSpinGear() {
-    this._spinAnimSmallGear.spinningStop();
+    this.union.spinningStop();
   }
 
   changeSpriteBtnBet(spriteFrameNode: SpriteFrame) {
     let posUnion = this.union.node.getWorldPosition();
+
     let spriteNode = this.btnBet.getComponent(Sprite);
+
     spriteNode.spriteFrame = spriteFrameNode;
     this.animBetPress.node.active = true;
+
     this.animBetPress.setAnimation(0, "Sprite", false);
+
     this.union.node.worldPosition = new Vec3(posUnion.x, 125, 0);
   }
 
   onBetTouchDown(event: EventTouch) {
     this.startSpinSmallGear();
+    this.bigGear.changeTimeLoopSpinning(2);
     this.changeSpriteBtnBet(this.btnBetPress);
   }
 
   onBetTouchEnd(event: EventTouch) {}
+
+  senActionToBetControl() {
+    EventBus.dispatchEvent(GAME_EVENT.ON_CLICK_BET_BUTTON);
+  }
 }
