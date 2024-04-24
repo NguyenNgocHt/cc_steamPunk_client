@@ -1,5 +1,4 @@
 import { _decorator, Component, Node, tween, Vec3 } from "cc";
-import { IPlayScreenView } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 const { ccclass, property } = _decorator;

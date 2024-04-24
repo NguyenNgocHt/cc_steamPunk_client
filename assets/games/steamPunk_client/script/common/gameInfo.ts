@@ -25,7 +25,7 @@ export default class GameInfo implements IGameInfo {
   registerEvent() {
     EventBus.on(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
   }
-  offEvent() {
+  unRegisterEvent() {
     EventBus.off(GAME_EVENT.SEND_TO_GAME_INFO, this.setGameInfo.bind(this));
   }
   setGameInfo(data: GameInfoData) {

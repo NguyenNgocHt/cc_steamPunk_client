@@ -7,6 +7,10 @@ export interface IPLayerInfo {
   init();
   handlePlayerInfo(data);
   getPlayerInfo(): playerInfo;
+  getPlayerName(): string;
+  getCurrentMoney(): number;
+  getCurrency(): string;
+  updateCurrentMoney(currentMoney: number);
 }
 
 export interface IGameInfo {

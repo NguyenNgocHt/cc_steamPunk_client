@@ -67,6 +67,24 @@ export class PoolController extends Component implements IPoolController {
   @property(Node)
   wildGroup: Node = null;
 
+  @property(Prefab)
+  trendGreenPrefab: Prefab = null;
+
+  @property(Prefab)
+  trendBluePrefab: Prefab = null;
+
+  @property(Prefab)
+  trendYellowPrefab: Prefab = null;
+
+  @property(Node)
+  trendBlueGroupNode: Node = null;
+
+  @property(Node)
+  trendGreenGroupNode: Node = null;
+
+  @property(Node)
+  trendYellowGroupNode: Node = null;
+
   aList: Node[] = [];
   freeSpinList: Node[] = [];
   gearList: Node[] = [];
@@ -77,6 +95,10 @@ export class PoolController extends Component implements IPoolController {
   kList: Node[] = [];
   wildList: Node[] = [];
   jackpotList: Node[] = [];
+
+  trendBlueList: Node[] = [];
+  trendGreenList: Node[] = [];
+  trendYellowList: Node[] = [];
 
   symbolListLenght: number = 30;
 
@@ -91,71 +113,73 @@ export class PoolController extends Component implements IPoolController {
     this.initPoolK();
     this.initPoolWild();
     this.initPoolJackpot();
+
+    this.initPoolTrendBlue();
+    this.initPoolTrendGreen();
+    this.initPoolTrendYellow();
   }
 
   initPoolA() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.aPrefab, this.aList, this.aGroup, MAP_SYMBOL.a);
-    }
-    console.log(this.aList);
+    this.initPool(this.aPrefab, this.aList, this.aGroup, MAP_SYMBOL.a);
   }
 
   initPoolFreeSpin() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.freeSpinPrefab, this.freeSpinList, this.freeSpinGroup, MAP_SYMBOL.freespin);
-    }
+    this.initPool(this.freeSpinPrefab, this.freeSpinList, this.freeSpinGroup, MAP_SYMBOL.freespin);
   }
 
   initPoolGear() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.gearPrefab, this.gearList, this.gearGroup, MAP_SYMBOL.gear);
-    }
+    this.initPool(this.gearPrefab, this.gearList, this.gearGroup, MAP_SYMBOL.gear);
   }
 
   initPoolGirl() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.girlPrefab, this.girlList, this.girlGroup, MAP_SYMBOL.girl);
-    }
+    this.initPool(this.girlPrefab, this.girlList, this.girlGroup, MAP_SYMBOL.girl);
   }
 
   initPoolGuys() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.guysPrefab, this.guysList, this.guysGroup, MAP_SYMBOL.guys);
-    }
+    this.initPool(this.guysPrefab, this.guysList, this.guysGroup, MAP_SYMBOL.guys);
   }
 
   initPoolJ() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.jPrefab, this.jList, this.jGroup, MAP_SYMBOL.j);
-    }
+    this.initPool(this.jPrefab, this.jList, this.jGroup, MAP_SYMBOL.j);
   }
+
   initPoolQ() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.qPrefab, this.qList, this.qGroup, MAP_SYMBOL.q);
-    }
+    this.initPool(this.qPrefab, this.qList, this.qGroup, MAP_SYMBOL.q);
   }
 
   initPoolK() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.kPrefab, this.kList, this.kGroup, MAP_SYMBOL.k);
-    }
+    this.initPool(this.kPrefab, this.kList, this.kGroup, MAP_SYMBOL.k);
   }
   initPoolWild() {
-    for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.wildPrefab, this.wildList, this.wildGroup, MAP_SYMBOL.wild);
-    }
+    this.initPool(this.wildPrefab, this.wildList, this.wildGroup, MAP_SYMBOL.wild);
   }
 
   initPoolJackpot() {
+    this.initPool(this.jackpotPrefab, this.jackpotList, this.jackpotGroup, MAP_SYMBOL.jackpot);
+  }
+
+  initPoolTrendBlue() {
+    this.initPool(this.trendBluePrefab, this.trendBlueList, this.trendBlueGroupNode, 1);
+  }
+
+  initPoolTrendGreen() {
+    this.initPool(this.trendGreenPrefab, this.trendGreenList, this.trendGreenGroupNode, 2);
+  }
+
+  initPoolTrendYellow() {
+    this.initPool(this.trendYellowPrefab, this.trendYellowList, this.trendYellowGroupNode, 3);
+  }
+
+  initPool(iconPrefab: Prefab, nodeList: Node[], iconGroup: Node, iconIndex: number) {
     for (let i = 0; i < this.symbolListLenght; i++) {
-      this.instantiateSymbolNode(this.jackpotPrefab, this.jackpotList, this.jackpotGroup, MAP_SYMBOL.jackpot);
+      this.instantiateNode(iconPrefab, nodeList, iconGroup, iconIndex);
     }
   }
 
-  instantiateSymbolNode(symbolPrefab: Prefab, symbolListNode: Node[], symbolNodeGroup: Node, symbolName: number) {
+  instantiateNode(symbolPrefab: Prefab, symbolListNode: Node[], symbolNodeGroup: Node, symbolIndex: number) {
     let symbolNode = instantiate(symbolPrefab);
     if (symbolNode) {
-      symbolNode.name = symbolName.toString();
+      symbolNode.name = symbolIndex.toString();
       symbolNodeGroup.addChild(symbolNode);
       symbolListNode.push(symbolNode);
       symbolNode.active = false;
@@ -239,6 +263,30 @@ export class PoolController extends Component implements IPoolController {
         this.pushNode(symbolNode, this.wildList, this.wildGroup);
         break;
     }
+  }
+
+  getTrendBlueNode(): Node {
+    return this.getNode(this.trendBlueList, this.initPoolTrendBlue);
+  }
+
+  getTrendGreenNode(): Node {
+    return this.getNode(this.trendGreenList, this.initPoolTrendGreen);
+  }
+
+  getTrendYellowNode(): Node {
+    return this.getNode(this.trendYellowList, this.initPoolTrendYellow);
+  }
+
+  pushTrendBlueNode(iconNode: Node) {
+    this.pushNode(iconNode, this.trendBlueList, this.trendBlueGroupNode);
+  }
+
+  pushTrendGreenNode(iconNode: Node) {
+    this.pushNode(iconNode, this.trendGreenList, this.trendGreenGroupNode);
+  }
+
+  pushTrendYellowNode(iconNode: Node) {
+    this.pushNode(iconNode, this.trendYellowList, this.trendYellowGroupNode);
   }
 
   resetNodePropertyesToOrigin(symbolNode: Node) {}

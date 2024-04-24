@@ -1,0 +1,41 @@
+
+Jackpot.png
+size: 512,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Glow
+  rotate: false
+  xy: 379, 334
+  size: 125, 142
+  orig: 125, 142
+  offset: 0, 0
+  index: -1
+Group-1
+  rotate: false
+  xy: 254, 478
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+Gear_BG_1
+  rotate: false
+  xy: 1, 359
+  size: 251, 242
+  orig: 251, 242
+  offset: 0, 0
+  index: -1
+Winning Screen 4
+  rotate: false
+  xy: 1, 1
+  size: 376, 356
+  orig: 376, 356
+  offset: 0, 0
+  index: -1
+PARTS 4
+  rotate: false
+  xy: 379, 1
+  size: 101, 331
+  orig: 101, 331
+  offset: 0, 0
+  index: -1

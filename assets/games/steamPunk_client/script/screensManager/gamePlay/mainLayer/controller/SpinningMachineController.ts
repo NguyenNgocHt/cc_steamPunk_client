@@ -13,7 +13,7 @@ export class SpinningMachineController extends Component {
 
   symbolNodeList: Node[] = [];
 
-  start() {}
+  loopIndex: number = 21;
 
   showPositionSymbols() {
     this.symbolNodeList = [];
@@ -22,7 +22,7 @@ export class SpinningMachineController extends Component {
       for (let i = 0; i < this.symbolNodeList.length; i++) {
         let symbolView = this.symbolNodeList[i].getComponent(SymbolView);
         if (symbolView) {
-          symbolView.spin();
+          symbolView.spin(this.loopIndex);
         }
       }
     }

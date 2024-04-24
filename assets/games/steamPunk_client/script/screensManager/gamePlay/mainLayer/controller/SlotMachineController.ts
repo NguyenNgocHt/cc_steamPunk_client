@@ -10,9 +10,6 @@ const { ccclass, property } = _decorator;
 
 @ccclass("SlotMachineController")
 export class SlotMachineController extends Component {
-  @property(PoolController)
-  poolControl: PoolController = null;
-
   @property(SlotController)
   slotControl: SlotController = null;
 
@@ -20,38 +17,22 @@ export class SlotMachineController extends Component {
   spinningMachineControl: SpinningMachineController = null;
 
   onLoad() {
-    this.init();
     this.registerEvent();
   }
 
-  init() {
-    this.initPoolSymbols();
-  }
-
-  initPoolSymbols() {
-    this.poolControl.init();
-  }
-
   registerEvent() {
-    EventBus.on(GAME_EVENT.LIST_SYMBOL_INDEX, this.getListSymbolIndex.bind(this));
+    EventBus.on(GAME_EVENT.SEND_POOL_MODEL, this.initSlotGroup.bind(this));
   }
 
-  offEvent() {
-    EventBus.off(GAME_EVENT.LIST_SYMBOL_INDEX, this.getListSymbolIndex.bind(this));
+  unRegisterEvent() {
+    EventBus.off(GAME_EVENT.SEND_POOL_MODEL, this.initSlotGroup.bind(this));
   }
 
-  start() {
-    this.initSlotGroup();
-  }
-
-  getListSymbolIndex(listSymbolIndex: number[][]) {}
-
-  initSlotGroup() {
-    this.slotControl.initSymbolGroup(this.poolControl);
+  initSlotGroup(poolControl) {
+    this.slotControl.initSymbolGroup(poolControl);
   }
 
   setBetResultData(result: BetResultsData) {
-    console.log(result);
     this.slotControl.getBetResult(result);
     this.spinningMachineControl.showPositionSymbols();
   }

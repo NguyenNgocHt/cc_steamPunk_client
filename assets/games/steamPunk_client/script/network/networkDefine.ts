@@ -12,6 +12,8 @@ export const GAME_EVENT = {
   //game play controller
   SEND_TO_PLAYER_INFO: "send to player info",
   SEND_GAME_INFO: "send game info",
+  SEND_BET_RESULT_DATA: "send bet result data",
+  PENDING_DATA: "pending data",
   //game info
   SEND_TO_GAME_INFO: "send to game info",
   //landingGroup
@@ -27,10 +29,24 @@ export const GAME_EVENT = {
   CURRENT_BET_VALUE: "current bet value",
   //slotControl
   LIST_SYMBOL_INDEX: "list symbol index",
+  WIN_GAME: "win game",
+  LOSE_GAME: "lose game",
   //btn Bet
   ON_CLICK_BET_BUTTON: "on click bet button",
   //symbol view
   SPINING_STOP: "spinning stop",
+  ON_SPIN_EFFECT_VER2: "on spin effect ver2",
+  //slot view
+  FINISH_RESET_POSITION_ALL_SYMBOL_GROUP: "finish reset position all symbol group",
+  //connect to server
+  INIT_EVENT_NETWORK: "init event network",
+  //data Controller
+  SHOW_EFFECT_WIN_GAME: "show effect win game",
+  SEND_POOL_MODEL: "send pool model",
+  //win game bonus view
+  UPDATE_MONEY_PLAYER: " update money player",
+  //bet controller
+  BET_DATA: "bet data",
 };
 export const SOCKET_EVENT = {
   //sys event---------

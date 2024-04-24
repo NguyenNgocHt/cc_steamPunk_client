@@ -1,8 +1,6 @@
-import { _decorator, Component, Node } from "cc";
+import { _decorator } from "cc";
 import { LogUtil } from "../utils/LogUtil";
 import io from "./socket.io.min.js";
-import { NotifyUtil } from "../utils/NotifyUtil";
-import { BNotifyType } from "../../games/steamPunk_client/script/common/Enum";
 const { ccclass, property } = _decorator;
 const LOGS_SKIPS = ["move", "balance", "update-x-y", "gameevent", "xmove"];
 @ccclass("SocketIoClient")

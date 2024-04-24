@@ -3,7 +3,7 @@ export type BetResultsData = {
   betLines: number;
   freeSpins: number;
   jackpot: number;
-  paylines: number;
+  paylines: any[];
   payout: number;
   result: {};
   stake: number;
@@ -19,4 +19,17 @@ export type NewBetResultList = {
   reel1: number[];
   reel2: number[];
   reel3: number[];
+};
+
+export type PayLinesDaTa = {
+  payline: number;
+  playoutRate: number;
+  symbols: number[];
+  winType: string;
+};
+
+export type paylineConvert = {
+  rowIndex: number;
+  symbols: number[];
+  winType: string;
 };

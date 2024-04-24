@@ -7,6 +7,9 @@ import { EventTouch } from "cc";
 import { Vec3 } from "cc";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
+import { tween } from "cc";
+import { Tween } from "cc";
+import { Label } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("BtnBetGroupView")
@@ -24,12 +27,20 @@ export class BtnBetGroupView extends Component {
   @property(SpriteFrame)
   btnBetNetural: SpriteFrame = null;
 
+  @property(Node)
+  winFreeSpine: Node = null;
+  @property(Label)
+  lbFreeSpine: Label = null;
+
   @property(sp.Skeleton)
   animBetPress: sp.Skeleton = null;
   @property(sp.Skeleton)
   animBetRound: sp.Skeleton = null;
   @property(sp.Skeleton)
   tapAnim: sp.Skeleton = null;
+
+  isPressButton: boolean = false;
+  originPosNodeUnion: Vec3 = new Vec3(0, 0, 0);
 
   start() {
     this.init();
@@ -38,6 +49,12 @@ export class BtnBetGroupView extends Component {
 
   init() {
     this.initAnim();
+    this.initNode();
+  }
+
+  initNode() {
+    this.winFreeSpine.active = false;
+    this.lbFreeSpine.node.active = false;
   }
 
   initAnim() {
@@ -55,8 +72,15 @@ export class BtnBetGroupView extends Component {
   }
 
   onClickBtnBet() {
-    this.changeSpriteBtnBet(this.btnBetPress);
-    this.senActionToBetControl();
+    if (!this.isPressButton) {
+      this.isPressButton = true;
+      this.changeBetBtnWhenPress;
+      this.sendActionToBetControl();
+    }
+  }
+
+  setBtnBetPressStatus(status: boolean) {
+    this.isPressButton = status;
   }
 
   startGameEffect() {
@@ -81,28 +105,69 @@ export class BtnBetGroupView extends Component {
     this.union.spinningStop();
   }
 
-  changeSpriteBtnBet(spriteFrameNode: SpriteFrame) {
+  changeBetBtnWhenPress() {
     let posUnion = this.union.node.getWorldPosition();
-
+    this.originPosNodeUnion = posUnion;
     let spriteNode = this.btnBet.getComponent(Sprite);
 
-    spriteNode.spriteFrame = spriteFrameNode;
+    spriteNode.spriteFrame = this.btnBetPress;
     this.animBetPress.node.active = true;
 
     this.animBetPress.setAnimation(0, "Sprite", false);
+    Tween.stopAllByTarget(this.node);
+    tween(this.node)
+      .delay(0.1)
+      .call(() => {
+        this.animBetPress.setAnimation(0, "Sprite", false);
+      })
+      .delay(0.1)
+      .call(() => {
+        this.animBetPress.setAnimation(0, "Sprite", false);
+      })
+      .start();
 
     this.union.node.worldPosition = new Vec3(posUnion.x, 125, 0);
   }
 
+  changeBetBtnWhenNetural() {
+    this.isPressButton = false;
+    this.stopSpinGear();
+    this.bigGear.changeTimeLoopSpinning(5);
+
+    let spriteNode = this.btnBet.getComponent(Sprite);
+
+    spriteNode.spriteFrame = this.btnBetNetural;
+    this.union.node.worldPosition = new Vec3(this.originPosNodeUnion.x, 180, 0);
+  }
+
   onBetTouchDown(event: EventTouch) {
-    this.startSpinSmallGear();
-    this.bigGear.changeTimeLoopSpinning(2);
-    this.changeSpriteBtnBet(this.btnBetPress);
+    if (!this.isPressButton) {
+      this.startSpinSmallGear();
+      this.bigGear.changeTimeLoopSpinning(2);
+      this.changeBetBtnWhenPress();
+    }
   }
 
   onBetTouchEnd(event: EventTouch) {}
 
-  senActionToBetControl() {
+  sendActionToBetControl() {
     EventBus.dispatchEvent(GAME_EVENT.ON_CLICK_BET_BUTTON);
+  }
+
+  showTextWinFreeSpine() {
+    tween(this.node)
+      .call(() => {
+        this.winFreeSpine.active = true;
+      })
+      .delay(1)
+      .call(() => {
+        this.winFreeSpine.active = false;
+      })
+      .start();
+  }
+
+  showFreeSpineValue(value: number) {
+    this.lbFreeSpine.node.active = true;
+    this.lbFreeSpine.string = value.toString();
   }
 }

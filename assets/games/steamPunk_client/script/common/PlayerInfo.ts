@@ -6,6 +6,7 @@ import { EventHandler } from "cc";
 import { EventBus } from "../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../network/networkDefine";
 import { IPLayerInfo } from "../interfaces/Common_interfaces";
+import { TriggerEventType } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("PlayerInfo")
@@ -17,7 +18,7 @@ export class PlayerInfo implements IPLayerInfo {
   registerEvent() {
     EventBus.on(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
   }
-  offEvent() {
+  unRegisterEvent() {
     EventBus.off(GAME_EVENT.SEND_TO_PLAYER_INFO, this.handlePlayerInfo.bind(this));
   }
   handlePlayerInfo(data: playerInfo) {
@@ -27,15 +28,47 @@ export class PlayerInfo implements IPLayerInfo {
       money: data.money,
       currency: data.currency,
     };
-    let playerInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO));
-    if (playerInfo == null) {
-      sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO, JSON.stringify(this.playerInfo));
-    }
+
+    sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO, JSON.stringify(this.playerInfo));
   }
   getPlayerInfo(): playerInfo {
     let playerInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO));
     if (playerInfo) {
       return playerInfo;
     }
+  }
+  getPlayerName(): string {
+    let playerInfo = this.getPlayerInfo();
+    if (playerInfo) {
+      return playerInfo.userName;
+    }
+  }
+
+  getCurrentMoney(): number {
+    let playerInfo = this.getPlayerInfo();
+    if (playerInfo) {
+      return playerInfo.money;
+    }
+  }
+
+  getCurrency(): string {
+    let playerInfo = this.getPlayerInfo();
+    if (playerInfo) {
+      return playerInfo.currency;
+    }
+  }
+
+  updateCurrentMoney(currentMoney: number) {
+    let playerInfo = this.getPlayerInfo();
+
+    let newPlayerInfo: playerInfo = null;
+
+    newPlayerInfo = {
+      userName: playerInfo.userName,
+      money: currentMoney,
+      currency: playerInfo.currency,
+    };
+
+    this.handlePlayerInfo(newPlayerInfo);
   }
 }

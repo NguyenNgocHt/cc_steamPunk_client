@@ -41,8 +41,18 @@ export class SymbolView extends Component {
 
   symbolIndex: number = 0;
 
+  isShowAnim: boolean = false;
+
+  timeDelayRow1: number = 0.1;
+  timeDelayRow2: number = 0.3;
+  timeDelayRow3: number = 0.5;
+
   start() {
     this.setInitState();
+    this.symbolAnim.getComponent(sp.Skeleton).setCompleteListener(() => {
+      this.symbolAnim.active = false;
+      this.isShowAnim = false;
+    });
   }
 
   setInitState() {
@@ -83,21 +93,24 @@ export class SymbolView extends Component {
     console.log("scale list", this.nodeScaleList);
   }
 
+  setAnimStatus(status: boolean) {
+    this.isShowAnim = status;
+  }
   showPositionSymbol() {
     console.log("symbolInfo", this.rowIndex, this.columnIndex, this.node.getWorldPosition(), this.node.name);
   }
 
-  spin() {
+  spin(loopIndex: number) {
     let timeMove_startSpinning = 1;
     let timeDelay: number = 0;
     let downIndex = -1;
     let posStart = this.node.getWorldPosition();
     if (this.columnIndex == 0) {
-      timeDelay = 0.1;
+      timeDelay = this.timeDelayRow1;
     } else if (this.columnIndex == 1) {
-      timeDelay = 0.3;
+      timeDelay = this.timeDelayRow2;
     } else if (this.columnIndex == 2) {
-      timeDelay = 0.5;
+      timeDelay = this.timeDelayRow3;
     }
 
     let action_startSpinning = () => {
@@ -119,7 +132,7 @@ export class SymbolView extends Component {
           }
         })
         .union()
-        .repeat(21)
+        .repeat(loopIndex)
         .start();
     };
     let action_stopSpining = () => {
@@ -139,12 +152,22 @@ export class SymbolView extends Component {
       .call(action_startSpinning)
       .delay(0.5)
       .call(action_spinning)
-      .delay(1.27)
-      .call(action_stopSpining)
-      .delay(0.5)
+      .delay(0.4)
       .call(() => {
         if (this.rowIndex == 11 && this.columnIndex == 2) {
-          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP);
+          EventBus.dispatchEvent(GAME_EVENT.ON_SPIN_EFFECT_VER2);
+        }
+      })
+      .delay(0.87)
+      .call(action_stopSpining)
+      .delay(0.2)
+      .call(() => {
+        if (this.rowIndex == 11 && this.columnIndex == 2) {
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
+        } else if (this.rowIndex == 11 && this.columnIndex == 1) {
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
+        } else if (this.rowIndex == 11 && this.columnIndex == 0) {
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
         }
       })
       .start();
@@ -188,5 +211,16 @@ export class SymbolView extends Component {
     this.symbolAnim.setScale(symbolScale, symbolScale, 0);
 
     this.symbolAnim.active = false;
+  }
+
+  showAnimWin() {
+    if (this.isShowAnim) {
+      this.symbolAnim.active = true;
+      if (this.symbolIndex == 6) {
+        this.symbolAnim.getComponent(sp.Skeleton).setAnimation(0, "Girl-Nice", false);
+      } else {
+        this.symbolAnim.getComponent(sp.Skeleton).setAnimation(0, "animtion0", false);
+      }
+    }
   }
 }

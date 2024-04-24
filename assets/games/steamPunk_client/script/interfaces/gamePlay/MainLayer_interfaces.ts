@@ -1,30 +1,5 @@
-import { PoolController } from "../../common/PoolController";
-export interface IMainLayerControl {
-  moveMetalgateToUp();
-  startGameEffect();
-}
-
-export interface IGameLayerControl {
-  metalgateToUp();
-}
-
-export interface IEffectLayerControl {
-  initEffectStartGame();
-  onAllEffect();
-}
-
-export interface IGameLayerView {
-  metalgateToUp();
-}
-
-export interface IPlayScreenView {
-  betGroupToUp();
-}
-
-export interface ILampView {
-  onLamp();
-  offLamp();
-}
+import { BetResultsData } from "../../dataModel/BetDataType";
+import { paylineConvert } from "../../dataModel/BetDataType";
 
 export interface IGearView {
   onSpinAnimGear();
@@ -35,30 +10,12 @@ export interface IGearView {
   offLightStart();
 }
 
-export interface IEffectLayerView {
-  initStartGame();
-  openingEnding();
-  showLineSelectView(totalLines: number);
+export interface IPaylinesService {
+  checkPayLines(betResult: BetResultsData): any[];
+  getPaylineData(paylineList: any[]): paylineConvert[];
 }
 
-export interface ILineSelectView {
-  showLineSelect(TotalLines: number);
-  offAllLines();
-}
-
-export interface ILightView {
-  turnsOnLightContinuously();
-  onLight(buldIndex: number, timeDelay: number);
-}
-
-export interface ISlotService {
+export interface ISymbolService {
   generateRandomSymbolList(): number[][];
   changeNewSymbolIndexList(oldSymbolIndexList: number[][], newList: number[][]): number[][];
-}
-
-export interface ISlotController {
-  initSymbolGroup(poolControl: PoolController);
-}
-export interface ISlotView {
-  initSlotGroup(symbolIndexList: number[][], poolControl: PoolController);
 }

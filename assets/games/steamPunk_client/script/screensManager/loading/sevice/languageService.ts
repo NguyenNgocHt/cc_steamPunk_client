@@ -19,6 +19,7 @@ export class languageService implements ILanguegeService {
       window["onGameInitSuccess"]();
     }
   }
+
   public async getSetting(dataDecode: any, callback: Function = null) {
     if (dataDecode) {
       let url = `${dataDecode.server}${dataDecode.subpath}/setting`;
@@ -31,6 +32,7 @@ export class languageService implements ILanguegeService {
       }
     }
   }
+
   async loadLanguage(dataDecode: any) {
     if (dataDecode) {
       await new LanguageManager().getLanguage2(
@@ -48,6 +50,7 @@ export class languageService implements ILanguegeService {
       );
     }
   }
+
   getResultLoadLanguage(): boolean {
     return this.isLoadLanguage;
   }

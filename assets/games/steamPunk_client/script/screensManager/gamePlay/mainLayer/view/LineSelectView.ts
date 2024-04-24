@@ -1,5 +1,4 @@
 import { _decorator, Component, Node } from "cc";
-import { ILineSelectView } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { UIOpacity } from "cc";
 import { tween } from "cc";
 const { ccclass, property } = _decorator;
@@ -16,6 +15,7 @@ export class LineSelectView extends Component {
   }
 
   initLinesShowStatus() {
+    this.linesShowStatus = [];
     for (let i = 0; i < this.lineSelectGroup.length; i++) {
       this.linesShowStatus.push(0);
     }
@@ -26,6 +26,7 @@ export class LineSelectView extends Component {
     for (let i = 0; i < this.lineSelectGroup.length; i++) {
       this.lineSelectGroup[i].active = false;
     }
+    this.initLinesShowStatus();
   }
 
   showLineSelect(TotalLines: number) {

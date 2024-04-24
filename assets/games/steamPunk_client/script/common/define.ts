@@ -44,3 +44,14 @@ export const MAP_SYMBOL = {
   freespin: 10,
 };
 
+export const MAP_CONVERTED_ROW = {
+  ROW_3: 3,
+  ROW_4: 4,
+  ROW_5: 5,
+  DIAGONAL_4: 53,
+  DIAGONAL_5: 35,
+};
+export const LIGHT_GROUP_NAME = {
+  LIGHT_RIGHT: "lightRight",
+  LIGHT_LEFT: "lightLeft",
+};

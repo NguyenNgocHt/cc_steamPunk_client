@@ -36,15 +36,18 @@ export class BetController extends Component {
 
     EventBus.on(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
 
-    EventBus.on(GAME_EVENT.ON_CLICK_BET_BUTTON, this.getBetData.bind(this));
+    EventBus.on(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
+
+    EventBus.on(GAME_EVENT.LOSE_GAME, this.setBetBtnToOriginalState.bind(this));
   }
 
-  offEvent() {
+  unRegisterEvent() {
     EventBus.off(GAME_EVENT.GET_GAME_INFO, this.getGameInfo.bind(this));
 
     EventBus.off(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
 
-    EventBus.off(GAME_EVENT.ON_CLICK_BET_BUTTON, this.getBetData.bind(this));
+    EventBus.off(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
+    EventBus.off(GAME_EVENT.LOSE_GAME, this.setBetBtnToOriginalState.bind(this));
   }
 
   initGameInfoService() {
@@ -53,7 +56,7 @@ export class BetController extends Component {
 
   start() {}
 
-  onGameEffect() {
+  onStartGame() {
     this.btnBetGroupView.startGameEffect();
   }
 
@@ -73,11 +76,27 @@ export class BetController extends Component {
     this.betLineGroupView.setCurrentBetLineValue(currentBetLineValue);
   }
 
-  getBetData() {
-    let betLine = this.betLineGroupView.getCurrentBetLine();
-    let lineValue = this.betAmoutGroupView.getCurrentBetLineValue();
-    console.log(betLine, lineValue);
-    let dataBet = { info: { stake: lineValue, betLines: betLine } };
-    SocketIoClient.instance.emit(SOCKET_EVENT.BET, dataBet);
+  sendBetData() {
+    EventBus.dispatchEvent(GAME_EVENT.BET_DATA, {
+      info: {
+        stake: this.betAmoutGroupView.getCurrentBetLineValue(),
+        betLines: this.betLineGroupView.getCurrentBetLine(),
+      },
+    });
+  }
+  changeBetbtnSatus() {
+    this.btnBetGroupView.changeBetBtnWhenPress();
+  }
+
+  setBetBtnToOriginalState() {
+    this.btnBetGroupView.changeBetBtnWhenNetural();
+  }
+
+  showTextWinFreeSpine() {
+    this.btnBetGroupView.showTextWinFreeSpine();
+  }
+
+  showFreeSpineValue(value: number) {
+    this.btnBetGroupView.showFreeSpineValue(value);
   }
 }

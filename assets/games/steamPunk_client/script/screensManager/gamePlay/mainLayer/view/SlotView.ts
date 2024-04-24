@@ -1,13 +1,15 @@
 import { _decorator, Component, Node } from "cc";
-import { ISlotView } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { IPoolController } from "../../../../interfaces/Common_interfaces";
 import { PoolController } from "../../../../common/PoolController";
 import { SymbolView } from "./SymbolView";
 import { Vec3 } from "cc";
 import { Vec2 } from "cc";
-import { UITransform } from "cc";
-import { size } from "cc";
 import { Size } from "cc";
+import { tween } from "cc";
+import { paylineConvert } from "../../../../dataModel/BetDataType";
+import { MAP_CONVERTED_ROW } from "../../../../common/define";
+import { EventBus } from "../../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("SlotView")
@@ -46,19 +48,13 @@ export class SlotView extends Component {
     this._symbolNodeList = [];
     this._poolControl = poolControl;
 
-    let posOrigin = this.posStart.getWorldPosition();
-    console.log("posOrigin", posOrigin);
-
     for (let i = 0; i < this.row; i++) {
       let row: number[] = [];
       for (let j = 0; j < this.column; j++) {
         let k = this.column * i + j;
         row.push(symbolIndexList[i][j]);
         let symbolNode: Node = null;
-
         symbolNode = this._poolControl.getSymbolNode(symbolIndexList[i][j]);
-
-        console.log("symbol node", symbolNode);
         if (symbolNode) {
           symbolNode.active = true;
 
@@ -68,23 +64,27 @@ export class SlotView extends Component {
 
           let symbolView = symbolNode.getComponent(SymbolView);
           if (symbolView) {
-            symbolView.setRowIndex(i);
-
-            symbolView.setColumnIndex(j);
-
-            symbolView.setSymbolIndex(symbolIndexList[i][j]);
-
-            symbolView.setNodeScaleList(this.symbolScaleList);
-
-            symbolView.setSymbolPosList(this.symbolPos);
-
-            symbolView.setSymbolSizeList(this.symbolSize);
+            this.initSymbolView(symbolView, i, j, symbolIndexList);
           }
           this._symbolNodeList.push(symbolNode);
         }
       }
       this._symbolIndexList.push(row);
     }
+  }
+
+  initSymbolView(symbolView: SymbolView, row: number, collumn: number, symbolIndexList) {
+    symbolView.setRowIndex(row);
+
+    symbolView.setColumnIndex(collumn);
+
+    symbolView.setSymbolIndex(symbolIndexList[row][collumn]);
+
+    symbolView.setNodeScaleList(this.symbolScaleList);
+
+    symbolView.setSymbolPosList(this.symbolPos);
+
+    symbolView.setSymbolSizeList(this.symbolSize);
   }
 
   getSymbolNodeList(): Node[] {
@@ -103,16 +103,84 @@ export class SlotView extends Component {
     }
   }
 
-  resetAllSymbolGroup() {
+  updateResultsPaylines(paylineCv: paylineConvert) {
+    let paylineConvert = paylineCv;
+    for (let i = 0; i < this.row; i++) {
+      for (let j = 0; j < this.column; j++) {
+        let k = this.column * i + j;
+        let symbolView = this._symbolNodeList[k].getComponent(SymbolView);
+        if (symbolView) {
+          if (i >= 3 && i <= 5) {
+            if (paylineConvert.rowIndex == i || paylineConvert.rowIndex == i || paylineConvert.rowIndex == i) {
+              symbolView.setAnimStatus(true);
+            } else if (paylineConvert.rowIndex == MAP_CONVERTED_ROW.DIAGONAL_4) {
+              if (i == 3 && j == 2) {
+                symbolView.setAnimStatus(true);
+              } else if (i == 4 && j == 1) {
+                symbolView.setAnimStatus(true);
+              } else if (i == 5 && j == 0) {
+                symbolView.setAnimStatus(true);
+              }
+            } else if (paylineConvert.rowIndex == MAP_CONVERTED_ROW.DIAGONAL_5) {
+              if (i == 3 && j == 0) {
+                symbolView.setAnimStatus(true);
+              } else if (i == 4 && j == 1) {
+                symbolView.setAnimStatus(true);
+              } else if (i == 5 && j == 2) {
+                symbolView.setAnimStatus(true);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  resetAllSymbolGroup(columnIndex: number) {
     let posOrigin = this.posStart.getWorldPosition();
     for (let i = 0; i < this.row; i++) {
       for (let j = 0; j < this.column; j++) {
         let k = this.column * i + j;
         let symbolNode = this._symbolNodeList[k];
         if (symbolNode) {
-          symbolNode.setWorldPosition(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0);
+          if (j == columnIndex) {
+            if (i == 2 || i == 3 || i == 4 || i == 5 || i == 6) {
+              tween(symbolNode)
+                .to(1, { worldPosition: new Vec3(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0) }, { easing: "bounceOut" })
+                .call(() => {
+                  if (i == 6 && j == 2) {
+                    EventBus.dispatchEvent(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP);
+                  }
+                })
+                .start();
+            } else {
+              symbolNode.setWorldPosition(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0);
+            }
+          }
         }
       }
     }
+  }
+
+  onAnimWinGameInSymbol() {
+    for (let i = 0; i < this.row; i++) {
+      for (let j = 0; j < this.column; j++) {
+        let k = this.column * i + j;
+        let symbolView = this._symbolNodeList[k].getComponent(SymbolView);
+        if (symbolView) {
+          if (i >= 3 && i <= 5) {
+            symbolView.showAnimWin();
+          }
+        }
+      }
+    }
+  }
+  traverse2DArray() {
+     for (let i = 0; i < this.row; i++) {
+       for (let j = 0; j < this.column; j++) {
+         let k = this.column * i + j;
+        
+       }
+     }
   }
 }

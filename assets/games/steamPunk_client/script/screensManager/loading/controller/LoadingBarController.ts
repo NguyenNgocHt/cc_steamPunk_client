@@ -98,7 +98,6 @@ export class LoadingBarControler extends Component implements ILoadingController
   }
   screenChange() {
     let play_screen = ScreenManager.instance.assetBundle.get(PATH.PLAY_SCREEN, Prefab)!;
-    console.log("landing screen", play_screen);
     ScreenManager.instance.pushScreen(play_screen, (screen: BaseScreen) => {}, true);
   }
 }
