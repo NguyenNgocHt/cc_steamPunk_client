@@ -41,6 +41,7 @@ export class BtnBetGroupView extends Component {
 
   isPressButton: boolean = false;
   originPosNodeUnion: Vec3 = new Vec3(0, 0, 0);
+  freeSpineValue: number = 0;
 
   start() {
     this.init();
@@ -127,6 +128,8 @@ export class BtnBetGroupView extends Component {
       .start();
 
     this.union.node.worldPosition = new Vec3(posUnion.x, 125, 0);
+    this.startSpinSmallGear();
+    this.bigGear.changeTimeLoopSpinning(2);
   }
 
   changeBetBtnWhenNetural() {
@@ -138,6 +141,7 @@ export class BtnBetGroupView extends Component {
 
     spriteNode.spriteFrame = this.btnBetNetural;
     this.union.node.worldPosition = new Vec3(this.originPosNodeUnion.x, 180, 0);
+    this.checkFreeSpineValue();
   }
 
   onBetTouchDown(event: EventTouch) {
@@ -155,19 +159,24 @@ export class BtnBetGroupView extends Component {
   }
 
   showTextWinFreeSpine() {
-    tween(this.node)
-      .call(() => {
-        this.winFreeSpine.active = true;
-      })
-      .delay(1)
-      .call(() => {
-        this.winFreeSpine.active = false;
-      })
-      .start();
+    console.log("show win free spine");
+    this.winFreeSpine.active = true;
+    setTimeout(() => {
+      console.log("off win free spine");
+      this.winFreeSpine.active = false;
+    }, 2);
   }
 
   showFreeSpineValue(value: number) {
+    this.freeSpineValue = value;
     this.lbFreeSpine.node.active = true;
     this.lbFreeSpine.string = value.toString();
+  }
+
+  checkFreeSpineValue() {
+    if (this.freeSpineValue == 1) {
+      this.lbFreeSpine.string = "";
+      this.lbFreeSpine.node.active = false;
+    }
   }
 }

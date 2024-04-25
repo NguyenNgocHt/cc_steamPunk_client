@@ -1,12 +1,19 @@
 import { GameInfoMock, PendingMock, SettingsMock } from "./../dataModel/MockConfigData";
 import { _decorator, Component, Node } from "cc";
 import { IGameInfoServiceMock } from "../interfaces/Mock_interfaces";
+import { IPLayerInfo } from "../interfaces/Common_interfaces";
+import { PlayerInfo } from "../common/PlayerInfo";
+
 const { ccclass, property } = _decorator;
 
 @ccclass("GameInfoServiceMock")
 export class GameInfoServiceMock implements IGameInfoServiceMock {
-    denomination = [0.05, 0.1, 0.15, 0.25, 0.4, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 35, 50];
-    
+  denomination = [0.05, 0.1, 0.15, 0.25, 0.4, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 35, 50];
+  currentMoney: IPLayerInfo = null;
+
+  init() {
+    this.currentMoney = new PlayerInfo();
+  }
   getGameInfo(): GameInfoMock {
     let pendingData: PendingMock = {
       freeSpins: 0,
@@ -24,7 +31,7 @@ export class GameInfoServiceMock implements IGameInfoServiceMock {
 
     let gameInfo: GameInfoMock = null;
     gameInfo = {
-      balance: 4520,
+      balance: this.currentMoney.getCurrentMoney(),
       betlines: 1,
       currency: "USD",
       Denominations: this.denomination,

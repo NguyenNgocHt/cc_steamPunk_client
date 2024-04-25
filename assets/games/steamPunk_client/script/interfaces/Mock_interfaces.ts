@@ -10,9 +10,11 @@ export interface ISocketIOClient {
 export interface IConnectSeverServiceMock {}
 
 export interface IGameInfoServiceMock {
+  init();
   getGameInfo(): GameInfoMock;
 }
 
 export interface IBetResultsServiceMock {
+  init();
   getBetResults(data): betResultMock;
 }
