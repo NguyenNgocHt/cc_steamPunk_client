@@ -18,17 +18,8 @@ import { BetData, BetResultsData } from "../../../../dataModel/BetDataType";
 import { IBetResultService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 import { BetResultService } from "../service/BetResultService";
 import { GameLayerController } from "../../mainLayer/controller/GameLayerController";
-
-interface ISocketIO {
-  on(event: string, cb: Function): void;
-  emit(event: string);
-}
-
-class SocketIOMock implements ISocketIO {
-  public static Instance: SocketIOMock;
-  on(event: string, cb: Function) {}
-  emit(event: string) {}
-}
+import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
+import { SocketIOMock } from "../../../../mock/SocketIOMock";
 
 const { ccclass, property } = _decorator;
 
@@ -57,6 +48,7 @@ export class gamePlayController extends BaseScreen {
 
   public betResulService: IBetResultService = null;
   public betInfoData: BetData = null;
+  _socketIOInstance: ISocketIOClient = null;
 
   onLoad() {
     this.landingGroup.node.active = true;
@@ -64,7 +56,7 @@ export class gamePlayController extends BaseScreen {
 
   start() {
     this.init();
-    this.init1(new SocketIOMock());
+    this.initSocketIOClient();
     this.connectServer();
     this.registerPlayerInfo();
     this.registerGameInfo();
@@ -77,10 +69,9 @@ export class gamePlayController extends BaseScreen {
     this.betResulService = new BetResultService();
   }
 
-  _socketIOInstance: ISocketIO;
-
-  init1(socketIO: ISocketIO) {
-    this._socketIOInstance = socketIO;
+  initSocketIOClient() {
+    // this._socketIOInstance = SocketIoClient.instance;
+    this._socketIOInstance = SocketIOMock.instance;
   }
 
   registerPlayerInfo() {
@@ -90,18 +81,17 @@ export class gamePlayController extends BaseScreen {
   registerGameInfo() {
     this._gameInfo.init();
   }
+  protected initEventNetwork(socketIOClient: ISocketIOClient) {
+    socketIOClient.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.CONNECT, this.onConnect.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.DISCONNECT, this.ondisconnect.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.CONNECT_ERROR, this.onConnectError.bind(this), true);
 
-  protected initEventNetwork() {
-    SocketIoClient.instance.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.CONNECT, this.onConnect.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.DISCONNECT, this.ondisconnect.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.CONNECT_ERROR, this.onConnectError.bind(this));
-
-    SocketIoClient.instance.on(SOCKET_EVENT.UPDATE_COIN, this.onUpdateCoin.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.BALANCE, this.onUpdateBalance.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.GAME_INFO, this.onGameInfo.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this));
-    SocketIoClient.instance.on(SOCKET_EVENT.BET, this.onBetHandler.bind(this));
+    socketIOClient.on(SOCKET_EVENT.UPDATE_COIN, this.onUpdateCoin.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.BALANCE, this.onUpdateBalance.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.GAME_INFO, this.onGameInfo.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.BET, this.onBetHandler.bind(this), true);
   }
 
   protected connectServer() {
@@ -111,8 +101,8 @@ export class gamePlayController extends BaseScreen {
       return;
     }
 
-    SocketIoClient.instance.connectServer(auth.server, { auth: auth, path: auth.subpath });
-    this.initEventNetwork();
+    this._socketIOInstance.connectServer(auth.server, { auth: auth, path: auth.subpath });
+    this.initEventNetwork(this._socketIOInstance);
     if (auth) {
       console.log("auth", auth);
     }
@@ -149,6 +139,7 @@ export class gamePlayController extends BaseScreen {
   }
 
   onGameInfo(data) {
+    console.log("game data", data);
     this.gameInfoData = data as GameInfoData;
     let pendingData = this.gameInfoData.pending as PendingData;
     if (pendingData.freeSpins > 0) {

@@ -72,7 +72,7 @@ export class Global {
   }
 
   RandomNumber(minNumber: number, maxNumber: number): number {
-    return Math.floor(Math.random() * maxNumber) + minNumber;
+    return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
   }
 
   InitListRandom(randomNumber: number, ListIndex: number): number[] {

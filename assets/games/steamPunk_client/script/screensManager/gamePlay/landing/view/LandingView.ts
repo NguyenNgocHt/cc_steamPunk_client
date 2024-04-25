@@ -1,7 +1,7 @@
 import { Vec3 } from "cc";
 import { tween } from "cc";
 import { _decorator, Component, Node } from "cc";
-import { ILandingController, ILandingView } from "../../../../interfaces/gamePlay/landing_interfacses";
+
 import { Root } from "cc";
 import { TiledObjectGroup } from "cc";
 import { UIOpacity } from "cc";
@@ -11,7 +11,7 @@ import { GAME_EVENT } from "../../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("LandingView")
-export class LandingView extends Component implements ILandingView {
+export class LandingView extends Component {
   @property(Node)
   startGroup: Node = null;
   @property(Node)

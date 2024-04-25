@@ -1,10 +1,11 @@
 import { _decorator } from "cc";
 import { LogUtil } from "../utils/LogUtil";
 import io from "./socket.io.min.js";
+import { ISocketIOClient } from "../../games/steamPunk_client/script/interfaces/Mock_interfaces";
 const { ccclass, property } = _decorator;
 const LOGS_SKIPS = ["move", "balance", "update-x-y", "gameevent", "xmove"];
 @ccclass("SocketIoClient")
-export class SocketIoClient {
+export class SocketIoClient implements ISocketIOClient {
   private static _instance: SocketIoClient | null = null;
   public static get instance(): SocketIoClient {
     if (this._instance == null) {
@@ -38,6 +39,7 @@ export class SocketIoClient {
   }
 
   public on(socketEvent: string, callbackData: Function, isOff: boolean = true) {
+    console.log("event", socketEvent);
     if (this.socket) {
       if (isOff) {
         this.socket.off(socketEvent);

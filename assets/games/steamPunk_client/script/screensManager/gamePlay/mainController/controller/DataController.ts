@@ -6,6 +6,7 @@ import { BetResultsData } from "../../../../dataModel/BetDataType";
 import { SocketIoClient } from "../../../../../../../framework/network/SocketIoClient";
 import { PoolController } from "../../../../common/PoolController";
 import { PendingData } from "../../../../dataModel/GameInfoDataType";
+import { SocketIOMock } from "../../../../mock/SocketIOMock";
 
 const { ccclass, property } = _decorator;
 
@@ -182,7 +183,7 @@ export class DataController extends gamePlayController {
 
   sendBet(data) {
     if (!this.isFreeSpine) {
-      SocketIoClient.instance.emit(SOCKET_EVENT.BET, data);
+      SocketIOMock.instance.emit(SOCKET_EVENT.BET, data);
     } else {
       return;
     }

@@ -33,3 +33,7 @@ export type paylineConvert = {
   symbols: number[];
   winType: string;
 };
+export type SendBet = {
+  stake: number;
+  betLines: number;
+};

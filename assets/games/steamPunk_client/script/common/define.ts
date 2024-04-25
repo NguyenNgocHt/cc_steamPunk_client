@@ -55,3 +55,5 @@ export const LIGHT_GROUP_NAME = {
   LIGHT_RIGHT: "lightRight",
   LIGHT_LEFT: "lightLeft",
 };
+export const PAY_OUT_RATE = [0.05, 0.1, 0.15, 0.25, 0.4, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 35, 50];
+export const SYMBOL_LIST = ["A", "J", "Q", "K", "GEAR", "GIRL", "GUYS", "WILD", "JACKPOT", "FREE_SPINE"];

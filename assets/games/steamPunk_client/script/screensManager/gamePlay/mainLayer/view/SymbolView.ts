@@ -90,14 +90,10 @@ export class SymbolView extends Component {
 
   setNodeScaleList(nodeScaleList: Number[]) {
     this.nodeScaleList = nodeScaleList;
-    console.log("scale list", this.nodeScaleList);
   }
 
   setAnimStatus(status: boolean) {
     this.isShowAnim = status;
-  }
-  showPositionSymbol() {
-    console.log("symbolInfo", this.rowIndex, this.columnIndex, this.node.getWorldPosition(), this.node.name);
   }
 
   spin(loopIndex: number) {
