@@ -5,6 +5,13 @@ import { SettingsData } from "../../../../dataModel/GameInfoDataType";
 import { EditBox } from "cc";
 const { ccclass, property } = _decorator;
 
+type computeNewLineValueProps = {
+  currentDenominationIndex: number;
+  denominationListLength: number;
+  denominationMaxIndex: number;
+  denominationMinIndex: number;
+};
+
 @ccclass("BetAmoutGroupView")
 export class BetAmoutGroupView extends Component {
   @property(EditBox)
@@ -36,48 +43,68 @@ export class BetAmoutGroupView extends Component {
     this._listDenominationLenght = this._listDenominations.length;
   }
 
-  getListDenominations(data: number[]) {
+  updateListDenominations(data: number[]) {
     this._listDenominations = data;
   }
 
-  getListSettings(data: SettingsData) {
+  updateListSettings(data: SettingsData) {
     this._listSettings = data;
   }
 
-  onClickAddLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominanyationsIndexMax, listDenominationsIndexMin) {
-      defaultListDenominationsIndex += 1;
+  onClickAddLine() {
+    this.onChangeBetAmount(function computeNewLineValue({
+      currentDenominationIndex,
+      denominationListLength,
+    }) {
+      let newDenominationIndex = currentDenominationIndex + 1;
 
-      defaultListDenominationsIndex = defaultListDenominationsIndex >= listDenominationLenght - 1 ? listDenominationLenght - 1 : defaultListDenominationsIndex;
-      return defaultListDenominationsIndex;
+      newDenominationIndex =
+        newDenominationIndex >= denominationListLength - 1
+          ? denominationListLength - 1
+          : newDenominationIndex;
+      return newDenominationIndex;
     });
   }
-  onClickSubLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
-      defaultListDenominationsIndex -= 1;
+  onClickSubLine() {
+    this.onChangeBetAmount(function computeNewLineValue({
+      currentDenominationIndex,
+    }) {
+      let newDenominationIndex = currentDenominationIndex - 1;
 
-      defaultListDenominationsIndex = defaultListDenominationsIndex <= 0 ? 0 : defaultListDenominationsIndex;
-      return defaultListDenominationsIndex;
+      newDenominationIndex =
+        newDenominationIndex <= 0 ? 0 : newDenominationIndex;
+      return newDenominationIndex;
     });
   }
-  onClickMinLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
-      return listDenominationsIndexMin;
+  onClickMinLine() {
+    this.onChangeBetAmount(function computeNewLineValue(denominationMinIndex) {
+      return denominationMinIndex;
     });
   }
-  oncClickMaxLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
-      return listDenominationsIndexMax;
+  oncClickMaxLine() {
+    this.onChangeBetAmount(function computeNewLineValue({
+      denominationMaxIndex,
+    }) {
+      return denominationMaxIndex;
     });
   }
 
-  onChangeBetValue(computeNewLineValue: (...args: any[]) => number) {
-    this.defaultListDenominationsIndex = computeNewLineValue(this.defaultListDenominationsIndex, this._listDenominationLenght, this._listDenominationsIndexMax, this._listDenominationsIndexMin);
+  onChangeBetAmount(computeNewLineValue: (computeNewLineValueProps) => number) {
+    this.defaultListDenominationsIndex = computeNewLineValue({
+      currentDenominationIndex: this.defaultListDenominationsIndex,
+      denominationListLength: this._listDenominationLenght,
+      denominationMaxIndex: this._listDenominationsIndexMax,
+      denominationMinIndex: this._listDenominationsIndexMin,
+    });
 
-    this.currentBetLineValue = this._listDenominations[this.defaultListDenominationsIndex];
+    this.currentBetLineValue =
+      this._listDenominations[this.defaultListDenominationsIndex];
 
     this.lbLineValue.string = this.currentBetLineValue.toString();
-    EventBus.dispatchEvent(GAME_EVENT.CURRENT_BET_VALUE, this.currentBetLineValue);
+    EventBus.dispatchEvent(
+      GAME_EVENT.CURRENT_BET_AMOUNT,
+      this.currentBetLineValue
+    );
   }
   getCurrentBetLineValue(): number {
     return this.currentBetLineValue;

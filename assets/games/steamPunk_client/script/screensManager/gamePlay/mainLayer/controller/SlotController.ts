@@ -60,7 +60,7 @@ export class SlotController extends Component {
     this.slotView.initSlotGroup(this.symbolIndexList, poolControler);
   }
 
-  getBetResult(betResult: BetResultsData) {
+  updateBetResult(betResult: BetResultsData) {
     this.symbolIndexList = [];
     this.newSymbolIndexList = [];
     let newBetResultList = betResult.result as NewBetResultList;

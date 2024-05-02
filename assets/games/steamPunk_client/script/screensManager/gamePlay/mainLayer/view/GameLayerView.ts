@@ -22,7 +22,7 @@ export class GameLayerView extends Component {
 
   duration: number = 2;
 
-  metalgateToUp() {
+  metalgateMoveUp() {
     this.moveMetalgate1();
     this.moveMetalgate2();
   }

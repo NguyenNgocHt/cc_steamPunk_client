@@ -23,13 +23,13 @@ export class PlayerInfoController extends Component {
     this.playerInfoView.setPlayerInfo(data);
   }
 
-  minusMoneyBet(betValue: number) {
+  subtractBetAmount(betValue: number) {
     console.log("betValua", betValue);
     let oldMoney = this._playerInfo.getCurrentMoney();
     console.log("oldMoney", oldMoney);
     let currentMoney = parseFloat((oldMoney - betValue).toFixed(7));
     console.log("currentMoney", currentMoney);
-    this.playerInfoView.showMinusMoneyBet(currentMoney);
+    this.playerInfoView.updateCurrentMoney(currentMoney);
     this._playerInfo.updateCurrentMoney(currentMoney);
   }
   updateMoneyEndRound(money: number) {

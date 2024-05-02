@@ -73,7 +73,7 @@ export class DataController extends gamePlayController {
   }
 
   goToGameMain() {
-    this.gameLayerControl.metalgateToUp();
+    this.gameLayerControl.metalgateMoveUp();
 
     this.playScreenView.betGroupToUp();
   }
@@ -103,13 +103,13 @@ export class DataController extends gamePlayController {
   }
 
   handleWinGameData(paylineList: any[]) {
-    this.betResulService.handleBetResultData(this.betInfoData);
+    this.betResultService.handleBetResultData(this.betInfoData);
 
-    let betResult = this.betResulService.getBetResult();
+    let betResult = this.betResultService.getBetResult();
 
     let payLines = paylineList;
 
-    this.multiplierValue = this.betResulService.getMultiplierValue();
+    this.multiplierValue = this.betResultService.getMultiplierValue();
 
     let bonusGroupDestinationNode = this.PlayerControl.getBonusGroupDestinationNode();
 
@@ -119,9 +119,9 @@ export class DataController extends gamePlayController {
   }
 
   handleLoseGameData() {
-    this.betResulService.handleBetResultData(this.betInfoData);
+    this.betResultService.handleBetResultData(this.betInfoData);
 
-    this.multiplierValue = this.betResulService.getMultiplierValue();
+    this.multiplierValue = this.betResultService.getMultiplierValue();
     this.updateMoneyPlayer();
   }
 
@@ -135,7 +135,7 @@ export class DataController extends gamePlayController {
 
     this.PlayerControl.checkIconValue(this.multiplierValue);
 
-    this.betControl.setBetBtnToOriginalState();
+    this.betControl.onLoseGame();
 
     this.scheduleOnce(function () {
       this.checkFreeSpine();

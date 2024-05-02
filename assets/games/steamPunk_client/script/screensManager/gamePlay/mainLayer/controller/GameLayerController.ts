@@ -11,17 +11,17 @@ export class GameLayerController extends Component {
   gameLayerView: GameLayerView = null;
 
   @property(SlotMachineController)
-  slotMachingControl: SlotMachineController = null;
+  slotMachineControl: SlotMachineController = null;
 
   @property(EffectLayerController)
   effectLayerControl: EffectLayerController = null;
 
-  metalgateToUp() {
-    this.gameLayerView.metalgateToUp();
+  metalgateMoveUp() {
+    this.gameLayerView.metalgateMoveUp();
   }
 
   handleBetResult(result) {
-    this.slotMachingControl.setBetResultData(result);
+    this.slotMachineControl.setBetResultData(result);
   }
 
   startGame() {

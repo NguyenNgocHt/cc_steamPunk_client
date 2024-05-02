@@ -48,7 +48,7 @@ export class gamePlayController extends BaseScreen {
   _gameInfo: IGameInfo = null;
   _gameData: IGameData = null;
 
-  public betResulService: IBetResultService = null;
+  public betResultService: IBetResultService = null;
   public betInfoData: BetData = null;
   _socketIOInstance: ISocketIOClient = null;
 
@@ -70,7 +70,7 @@ export class gamePlayController extends BaseScreen {
     this._gameInfo = new GameInfo();
     this._gameData = new GameData();
 
-    this.betResulService = new BetResultService();
+    this.betResultService = new BetResultService();
   }
 
   initSocketIOClient() {
@@ -98,7 +98,7 @@ export class gamePlayController extends BaseScreen {
     socketIOClient.on(SOCKET_EVENT.BALANCE, this.onUpdateBalance.bind(this), true);
     socketIOClient.on(SOCKET_EVENT.GAME_INFO, this.onGameInfo.bind(this), true);
     socketIOClient.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.BET, this.onBetHandler.bind(this), true);
+    socketIOClient.on(SOCKET_EVENT.BET, this.onBet.bind(this), true);
   }
 
   protected connectServer() {
@@ -124,20 +124,20 @@ export class gamePlayController extends BaseScreen {
     return dataDecode;
   }
 
-  onBetHandler(msg) {
+  onBet(msg) {
     console.log("msg bet", msg);
     let betData: BetData = null;
     betData = msg as BetData;
     this.betInfoData = betData;
     let betResultData = betData.result as BetResultsData;
 
-    this.betResulService.handleBetResultData(betData);
+    this.betResultService.handleBetResultData(betData);
 
     this.gameLayerControl.handleBetResult(betResultData);
 
     this.PlayerControl.minusMoneyBet(betResultData.stake);
 
-    this.betControl.changeBetbtnSatus();
+    this.betControl.onBet();
     EventBus.dispatchEvent(GAME_EVENT.SEND_BET_RESULT_DATA, betData);
   }
 

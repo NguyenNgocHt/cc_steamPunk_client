@@ -17,7 +17,7 @@ export class PlayerController extends Component {
   }
 
   minusMoneyBet(betValue: number) {
-    this.playerInfoControl.minusMoneyBet(betValue);
+    this.playerInfoControl.subtractBetAmount(betValue);
   }
 
   getBonusGroupDestinationNode(): Node {

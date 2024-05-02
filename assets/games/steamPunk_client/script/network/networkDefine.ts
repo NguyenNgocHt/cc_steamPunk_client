@@ -27,7 +27,7 @@ export const GAME_EVENT = {
   SEND_CURRENT_BET_LINE: "send current bet line",
   //betAmoutgroup
   GET_GAME_INFO: "get game info",
-  CURRENT_BET_VALUE: "current bet value",
+  CURRENT_BET_AMOUNT: "current bet amount",
   //slotControl
   LIST_SYMBOL_INDEX: "list symbol index",
   WIN_GAME: "win game",

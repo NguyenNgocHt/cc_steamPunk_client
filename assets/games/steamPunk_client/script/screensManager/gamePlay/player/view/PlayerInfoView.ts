@@ -36,7 +36,7 @@ export class PlayerInfoView extends Component {
   setAvatar() {
     this.avatar.enabled = false;
     this.avatar.spriteFrame = null;
-    let nodeAvatar = instantiate(this.avatarPrefab).getComponent(sp.Skeleton);
+    const nodeAvatar = instantiate(this.avatarPrefab).getComponent(sp.Skeleton);
     this.avatar.node.addChild(nodeAvatar.node);
     this._animAvatar = nodeAvatar;
     this._animAvatar.setAnimation(0, ANIM_NAME.ANIM_IDLE, true);
@@ -44,23 +44,22 @@ export class PlayerInfoView extends Component {
 
   onclickAvatar() {
     if (this._animAvatar) {
-      let that = this;
       this._animAvatar.setAnimation(0, ANIM_NAME.ANIM_BIG_WIN, false);
       this._animAvatar.setCompleteListener(() => {
-        that._animAvatar.setAnimation(0, ANIM_NAME.ANIM_IDLE, true);
+        this._animAvatar.setAnimation(0, ANIM_NAME.ANIM_IDLE, true);
       });
     }
   }
 
   showCurrentMoney(currentMoney: number) {
-    this.money.string = currentMoney.toString();
+    this.updateCurrentMoney(currentMoney);
     tween(this.money.node)
       .to(0.1, { scale: new Vec3(1.3, 1.3, 1.3) }, { easing: "backIn" })
       .to(0.2, { scale: new Vec3(1, 1, 1) }, { easing: "backOut" })
       .start();
   }
 
-  showMinusMoneyBet(currentMoney: number) {
+  updateCurrentMoney(currentMoney: number) {
     this.money.string = currentMoney.toString();
   }
   getBonusGroupDesitinationNode(): Node {

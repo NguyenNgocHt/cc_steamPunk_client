@@ -33,7 +33,7 @@ export class SlotMachineController extends Component {
   }
 
   setBetResultData(result: BetResultsData) {
-    this.slotControl.getBetResult(result);
+    this.slotControl.updateBetResult(result);
     this.spinningMachineControl.showPositionSymbols();
   }
 }

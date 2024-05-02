@@ -34,20 +34,20 @@ export class BetController extends Component {
   registerEvent() {
     EventBus.on(GAME_EVENT.GET_GAME_INFO, this.getGameInfo.bind(this));
 
-    EventBus.on(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
+    EventBus.on(GAME_EVENT.CURRENT_BET_AMOUNT, this.setTotalBet.bind(this));
 
     EventBus.on(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
 
-    EventBus.on(GAME_EVENT.LOSE_GAME, this.setBetBtnToOriginalState.bind(this));
+    EventBus.on(GAME_EVENT.LOSE_GAME, this.onLoseGame.bind(this));
   }
 
   unRegisterEvent() {
     EventBus.off(GAME_EVENT.GET_GAME_INFO, this.getGameInfo.bind(this));
 
-    EventBus.off(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
+    EventBus.off(GAME_EVENT.CURRENT_BET_AMOUNT, this.setTotalBet.bind(this));
 
     EventBus.off(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
-    EventBus.off(GAME_EVENT.LOSE_GAME, this.setBetBtnToOriginalState.bind(this));
+    EventBus.off(GAME_EVENT.LOSE_GAME, this.onLoseGame.bind(this));
   }
 
   initGameInfoService() {
@@ -61,14 +61,14 @@ export class BetController extends Component {
   }
 
   getGameInfo() {
-    let listDenominations = this._gameInfoService.getListDenominations();
+    const listDenominations = this._gameInfoService.getListDenominations();
 
-    let listSettings = this._gameInfoService.getlistSettings();
+    const listSettings = this._gameInfoService.getlistSettings();
     console.log(listDenominations, listSettings);
 
-    this.betAmoutGroupView.getListDenominations(listDenominations);
+    this.betAmoutGroupView.updateListDenominations(listDenominations);
 
-    this.betAmoutGroupView.getListSettings(listSettings);
+    this.betAmoutGroupView.updateListSettings(listSettings);
   }
 
   setTotalBet(currentBetLineValue: number) {
@@ -84,11 +84,11 @@ export class BetController extends Component {
       },
     });
   }
-  changeBetbtnSatus() {
+  onBet() {
     this.btnBetGroupView.changeBetBtnWhenPress();
   }
 
-  setBetBtnToOriginalState() {
+  onLoseGame() {
     this.btnBetGroupView.changeBetBtnWhenNetural();
   }
 
