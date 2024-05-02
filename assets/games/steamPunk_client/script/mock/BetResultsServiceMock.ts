@@ -17,7 +17,7 @@ export class BetResultsServiceMock implements IBetResultsServiceMock {
   init() {
     this.currentMoney = new PlayerInfo();
   }
-  
+
   getBetResults(data): betResultMock {
     let resultsMock: ResultsMock = null;
     let resultMock: ResultMock = null;
@@ -34,6 +34,7 @@ export class BetResultsServiceMock implements IBetResultsServiceMock {
       dataInfo.betLines = Global.instance.RandomNumber(0, 5);
       dataInfo.stake = PAY_OUT_RATE[Global.instance.RandomNumber(0, 14)];
       this.freeSpine -= 1;
+      console.log("free spine mock", this.freeSpine);
     }
 
     let paylines = this.getPaylines(dataInfo.betLines, resultMock);

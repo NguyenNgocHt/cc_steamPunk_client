@@ -5,34 +5,19 @@ import { IGameInfoService } from "../../../../interfaces/Common_interfaces";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameInfoService")
-export class GameInfoService implements IGameInfoService{
+export class GameInfoService implements IGameInfoService {
   getGameInfo(): GameInfoData {
-    let gameInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (gameInfo) {
-      return gameInfo;
-    }
+    return JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
   }
 
   getListDenominations(): number[] {
-    let gameInfo: GameInfoData = null;
-    gameInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (gameInfo) {
-      return gameInfo.denominations;
-    }
+    return this.getlistSettings() ? this.getlistSettings().Denominations : [];
   }
 
   getListPending(): PendingData {
-    let gameInfo: GameInfoData = null;
-    gameInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (gameInfo) {
-      return gameInfo.pending;
-    }
+    return this.getGameInfo() ? this.getGameInfo().pending : null;
   }
   getlistSettings(): SettingsData {
-    let gameInfo: GameInfoData = null;
-    gameInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (gameInfo) {
-      return gameInfo.settings;
-    }
+    return this.getGameInfo() ? this.getGameInfo().settings : null;
   }
 }

@@ -1,3 +1,4 @@
+import { VDTabbarDelegate } from "./../../../../../../../framework/ui/Tabbar";
 import { _decorator, Component, Node, sp } from "cc";
 import { SpiningAnim } from "../../../../animControl/SpiningAnim";
 import { ISpiningAnim } from "../../../../interfaces/Common_interfaces";
@@ -159,22 +160,30 @@ export class BtnBetGroupView extends Component {
   }
 
   showTextWinFreeSpine() {
-    console.log("show win free spine");
     this.winFreeSpine.active = true;
     setTimeout(() => {
-      console.log("off win free spine");
       this.winFreeSpine.active = false;
-    }, 2);
+    }, 2000);
   }
 
   showFreeSpineValue(value: number) {
     this.freeSpineValue = value;
-    this.lbFreeSpine.node.active = true;
-    this.lbFreeSpine.string = value.toString();
+    this.setEffectNode(value);
+  }
+
+  setEffectNode(value: number) {
+    tween(this.lbFreeSpine.node)
+      .to(0.1, { scale: new Vec3(1.3, 1.3, 1.3) }, { easing: "backInOut" })
+      .call(() => {
+        this.lbFreeSpine.node.active = true;
+        this.lbFreeSpine.string = value.toString();
+      })
+      .to(0.5, { scale: new Vec3(1, 1, 1) }, { easing: "backOut" })
+      .start();
   }
 
   checkFreeSpineValue() {
-    if (this.freeSpineValue == 1) {
+    if (this.freeSpineValue == 0) {
       this.lbFreeSpine.string = "";
       this.lbFreeSpine.node.active = false;
     }

@@ -1,11 +1,12 @@
+import { CCFloat } from "cc";
 import { _decorator, Component, Node, Vec3, Button, tween } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("ButtonScale")
 export class ButtonScale extends Component {
-  @property(Number)
+  @property(CCFloat)
   pressedScale: number = 0.9;
-  @property(Number)
+  @property(CCFloat)
   transDuration: number = 0.02;
 
   private scaleDefault: Vec3 = null;

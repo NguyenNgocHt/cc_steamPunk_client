@@ -154,7 +154,7 @@ export class SymbolView extends Component {
           EventBus.dispatchEvent(GAME_EVENT.ON_SPIN_EFFECT_VER2);
         }
       })
-      .delay(0.87)
+      .delay(0.89)
       .call(action_stopSpining)
       .delay(0.2)
       .call(() => {

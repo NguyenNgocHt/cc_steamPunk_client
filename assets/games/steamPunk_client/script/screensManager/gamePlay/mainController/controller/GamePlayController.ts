@@ -9,7 +9,7 @@ import { PlayerController } from "../../player/controller/PlayerController";
 import GameInfo from "../../../../common/GameInfo";
 import { playerInfo } from "../../../../dataModel/PlayerDataType";
 import { PlayerInfo } from "../../../../common/PlayerInfo";
-import { IGameInfo, IPLayerInfo } from "../../../../interfaces/Common_interfaces";
+import { IGameData, IGameInfo, IPLayerInfo } from "../../../../interfaces/Common_interfaces";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { landingController } from "../../landing/controller/LandingController";
 import { PlayScreenView } from "../view/PlayScreenView";
@@ -20,6 +20,7 @@ import { BetResultService } from "../service/BetResultService";
 import { GameLayerController } from "../../mainLayer/controller/GameLayerController";
 import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
 import { SocketIOMock } from "../../../../mock/SocketIOMock";
+import { GameData } from "../../../../common/GameData";
 
 const { ccclass, property } = _decorator;
 
@@ -45,6 +46,7 @@ export class gamePlayController extends BaseScreen {
 
   _playerInfo: IPLayerInfo = null;
   _gameInfo: IGameInfo = null;
+  _gameData: IGameData = null;
 
   public betResulService: IBetResultService = null;
   public betInfoData: BetData = null;
@@ -60,11 +62,13 @@ export class gamePlayController extends BaseScreen {
     this.connectServer();
     this.registerPlayerInfo();
     this.registerGameInfo();
+    this.registerGameData();
   }
 
   init() {
     this._playerInfo = new PlayerInfo();
     this._gameInfo = new GameInfo();
+    this._gameData = new GameData();
 
     this.betResulService = new BetResultService();
   }
@@ -80,6 +84,9 @@ export class gamePlayController extends BaseScreen {
 
   registerGameInfo() {
     this._gameInfo.init();
+  }
+  registerGameData() {
+    this._gameData.init();
   }
   protected initEventNetwork(socketIOClient: ISocketIOClient) {
     socketIOClient.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this), true);

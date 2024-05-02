@@ -66,7 +66,7 @@ export class AssetsSevice implements IAssetsSevice_loading {
       ScreenManager.instance.assetBundle.loadDir(
         path,
         (finished, total) => {
-          console.log(`items #${index}:  ${finished} / ${total} `);
+          // console.log(`items #${index}:  ${finished} / ${total} `);
           let progress = index * totalPercent + (finished / total) * totalPercent;
           if (progress > this.progressBar_current) {
             this.progressBar_current = progress;
@@ -101,7 +101,7 @@ export class AssetsSevice implements IAssetsSevice_loading {
       ScreenManager.instance.assetBundle.load(
         path,
         (finished, total) => {
-          console.log(`${finished} / ${total} `);
+          // console.log(`${finished} / ${total} `);
           let progress = index * totalPercent + (finished / total) * totalPercent;
 
           this._loadingController.updateLoadingView_progressBar(progress);

@@ -11,6 +11,7 @@ export const LOCAL_STORAGE_KEY_WORD = {
   PLAYER_LIST: "player list",
   PLAYER_INFO: "player info",
   GAME_INFO: "game info",
+  GAME_DATA: "game data",
 };
 
 export const MESSENGER_DEFINE = {

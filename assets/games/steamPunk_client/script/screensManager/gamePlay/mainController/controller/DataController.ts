@@ -1,16 +1,11 @@
-import { playerInfo } from "./../../../../dataModel/PlayerDataType";
 import { _decorator, tween } from "cc";
 import { gamePlayController } from "./GamePlayController";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT, SOCKET_EVENT } from "../../../../network/networkDefine";
 import { BetResultsData } from "../../../../dataModel/BetDataType";
-import { SocketIoClient } from "../../../../../../../framework/network/SocketIoClient";
 import { PoolController } from "../../../../common/PoolController";
-import { PendingData } from "../../../../dataModel/GameInfoDataType";
-import { SocketIOMock } from "../../../../mock/SocketIOMock";
-import { IPaylinesService } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
-import { IPLayerInfo } from "../../../../interfaces/Common_interfaces";
-import { BaseNode } from "cc";
+import { PendingData, gameData } from "../../../../dataModel/GameInfoDataType";
+import Utils from "../../../../../../../framework/utils/Utils";
 
 const { ccclass, property } = _decorator;
 
@@ -21,7 +16,7 @@ export class DataController extends gamePlayController {
   isFreeSpine: boolean = false;
   betResultData: BetResultsData = null;
   pendingData: PendingData = null;
-
+  gameData: gameData = null;
   multiplierValue: number = 0;
 
   isShowFreeSpineAnim: boolean = false;
@@ -36,6 +31,15 @@ export class DataController extends gamePlayController {
     this.initPoolControl();
     this.sendPoolModel();
     this.initSocketIOClient();
+    this.setGameData();
+  }
+
+  setGameData() {
+    let dataDecode = Utils.parseUrlData();
+    if (dataDecode) {
+      this.gameData = Object.assign(dataDecode);
+      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_DATA, this.gameData);
+    }
   }
 
   initPoolControl() {
@@ -159,14 +163,17 @@ export class DataController extends gamePlayController {
       tween(this.node)
         .delay(this.timeDelayOnBetBtn)
         .call(() => {
+          if (this.freeSpineValue == 1) {
+            this.freeSpineValue = 0;
+          }
           this.sendBetFreeSpine();
           this.setOnClickBet();
+          this.showFreeSpineValue();
           this.timeDelayOnBetBtn = 0.5;
         })
         .start();
 
       this.showFreeSpineAnim();
-      this.showFreeSpineValue();
     }
   }
 
@@ -189,6 +196,9 @@ export class DataController extends gamePlayController {
     } else {
       this.gameLayerControl.showFreeSpineAnim();
       this.betControl.showTextWinFreeSpine();
+      setTimeout(() => {
+        this.showFreeSpineValue();
+      }, 2000);
       this.isShowFreeSpineAnim = false;
     }
   }

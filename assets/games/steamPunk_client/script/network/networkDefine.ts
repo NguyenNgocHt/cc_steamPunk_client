@@ -12,6 +12,7 @@ export const GAME_EVENT = {
   //game play controller
   SEND_TO_PLAYER_INFO: "send to player info",
   SEND_GAME_INFO: "send game info",
+  SEND_GAME_DATA: "send game data",
   SEND_BET_RESULT_DATA: "send bet result data",
   PENDING_DATA: "pending data",
   //game info
@@ -47,6 +48,9 @@ export const GAME_EVENT = {
   UPDATE_MONEY_PLAYER: " update money player",
   //bet controller
   BET_DATA: "bet data",
+  //menu view
+  ON_MENU_ICON: "on menu icon",
+  ON_HELP_VIEW: "on help view",
 };
 export const SOCKET_EVENT = {
   //sys event---------

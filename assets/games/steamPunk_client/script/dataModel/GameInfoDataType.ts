@@ -21,3 +21,20 @@ export type SettingsData = {
   MinBet: number;
   currency: string;
 };
+export type gameData = {
+  api: string;
+  currency: string;
+  env: string;
+  gameCode: string;
+  ip: string;
+  language: string;
+  operator: string;
+  playmode: string;
+  server: string;
+  signature: string;
+  staticUrl: string;
+  subpath: string;
+  timestamp: string;
+  token: string;
+  username: string;
+};

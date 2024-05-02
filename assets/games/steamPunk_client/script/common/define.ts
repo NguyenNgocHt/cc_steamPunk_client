@@ -6,6 +6,7 @@ export const PATH = {
   POPUP_NOTIFY: "res/prefabs/popup/popup_notify",
   LOGIN_SCREEN: "res/prefabs/screen/login_screen",
   PLAY_SCREEN: "res/prefabs/screen/play_screen",
+  HELP_LAYER: "res/prefabs/popup/helpLayer",
 };
 
 export const CLIENT_COMMAN_ID_IP = {

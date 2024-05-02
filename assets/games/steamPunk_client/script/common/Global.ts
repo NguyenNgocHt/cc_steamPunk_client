@@ -15,62 +15,6 @@ export class Global {
     return this._instance;
   }
 
-  FIRST_NAMES = [
-    "John",
-    "Emma",
-    "Michael",
-    "Sophia",
-    "William",
-    "Olivia",
-    "James",
-    "Ava",
-    "Alexander",
-    "Isabella",
-    "Benjamin",
-    "Mia",
-    "Daniel",
-    "Charlotte",
-    "Matthew",
-    "Amelia",
-    "Henry",
-    "Harper",
-    "Andrew",
-    "Evelyn",
-    "Joseph",
-    "Abigail",
-    "David",
-    "Emily",
-    "Samuel",
-    "Elizabeth",
-    "Ethan",
-    "Sofia",
-    "Christopher",
-    "Avery",
-    "Gabriel",
-    "Ella",
-    "Jackson",
-    "Madison",
-    "Sebastian",
-    "Scarlett",
-    "Logan",
-    "Grace",
-    "Lucas",
-    "Chloe",
-    "Jack",
-    "Lily",
-    "Ryan",
-    "Addison",
-    "Nathan",
-    "Natalie",
-    "Carter",
-    "Hannah",
-    "Luke",
-  ];
-
-  getFirstName(): string[] {
-    return this.FIRST_NAMES;
-  }
-
   RandomNumber(minNumber: number, maxNumber: number): number {
     return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
   }

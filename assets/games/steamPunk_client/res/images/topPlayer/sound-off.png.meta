@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.25",
+  "ver": "1.0.26",
   "importer": "image",
   "imported": true,
   "uuid": "12c4bc34-86f7-4c41-ae04-386dfa5184fb",
@@ -118,7 +118,7 @@
         "atlasUuid": "",
         "mipfilter": "nearest"
       },
-      "ver": "1.0.11",
+      "ver": "1.0.12",
       "imported": true,
       "files": [
         ".json"

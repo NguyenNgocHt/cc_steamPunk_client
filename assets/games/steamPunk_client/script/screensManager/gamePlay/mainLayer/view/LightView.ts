@@ -2,6 +2,7 @@ import { UIOpacity } from "cc";
 import { tween } from "cc";
 import { _decorator, Component, Node } from "cc";
 import { LIGHT_GROUP_NAME } from "../../../../common/define";
+import { CCString } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("LightView")
@@ -12,8 +13,8 @@ export class LightView extends Component {
   @property(Node)
   lightOn: Node[] = [];
 
-  @property(String)
-  nameNode: String = "";
+  @property(CCString)
+  nameNode: string = "";
   start() {
     this.turnOffAllLights();
   }

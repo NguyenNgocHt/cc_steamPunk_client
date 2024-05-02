@@ -123,6 +123,7 @@ export default class Utils {
   public static cloneArray<T>(a: T[]): T[] {
     return [...a];
   }
+  
   public static parseUrlData(url: string = null) {
     if (!url) {
       url = window.location.href;
