@@ -31,15 +31,6 @@ export class DataController extends gamePlayController {
     this.initPoolControl();
     this.sendPoolModel();
     this.initSocketIOClient();
-    this.setGameData();
-  }
-
-  setGameData() {
-    let dataDecode = Utils.parseUrlData();
-    if (dataDecode) {
-      this.gameData = Object.assign(dataDecode);
-      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_DATA, this.gameData);
-    }
   }
 
   initPoolControl() {

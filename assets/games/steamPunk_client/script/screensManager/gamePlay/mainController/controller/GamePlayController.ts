@@ -15,12 +15,14 @@ import { landingController } from "../../landing/controller/LandingController";
 import { PlayScreenView } from "../view/PlayScreenView";
 import { BetController } from "../../bets/controller/BetController";
 import { BetData, BetResultsData } from "../../../../dataModel/BetDataType";
-import { IBetResultService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
+import { IBetResultService, IHistoryService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 import { BetResultService } from "../service/BetResultService";
 import { GameLayerController } from "../../mainLayer/controller/GameLayerController";
 import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
 import { SocketIOMock } from "../../../../mock/SocketIOMock";
 import { GameData } from "../../../../common/GameData";
+import { HistoryService } from "../service/HistoryService";
+import { utils } from "cc";
 
 const { ccclass, property } = _decorator;
 
@@ -48,12 +50,21 @@ export class gamePlayController extends BaseScreen {
   _gameInfo: IGameInfo = null;
   _gameData: IGameData = null;
 
-  public betResulService: IBetResultService = null;
-  public betInfoData: BetData = null;
+  betResulService: IBetResultService = null;
+  historyService: IHistoryService = null;
+
+  betInfoData: BetData = null;
   _socketIOInstance: ISocketIOClient = null;
+
+  public dataGame: any = null;
 
   onLoad() {
     this.landingGroup.node.active = true;
+    let dataDecode = Utils.parseUrlData();
+    if (dataDecode) {
+      this.dataGame = Object.assign(dataDecode);
+      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_DATA, this.dataGame);
+    }
   }
 
   start() {
@@ -63,6 +74,8 @@ export class gamePlayController extends BaseScreen {
     this.registerPlayerInfo();
     this.registerGameInfo();
     this.registerGameData();
+    this.registerHistorySevice();
+    this.requestData();
   }
 
   init() {
@@ -71,11 +84,12 @@ export class gamePlayController extends BaseScreen {
     this._gameData = new GameData();
 
     this.betResulService = new BetResultService();
+    this.historyService = new HistoryService();
   }
 
   initSocketIOClient() {
-    // this._socketIOInstance = SocketIoClient.instance;
-    this._socketIOInstance = SocketIOMock.instance;
+    this._socketIOInstance = SocketIoClient.instance;
+    // this._socketIOInstance = SocketIOMock.instance;
   }
 
   registerPlayerInfo() {
@@ -88,6 +102,11 @@ export class gamePlayController extends BaseScreen {
   registerGameData() {
     this._gameData.init();
   }
+
+  registerHistorySevice() {
+    this.historyService.initGameData();
+  }
+
   protected initEventNetwork(socketIOClient: ISocketIOClient) {
     socketIOClient.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this), true);
     socketIOClient.on(SOCKET_EVENT.CONNECT, this.onConnect.bind(this), true);
@@ -139,6 +158,13 @@ export class gamePlayController extends BaseScreen {
 
     this.betControl.changeBetbtnSatus();
     EventBus.dispatchEvent(GAME_EVENT.SEND_BET_RESULT_DATA, betData);
+    this.requestData();
+  }
+
+  async requestData() {
+    this.historyService.getHistory(this.dataGame, (data) => {
+      this.betControl.showHistoryContent(data);
+    });
   }
 
   onLogin(msg) {

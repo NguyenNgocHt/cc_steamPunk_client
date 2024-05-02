@@ -1,6 +1,4 @@
-import { SettingsData } from "../../dataModel/GameInfoDataType";
-
-
-
-
-
+import { HistoryData } from "../../dataModel/HistoryDataType";
+export interface IHistoryContentView {
+  updateHistoryContent(historyData: HistoryData);
+}

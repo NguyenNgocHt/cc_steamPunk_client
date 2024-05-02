@@ -2,12 +2,12 @@
   "ver": "1.1.45",
   "importer": "prefab",
   "imported": true,
-  "uuid": "e9c075da-27b8-4d05-bdab-b710c6c5f93e",
+  "uuid": "4565d79f-4bbd-43ec-b1d5-12208ff1fa89",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "popup_1"
+    "syncNodeName": "popupHistory"
   }
 }

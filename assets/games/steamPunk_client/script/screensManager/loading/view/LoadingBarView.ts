@@ -21,8 +21,6 @@ export class LoadingBarView extends Component implements ILoadingView_loading {
   @property(Label)
   LbCache: Label = null;
 
-  @property(WebView)
-  webView: WebView = null;
   private _loadingControler: ILoadingController = null;
 
   protected _strLoad: string[] = [".", "..", "..."];
@@ -30,7 +28,6 @@ export class LoadingBarView extends Component implements ILoadingView_loading {
   private _timeAnim: number = 0;
   onLoad() {
     console.log("loading view", this.node);
-    console.log("webview node", this.webView);
   }
   init(loadingController: ILoadingController) {
     this._loadingControler = loadingController;

@@ -14,11 +14,20 @@
       "gfx-webgl2": {
         "_value": true
       },
+      "animation": {
+        "_value": true
+      },
+      "skeletal-animation": {
+        "_value": true
+      },
       "3d": {
         "_value": false
       },
       "2d": {
         "_value": true
+      },
+      "xr": {
+        "_value": false
       },
       "ui": {
         "_value": true
@@ -61,6 +70,15 @@
       "profiler": {
         "_value": true
       },
+      "occlusion-query": {
+        "_value": false
+      },
+      "geometry-renderer": {
+        "_value": false
+      },
+      "debug-renderer": {
+        "_value": false
+      },
       "particle-2d": {
         "_value": true
       },
@@ -71,16 +89,25 @@
         "_value": false
       },
       "webview": {
-        "_value": false
+        "_value": true
       },
       "tween": {
         "_value": true
       },
+      "websocket": {
+        "_value": true
+      },
+      "websocket-server": {
+        "_value": false
+      },
       "terrain": {
         "_value": false
       },
+      "light-probe": {
+        "_value": true
+      },
       "tiled-map": {
-        "_value": false
+        "_value": true
       },
       "spine": {
         "_value": true
@@ -91,11 +118,11 @@
       "marionette": {
         "_value": false
       },
-      "animation": {
-        "_value": true
+      "procedural-animation": {
+        "_value": false
       },
-      "skeletal-animation": {
-        "_value": true
+      "custom-pipeline": {
+        "_value": false
       }
     },
     "includeModules": [
@@ -112,9 +139,11 @@
       "profiler",
       "skeletal-animation",
       "spine",
+      "tiled-map",
       "tween",
       "ui",
-      "websocket"
+      "websocket",
+      "webview"
     ],
     "noDeprecatedFeatures": {
       "value": false,

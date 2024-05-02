@@ -61,4 +61,22 @@ export class Global {
     }
     return passwords;
   }
+
+  extractDate(milliSeconds: number): string {
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let date = new Date(milliSeconds);
+    let day = date.getDate();
+    let monthIndex = date.getMonth() + 1;
+    let year = date.getFullYear();
+    return day + "." + monthNames[monthIndex] + "." + year;
+  }
+  
+  extractTime(milliseconds: number): string {
+    let date = new Date(milliseconds);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    return hours + ":" + minutes + ":" + seconds;
+  }
 }

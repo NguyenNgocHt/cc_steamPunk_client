@@ -3,6 +3,7 @@
     "__type__": "cc.SceneAsset",
     "_name": "StartScene",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_native": "",
     "scene": {
       "__id__": 1
@@ -143,6 +144,8 @@
     "_screenScale": 1,
     "_visibility": 1822425087,
     "_targetTexture": null,
+    "_postProcess": null,
+    "_usePostProcess": false,
     "_cameraType": -1,
     "_trackingType": 0,
     "_id": "7dWQTpwS5LrIHnc1zAPUtf"
@@ -290,6 +293,8 @@
     "_screenScale": 1,
     "_visibility": 41943040,
     "_targetTexture": null,
+    "_postProcess": null,
+    "_usePostProcess": false,
     "_cameraType": -1,
     "_trackingType": 0,
     "_id": "61N/C/bCRP37eXpm6taSc5"
@@ -370,7 +375,7 @@
     "node": {
       "__id__": 4
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": null,
     "bundleGameName": "bundle_steamPunkClient",
     "sceneName": "steamPunk_Scene",
@@ -393,8 +398,11 @@
     "octree": {
       "__id__": 16
     },
-    "lightProbeInfo": {
+    "skin": {
       "__id__": 17
+    },
+    "lightProbeInfo": {
+      "__id__": 18
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
@@ -524,6 +532,12 @@
     "_depth": 8
   },
   {
+    "__type__": "cc.SkinInfo",
+    "_enabled": true,
+    "_blurRadius": 0.01,
+    "_sssIntensity": 3
+  },
+  {
     "__type__": "cc.LightProbeInfo",
     "_giScale": 1,
     "_giSamples": 1024,
@@ -532,6 +546,7 @@
     "_showProbe": true,
     "_showWireframe": true,
     "_showConvex": false,
-    "_data": null
+    "_data": null,
+    "_lightProbeSphereVolume": 1
   }
 ]

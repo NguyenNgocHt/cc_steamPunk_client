@@ -51,6 +51,12 @@ export const GAME_EVENT = {
   //menu view
   ON_MENU_ICON: "on menu icon",
   ON_HELP_VIEW: "on help view",
+  //history view
+  ON_HISTORY_BUTTON: "on history button",
+  //PopupHistoryView
+  ON_CLOSE_HISTORY_POPUP: "on close history popup",
+  //helpLayerView
+  ON_CLOSE_HELP_POPUP: "on close help popup",
 };
 export const SOCKET_EVENT = {
   //sys event---------

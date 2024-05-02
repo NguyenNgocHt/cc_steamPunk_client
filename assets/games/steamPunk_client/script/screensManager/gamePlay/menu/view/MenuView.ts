@@ -24,11 +24,14 @@ export class MenuView extends Component {
   stopNode: Node = null;
 
   @property(Node)
-  parrentView: Node = null;
+  parrentHelpNode: Node = null;
 
+  originIndex: number = 0;
+ 
   protected start(): void {
     let startPos = this.startNode.getWorldPosition();
     this.listIcon.setWorldPosition(startPos.x, startPos.y, 0);
+    this.originIndex = this.node.parent.getSiblingIndex();
   }
 
   onClickMenuBtn() {
@@ -56,7 +59,11 @@ export class MenuView extends Component {
   }
 
   showHelpView(helpNode: Node) {
-    this.parrentView.addChild(helpNode);
-    console.log(this.parrentView);
+    this.parrentHelpNode.addChild(helpNode);
+    this.parrentHelpNode.parent.setSiblingIndex(9);
+  }
+
+  setOriginIndex() {
+    this.parrentHelpNode.parent.setSiblingIndex(this.originIndex);
   }
 }

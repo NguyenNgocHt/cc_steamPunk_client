@@ -12,3 +12,9 @@ export interface IBetResultService {
 
   getMultiplierValue(): number;
 }
+
+export interface IHistoryService {
+  initGameData();
+
+  getHistory(gameData: any, callBack: Function);
+}

@@ -20,11 +20,13 @@ export class MenuController extends Component {
   registerEvent() {
     EventBus.on(GAME_EVENT.ON_MENU_ICON, this.setMoveIconList.bind(this));
     EventBus.on(GAME_EVENT.ON_HELP_VIEW, this.showHelpView.bind(this));
+    EventBus.on(GAME_EVENT.ON_CLOSE_HELP_POPUP, this.setOriginIndex.bind(this));
   }
 
   unRegisterEvent() {
     EventBus.off(GAME_EVENT.ON_MENU_ICON, this.setMoveIconList.bind(this));
     EventBus.off(GAME_EVENT.ON_HELP_VIEW, this.showHelpView.bind(this));
+    EventBus.off(GAME_EVENT.ON_CLOSE_HELP_POPUP, this.setOriginIndex.bind(this));
   }
   setMoveIconList() {
     this.countOnClick++;
@@ -45,5 +47,9 @@ export class MenuController extends Component {
         this.menuView.showHelpView(helpViewNode);
       }
     }
+  }
+
+  setOriginIndex() {
+    this.menuView.setOriginIndex();
   }
 }
