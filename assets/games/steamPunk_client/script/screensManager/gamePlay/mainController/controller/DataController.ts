@@ -5,7 +5,6 @@ import { GAME_EVENT, SOCKET_EVENT } from "../../../../network/networkDefine";
 import { BetResultsData } from "../../../../dataModel/BetDataType";
 import { PoolController } from "../../../../common/PoolController";
 import { PendingData, gameData } from "../../../../dataModel/GameInfoDataType";
-import Utils from "../../../../../../../framework/utils/Utils";
 
 const { ccclass, property } = _decorator;
 

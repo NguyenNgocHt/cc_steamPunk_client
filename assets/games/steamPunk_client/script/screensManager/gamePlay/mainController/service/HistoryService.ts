@@ -16,16 +16,11 @@ export class HistoryService implements IHistoryService {
     this._gameData = new GameData();
   }
   async getHistory(gameData: any, callBack: Function) {
-    // let gameData = this._gameData.getGameData();
-    console.log("game data", gameData);
     let dataRequest = {
-      // "StartTime": 1693440000000,
-      // "EndTime": 1693526399999,
       Page: 1,
       Limit: 100,
     };
     let url = `${gameData.server}${gameData.subpath}/history`;
-    console.log("url", url);
     let header = { "X-Token": btoa(JSON.stringify(gameData)) };
     let dataRespone = await HttpClient.instance.post(url, dataRequest, header);
     LogUtil.log("requestData", dataRespone);
@@ -36,6 +31,7 @@ export class HistoryService implements IHistoryService {
       LogUtil.log("requestData err!");
     }
   }
+
   initDataHistory(results: any) {
     let listData = [];
     results.forEach((d) => {
@@ -74,6 +70,7 @@ export class HistoryService implements IHistoryService {
     }
     return this.reverseList(listHistoryData);
   }
+
   reverseList(listData: HistoryData[]): HistoryData[] {
     return listData.reverse();
   }
