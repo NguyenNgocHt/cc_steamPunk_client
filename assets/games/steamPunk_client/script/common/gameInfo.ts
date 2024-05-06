@@ -32,19 +32,14 @@ export default class GameInfo implements IGameInfo {
     console.log("come in game info", data);
     let gameInfo: GameInfoData = null;
     gameInfo = {
-      min_bet: data.min_bet,
-      max_bet: data.max_bet,
-      client_seed: data.client_seed,
-      server_seed_hash: data.server_seed_hash,
-      PayoutRates: data.PayoutRates,
-      server_seed: data.server_seed,
+      balance: data.balance,
+      betlines: data.betlines,
+      currency: data.currency,
       settings: data.settings,
       pending: data.pending,
       denominations: data.denominations,
+      username: data.username,
     };
-    let dataJson = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
-    if (dataJson == null) {
-      sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO, JSON.stringify(gameInfo));
-    }
+    sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO, JSON.stringify(gameInfo));
   }
 }

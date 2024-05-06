@@ -25,6 +25,7 @@ export interface ISpiningAnim {
 }
 
 export interface IGameInfoService {
+  init();
   getGameInfo(): GameInfoData;
   getListDenominations(): number[];
   getListPending(): PendingData;

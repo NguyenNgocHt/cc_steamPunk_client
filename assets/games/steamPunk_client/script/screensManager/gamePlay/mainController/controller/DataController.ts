@@ -12,24 +12,29 @@ const { ccclass, property } = _decorator;
 export class DataController extends gamePlayController {
   @property(PoolController)
   poolControl: PoolController = null;
-  isFreeSpine: boolean = false;
+  isFreeSpin: boolean = false;
   betResultData: BetResultsData = null;
   pendingData: PendingData = null;
   gameData: gameData = null;
   multiplierValue: number = 0;
 
-  isShowFreeSpineAnim: boolean = false;
+  isShowFreeSpinAnim: boolean = false;
 
-  freeSpineValue: number = 0;
+  freeSpinValue: number = 0;
 
   timeDelayOnBetBtn: number = 0;
+
+  selectedNumber: number = 0;
+
+  isAutoPlay: boolean = false;
+
+  // game: IGameLogic;
 
   start() {
     this.init();
     this.registerEvent();
     this.initPoolControl();
     this.sendPoolModel();
-    this.initSocketIOClient();
   }
 
   initPoolControl() {
@@ -39,23 +44,29 @@ export class DataController extends gamePlayController {
   registerEvent() {
     EventBus.on(GAME_EVENT.END_SHOW_LANDING, this.goToGameMain.bind(this));
     EventBus.on(GAME_EVENT.BET_LAYER_TO_UP_END, this.initStartGame.bind(this));
-    EventBus.on(GAME_EVENT.SEND_BET_RESULT_DATA, this.setFreeSpineStatus.bind(this));
+    EventBus.on(GAME_EVENT.SEND_BET_RESULT_DATA, this.setFreeSpinStatus.bind(this));
     EventBus.on(GAME_EVENT.WIN_GAME, this.handleWinGameData.bind(this));
     EventBus.on(GAME_EVENT.UPDATE_MONEY_PLAYER, this.updateMoneyPlayer.bind(this));
-    EventBus.on(GAME_EVENT.BET_DATA, this.sendBet.bind(this));
+    EventBus.on(GAME_EVENT.BET_DATA, this.placeBet.bind(this));
     EventBus.on(GAME_EVENT.PENDING_DATA, this.checkPendingData.bind(this));
     EventBus.on(GAME_EVENT.LOSE_GAME, this.handleLoseGameData.bind(this));
+    EventBus.on(GAME_EVENT.SEND_SELECTED_NUMBER_TO_GAME_CONTROLLER, this.setAutoPlayGame.bind(this));
+    EventBus.on(GAME_EVENT.ERASE_SELECTED_NUMBER, this.stopAutoPlay.bind(this));
+    EventBus.on(GAME_EVENT.ON_CLICK_TUBO_BUTTON, this.setGreenOverlapActive.bind(this));
   }
 
   unRegisterEvent() {
     EventBus.off(GAME_EVENT.END_SHOW_LANDING, this.goToGameMain.bind(this));
     EventBus.off(GAME_EVENT.BET_LAYER_TO_UP_END, this.initStartGame.bind(this));
-    EventBus.off(GAME_EVENT.SEND_BET_RESULT_DATA, this.setFreeSpineStatus.bind(this));
+    EventBus.off(GAME_EVENT.SEND_BET_RESULT_DATA, this.setFreeSpinStatus.bind(this));
     EventBus.off(GAME_EVENT.WIN_GAME, this.handleWinGameData.bind(this));
     EventBus.off(GAME_EVENT.UPDATE_MONEY_PLAYER, this.updateMoneyPlayer.bind(this));
-    EventBus.off(GAME_EVENT.BET_DATA, this.sendBet.bind(this));
+    EventBus.off(GAME_EVENT.BET_DATA, this.placeBet.bind(this));
     EventBus.off(GAME_EVENT.PENDING_DATA, this.checkPendingData.bind(this));
     EventBus.off(GAME_EVENT.LOSE_GAME, this.handleLoseGameData.bind(this));
+    EventBus.off(GAME_EVENT.SEND_SELECTED_NUMBER_TO_GAME_CONTROLLER, this.setAutoPlayGame.bind(this));
+    EventBus.off(GAME_EVENT.ERASE_SELECTED_NUMBER, this.stopAutoPlay.bind(this));
+    EventBus.off(GAME_EVENT.ON_CLICK_TUBO_BUTTON, this.setGreenOverlapActive.bind(this));
   }
 
   sendPoolModel() {
@@ -73,26 +84,26 @@ export class DataController extends gamePlayController {
 
     this.betControl.onStartGame();
 
-    this.checkFreeSpine();
+    this.checkFreeSpin();
   }
 
-  setFreeSpineStatus(data) {
+  setFreeSpinStatus(data) {
     this.betInfoData = data;
     this.betResultData = data.result;
 
     if (this.betResultData.freeSpins > 0) {
-      this.freeSpineValue = this.betResultData.freeSpins;
-      if (!this.isFreeSpine) {
-        this.isFreeSpine = true;
-        this.isShowFreeSpineAnim = true;
+      this.freeSpinValue = this.betResultData.freeSpins;
+      if (!this.isFreeSpin) {
+        this.isFreeSpin = true;
+        this.isShowFreeSpinAnim = true;
         this.timeDelayOnBetBtn = 3;
       }
     } else {
-      this.isFreeSpine = false;
+      this.isFreeSpin = false;
     }
   }
 
-  handleWinGameData(paylineList: any[]) {
+  handleWinGameData(paylineList: any[], timeScale: number) {
     this.betResulService.handleBetResultData(this.betInfoData);
 
     let betResult = this.betResulService.getBetResult();
@@ -105,7 +116,7 @@ export class DataController extends gamePlayController {
 
     this.gameLayerControl.showWinGameBonus(betResult.payout, this.multiplierValue, bonusGroupDestinationNode);
 
-    EventBus.dispatchEvent(GAME_EVENT.SHOW_EFFECT_WIN_GAME, payLines);
+    EventBus.dispatchEvent(GAME_EVENT.SHOW_EFFECT_WIN_GAME, payLines, timeScale);
   }
 
   handleLoseGameData() {
@@ -128,76 +139,161 @@ export class DataController extends gamePlayController {
     this.betControl.setBetBtnToOriginalState();
 
     this.scheduleOnce(function () {
-      this.checkFreeSpine();
+      this.checkFreeSpin();
+      if (this.selectedNumber != 0 && !this.isFreeSpin) {
+        this.checkAutoPlay();
+      }
     }, 0.1);
   }
 
   checkPendingData(pendingData: PendingData) {
     this.pendingData = pendingData;
     if (pendingData.freeSpins > 0) {
-      this.freeSpineValue = pendingData.freeSpins;
-      if (!this.isFreeSpine) {
-        this.isFreeSpine = true;
-        this.isShowFreeSpineAnim = true;
+      this.freeSpinValue = pendingData.freeSpins;
+      if (!this.isFreeSpin) {
+        this.isFreeSpin = true;
+        this.isShowFreeSpinAnim = true;
         this.timeDelayOnBetBtn = 3;
       }
     } else {
-      this.isFreeSpine = false;
+      this.isFreeSpin = false;
     }
   }
 
-  checkFreeSpine() {
-    if (!this.isFreeSpine) {
+  checkFreeSpin() {
+    if (!this.isFreeSpin) {
       return;
     } else {
       tween(this.node)
         .delay(this.timeDelayOnBetBtn)
         .call(() => {
-          if (this.freeSpineValue == 1) {
-            this.freeSpineValue = 0;
+          if (this.freeSpinValue == 1) {
+            this.freeSpinValue = 0;
           }
-          this.sendBetFreeSpine();
+          this.sendBetFreeSpin();
           this.setOnClickBet();
-          this.showFreeSpineValue();
+          this.showFreeSpinValue();
           this.timeDelayOnBetBtn = 0.5;
         })
         .start();
 
-      this.showFreeSpineAnim();
+      this.showFreeSpinAnim();
     }
   }
 
-  sendBetFreeSpine() {
+  sendBetFreeSpin() {
     let dataBet = { info: { stake: 0 } };
-    this._socketIOInstance.emit(SOCKET_EVENT.BET, dataBet);
+    this.placeBet(dataBet);
   }
 
   setOnClickBet() {
     this.betControl.changeBetbtnSatus();
   }
 
-  showFreeSpineValue() {
-    this.betControl.showFreeSpineValue(this.freeSpineValue);
+  setOnClickBetBtn() {
+    this.betControl.onClickBetBtn();
   }
 
-  showFreeSpineAnim() {
-    if (!this.isShowFreeSpineAnim) {
+  showFreeSpinValue() {
+    this.betControl.showFreeSpinValue(this.freeSpinValue);
+  }
+
+  showFreeSpinAnim() {
+    if (!this.isShowFreeSpinAnim) {
       return;
     } else {
-      this.gameLayerControl.showFreeSpineAnim();
-      this.betControl.showTextWinFreeSpine();
+      this.gameLayerControl.showFreeSpinAnim();
+      this.betControl.showTextWinFreeSpin();
       setTimeout(() => {
-        this.showFreeSpineValue();
+        this.showFreeSpinValue();
       }, 2000);
-      this.isShowFreeSpineAnim = false;
+      this.isShowFreeSpinAnim = false;
     }
   }
 
-  sendBet(data) {
-    if (!this.isFreeSpine) {
-      this._socketIOInstance.emit(SOCKET_EVENT.BET, data);
+  placeBet(data) {
+    EventBus.dispatchEvent(GAME_EVENT.ON_PLACE_BET, data);
+  }
+
+  setAutoPlayGame(selectedNumber: number) {
+    this.selectedNumber = selectedNumber;
+    this.isAutoPlay = true;
+    this.setOnClickBetBtn();
+    this.betControl.onAutoPlay();
+  }
+
+  checkAutoPlay() {
+    this.downSelectedNUmber();
+    if (this.isAutoPlay) {
+      this.setOnClickBetBtn();
     } else {
       return;
+    }
+  }
+
+  downSelectedNUmber() {
+    this.selectedNumber -= 1;
+    if (this.selectedNumber == 0) {
+      this.isAutoPlay = false;
+      EventBus.dispatchEvent(GAME_EVENT.END_AUTO_PLAY);
+      this.betControl.offAutoPlay();
+    }
+  }
+
+  stopAutoPlay() {
+    this.selectedNumber = 0;
+    this.isAutoPlay = false;
+    this.betControl.offAutoPlay();
+  }
+
+  setGreenOverlapActive(valueIndex: number) {
+    if (valueIndex == 0) {
+      this.gameLayerControl.setGreenOverlapActive(false);
+    } else if (valueIndex == 1) {
+      this.gameLayerControl.setGreenOverlapActive(true);
     }
   }
 }
+
+// type PlaceBetResponse = {};
+
+// interface IGameLogic {
+//   placeBet(data: any): PlaceBetResponse;
+// }
+
+// class DefaultGameLogic implements IGameLogic {
+//   _socketIOInstance: ISocketIOClient = null;
+
+//   constructor() {
+//     EventBus.on("placebet", this.onPlaceBet);
+
+//     this._socketIOInstance.on(SOCKET_EVENT.BET, this.onPlaceBetResponseHandle.bind(this), true);
+//   }
+
+//   onPlaceBetResponseHandle(msg: any) {
+
+//   }
+
+//   //virtual
+//   onPlaceBet(data: any): void {
+//     this._socketIOInstance.emit(SOCKET_EVENT.BET, data);
+//   }
+
+//   placeBet(data: any): PlaceBetResponse {
+//     throw new Error("Method not implemented.");
+//   }
+// }
+
+// class MockGameLogic extends DefaultGameLogic {
+//   onPlaceBet(data: any): void {
+//     //construct bet result
+
+//     this.onPlaceBetResponseHandle(null);
+//   }
+// }
+
+// class MockGameLogic implements IGameLogic {
+//   placeBet(data: any): PlaceBetResponse {
+//     throw new Error("Method not implemented.");
+//   }
+// }

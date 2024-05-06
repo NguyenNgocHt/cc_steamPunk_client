@@ -44,30 +44,31 @@ export class EffectLayerController extends Component {
     this.effectLayerView.showLineSelectView(totalLines);
   }
 
-  setEffectWhenOnClickBetBnt() {
+  setEffectWhenOnClickBetBnt(timeScale: number) {
     this.offAllLine();
-    this.onSpinEffectV1();
+
+    this.onSpinEffectV1(timeScale);
   }
 
   offAllLine() {
     this.effectLayerView.offAllLines();
   }
-  setSpinEffectStop() {
-    this.effectLayerView.onSpinEffectV2();
+
+  setSpinEffectStop(timeScale: number) {
+    this.effectLayerView.onSpinEffectV2(timeScale);
   }
-  onSpinEffectV1() {
+
+  onSpinEffectV1(timeScale: number) {
     this.scheduleOnce(function () {
       this.effectLayerView.onSpinEffectV1();
-    }, 0.75);
+    }, 0.75 / timeScale);
   }
 
-  onSpinEffectV2() {}
-
-  setEffectWinGame(payLineList: any[]) {
+  setEffectWinGame(payLineList: any[], timeScale: number) {
     for (let i = 0; i < payLineList.length; i++) {
       let payline = payLineList[i] as PayLinesDaTa;
       if (payline) {
-        this.effectLayerView.onEffectWinGame(payline.payline);
+        this.effectLayerView.onEffectWinGame(payline.payline, timeScale);
       }
     }
   }

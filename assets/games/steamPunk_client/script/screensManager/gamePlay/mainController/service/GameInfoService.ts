@@ -6,6 +6,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass("GameInfoService")
 export class GameInfoService implements IGameInfoService {
+  init() {}
+
   getGameInfo(): GameInfoData {
     return JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.GAME_INFO));
   }

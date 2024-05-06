@@ -22,7 +22,6 @@ export class LineSelectView extends Component {
   }
 
   offAllLines() {
-    console.log("off all lines");
     for (let i = 0; i < this.lineSelectGroup.length; i++) {
       this.lineSelectGroup[i].active = false;
     }
@@ -34,15 +33,16 @@ export class LineSelectView extends Component {
       if (i < TotalLines) {
         if (this.linesShowStatus[i] != 1) {
           this.linesShowStatus[i] = 1;
-          console.log("linesShowStatus add", this.linesShowStatus);
           this.lineSelectGroup[i].active = true;
+
           this.lineSelectGroup[i].setOpacity(0);
+
           this.setUpOpacityForLines(this.lineSelectGroup[i]);
         }
       } else {
         if (this.lineSelectGroup[i].getOpacity() == 255) {
           this.linesShowStatus[i] = 0;
-          console.log("linesShowStatus sub", this.linesShowStatus);
+
           this.setDownOpacityForLines(this.lineSelectGroup[i]);
         }
       }
@@ -51,11 +51,13 @@ export class LineSelectView extends Component {
 
   setUpOpacityForLines(lineNode: Node) {
     let opacityLine = lineNode.getComponent(UIOpacity);
+
     tween(opacityLine).to(0.3, { opacity: 255 }).start();
   }
 
   setDownOpacityForLines(lineNode: Node) {
     let opacityLine = lineNode.getComponent(UIOpacity);
+
     tween(opacityLine)
       .to(0.2, { opacity: 0 })
       .call(() => {

@@ -1,4 +1,4 @@
-import { BetResultsData } from "../../dataModel/BetDataType";
+import { BetResultsData, Results } from "../../dataModel/BetDataType";
 import { paylineConvert } from "../../dataModel/BetDataType";
 
 export interface IGearView {

@@ -25,13 +25,17 @@ export class GearView extends Component {
   onSpinAnimGear() {
     this.GearBig.node.active = true;
     this.GearSmall.node.active = true;
+
     this.GearBig.spinningStart();
+
     this.GearSmall.spinningStart();
   }
 
   offSpinAnimGear() {
     this.GearBig.spinningStop();
+
     this.GearSmall.spinningStop();
+
     this.GearBig.node.active = false;
     this.GearSmall.node.active = false;
   }
@@ -46,7 +50,9 @@ export class GearView extends Component {
 
   onLightStart() {
     this.lightStart.active = true;
+
     this.lightStart.setScale(0, 0, 0);
+
     tween(this.lightStart)
       .to(0.5, { scale: new Vec3(2, 2, 2) })
       .start();
@@ -54,6 +60,7 @@ export class GearView extends Component {
 
   offLightStart() {
     this.lightStart.setScale(0, 0, 0);
+
     this.lightStart.active = false;
   }
 }

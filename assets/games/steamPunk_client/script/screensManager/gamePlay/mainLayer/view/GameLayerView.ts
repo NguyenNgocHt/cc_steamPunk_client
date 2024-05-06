@@ -6,7 +6,7 @@ const { ccclass, property } = _decorator;
 @ccclass("GameLayerView")
 export class GameLayerView extends Component {
   @property(JackpotAnimView)
-  freeSpineAnimView: JackpotAnimView = null;
+  freeSpinAnimView: JackpotAnimView = null;
 
   @property(JackpotAnimView)
   jackpotAnimView: JackpotAnimView = null;
@@ -19,6 +19,9 @@ export class GameLayerView extends Component {
 
   @property(Node)
   destinationUp: Node = null;
+
+  @property(Node)
+  greenOverlap: Node = null;
 
   duration: number = 2;
 
@@ -41,11 +44,15 @@ export class GameLayerView extends Component {
       .start();
   }
 
-  showFreeSpineAnim() {
-    this.freeSpineAnimView.startJackpotAnim();
+  showFreeSpinAnim() {
+    this.freeSpinAnimView.startJackpotAnim();
   }
 
   showJackpotAnim() {
     this.jackpotAnimView.startJackpotAnim();
+  }
+
+  setGreenOverlapActive(active: boolean) {
+    this.greenOverlap.active = active;
   }
 }

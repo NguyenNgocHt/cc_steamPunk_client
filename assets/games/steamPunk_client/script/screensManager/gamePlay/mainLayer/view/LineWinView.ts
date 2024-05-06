@@ -24,15 +24,17 @@ export class LineWinView extends Component {
     }
   }
 
-  onEffect(effectIndex: number) {
+  onEffect(effectIndex: number, timeScale: number) {
     for (let i = 0; i < this.lineWin.length; i++) {
       if (i == effectIndex - 1) {
         this.lineWin[i].node.active = true;
         this.lineWin[i].setAnimation(0, "Sprite", false);
+        this.lineWin[i].timeScale = timeScale;
         this.scheduleOnce(function () {
           this.lineWin[i].node.active = true;
           this.lineWin[i].setAnimation(0, "Sprite", false);
-        }, 0.6);
+          this.lineWin[i].timeScale = timeScale;
+        }, 0.6 / timeScale);
       }
     }
   }

@@ -29,9 +29,9 @@ export class BtnBetGroupView extends Component {
   btnBetNetural: SpriteFrame = null;
 
   @property(Node)
-  winFreeSpine: Node = null;
+  winFreeSpin: Node = null;
   @property(Label)
-  lbFreeSpine: Label = null;
+  lbFreeSpin: Label = null;
 
   @property(sp.Skeleton)
   animBetPress: sp.Skeleton = null;
@@ -42,7 +42,8 @@ export class BtnBetGroupView extends Component {
 
   isPressButton: boolean = false;
   originPosNodeUnion: Vec3 = new Vec3(0, 0, 0);
-  freeSpineValue: number = 0;
+  freeSpinValue: number = 0;
+  timeScale: number = 1;
 
   start() {
     this.init();
@@ -55,8 +56,8 @@ export class BtnBetGroupView extends Component {
   }
 
   initNode() {
-    this.winFreeSpine.active = false;
-    this.lbFreeSpine.node.active = false;
+    this.winFreeSpin.active = false;
+    this.lbFreeSpin.node.active = false;
   }
 
   initAnim() {
@@ -116,6 +117,7 @@ export class BtnBetGroupView extends Component {
     this.animBetPress.node.active = true;
 
     this.animBetPress.setAnimation(0, "Sprite", false);
+
     Tween.stopAllByTarget(this.node);
     tween(this.node)
       .delay(0.1)
@@ -129,8 +131,18 @@ export class BtnBetGroupView extends Component {
       .start();
 
     this.union.node.worldPosition = new Vec3(posUnion.x, 125, 0);
+
     this.startSpinSmallGear();
+
     this.bigGear.changeTimeLoopSpinning(2);
+  }
+
+  changeTimeLoopSpiningBigGrear(timeLoop: number) {
+    this.bigGear.changeTimeLoopSpinning(timeLoop);
+  }
+
+  setTimeScale(timeScale: number) {
+    this.timeScale = timeScale;
   }
 
   changeBetBtnWhenNetural() {
@@ -156,36 +168,36 @@ export class BtnBetGroupView extends Component {
   onBetTouchEnd(event: EventTouch) {}
 
   sendActionToBetControl() {
-    EventBus.dispatchEvent(GAME_EVENT.ON_CLICK_BET_BUTTON);
+    EventBus.dispatchEvent(GAME_EVENT.ON_CLICK_BET_BUTTON, this.timeScale);
   }
 
-  showTextWinFreeSpine() {
-    this.winFreeSpine.active = true;
+  showTextWinFreeSpin() {
+    this.winFreeSpin.active = true;
     setTimeout(() => {
-      this.winFreeSpine.active = false;
+      this.winFreeSpin.active = false;
     }, 2000);
   }
 
-  showFreeSpineValue(value: number) {
-    this.freeSpineValue = value;
+  showFreeSpinValue(value: number) {
+    this.freeSpinValue = value;
     this.setEffectNode(value);
   }
 
   setEffectNode(value: number) {
-    tween(this.lbFreeSpine.node)
+    tween(this.lbFreeSpin.node)
       .to(0.1, { scale: new Vec3(1.3, 1.3, 1.3) }, { easing: "backInOut" })
       .call(() => {
-        this.lbFreeSpine.node.active = true;
-        this.lbFreeSpine.string = value.toString();
+        this.lbFreeSpin.node.active = true;
+        this.lbFreeSpin.string = value.toString();
       })
       .to(0.5, { scale: new Vec3(1, 1, 1) }, { easing: "backOut" })
       .start();
   }
 
   checkFreeSpineValue() {
-    if (this.freeSpineValue == 0) {
-      this.lbFreeSpine.string = "";
-      this.lbFreeSpine.node.active = false;
+    if (this.freeSpinValue == 0) {
+      this.lbFreeSpin.string = "";
+      this.lbFreeSpin.node.active = false;
     }
   }
 }

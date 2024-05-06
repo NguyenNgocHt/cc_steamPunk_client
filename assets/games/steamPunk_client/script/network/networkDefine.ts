@@ -15,6 +15,11 @@ export const GAME_EVENT = {
   SEND_GAME_DATA: "send game data",
   SEND_BET_RESULT_DATA: "send bet result data",
   PENDING_DATA: "pending data",
+
+  //defaultGameLogicController
+  SEND_BET_RESULT_DATA_TO_GAME_CONTROLLER: "send bet result data to game controller",
+  SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER: "send game info data to game controller",
+  ON_PLACE_BET: "on place bet",
   //game info
   SEND_TO_GAME_INFO: "send to game info",
   //landingGroup
@@ -44,10 +49,12 @@ export const GAME_EVENT = {
   //data Controller
   SHOW_EFFECT_WIN_GAME: "show effect win game",
   SEND_POOL_MODEL: "send pool model",
+  END_AUTO_PLAY: "end auto play",
   //win game bonus view
   UPDATE_MONEY_PLAYER: " update money player",
   //bet controller
   BET_DATA: "bet data",
+
   //menu view
   ON_MENU_ICON: "on menu icon",
   ON_HELP_VIEW: "on help view",
@@ -57,6 +64,19 @@ export const GAME_EVENT = {
   ON_CLOSE_HISTORY_POPUP: "on close history popup",
   //helpLayerView
   ON_CLOSE_HELP_POPUP: "on close help popup",
+  //autoPlayView
+  ON_CLICK_AUTO_PLAY: "on click auto play",
+  //autoPlayStPopup
+  ON_CLICK_CLOSE_AUTO_PLAY_POPUP: "on click close",
+  SELECTED_NUMBER: " selectd number",
+  ON_CLICK_CANCEL: "click cancel",
+  ON_CLICK_CONFIRM: "click confirm",
+  ON_CLICK_STOP: "click stop",
+  SEND_SELECTED_NUMBER_TO_GAME_CONTROLLER: "send selected number to game controller",
+  ERASE_SELECTED_NUMBER: "erase selected number",
+
+  //tubo view
+  ON_CLICK_TUBO_BUTTON: "on click tubo button",
 };
 export const SOCKET_EVENT = {
   //sys event---------

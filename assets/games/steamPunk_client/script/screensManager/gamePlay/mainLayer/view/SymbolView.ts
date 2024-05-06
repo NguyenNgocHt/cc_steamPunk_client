@@ -49,10 +49,15 @@ export class SymbolView extends Component {
 
   start() {
     this.setInitState();
-    this.symbolAnim.getComponent(sp.Skeleton).setCompleteListener(() => {
-      this.symbolAnim.active = false;
-      this.isShowAnim = false;
-    });
+    let skeleton = this.symbolAnim.getComponent(sp.Skeleton);
+    if (skeleton) {
+      skeleton.setCompleteListener(() => {
+        skeleton.clearTracks();
+        skeleton.setToSetupPose();
+        this.symbolAnim.active = false;
+        this.isShowAnim = false;
+      });
+    }
   }
 
   setInitState() {
@@ -93,20 +98,26 @@ export class SymbolView extends Component {
   }
 
   setAnimStatus(status: boolean) {
+    if (status) {
+      console.log("symbol pos status", this.rowIndex, this.columnIndex, status);
+    }
     this.isShowAnim = status;
   }
 
-  spin(loopIndex: number) {
-    let timeMove_startSpinning = 1;
+  spinning(loopIndex: number, timeScale: number) {
+    let timeMove_startSpinning = 1 / timeScale;
+    let timeMove_spinning = 0.06 / timeScale;
+    let timeMove_stopSpinning = 0.5 / timeScale;
     let timeDelay: number = 0;
     let downIndex = -1;
     let posStart = this.node.getWorldPosition();
+
     if (this.columnIndex == 0) {
-      timeDelay = this.timeDelayRow1;
+      timeDelay = this.timeDelayRow1 / timeScale;
     } else if (this.columnIndex == 1) {
-      timeDelay = this.timeDelayRow2;
+      timeDelay = this.timeDelayRow2 / timeScale;
     } else if (this.columnIndex == 2) {
-      timeDelay = this.timeDelayRow3;
+      timeDelay = this.timeDelayRow3 / timeScale;
     }
 
     let action_startSpinning = () => {
@@ -114,8 +125,8 @@ export class SymbolView extends Component {
         .by(timeMove_startSpinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) }, { easing: "backInOut" })
         .start();
     };
+
     let action_spinning = () => {
-      let timeMove_spinning = 0.06;
       tween(this.node)
         .by(timeMove_spinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) })
         .call(() => {
@@ -131,10 +142,10 @@ export class SymbolView extends Component {
         .repeat(loopIndex)
         .start();
     };
+
     let action_stopSpining = () => {
-      let timeMove_spinning = 0.5;
       tween(this.node)
-        .by(timeMove_spinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) }, { easing: "elasticOut" })
+        .by(timeMove_stopSpinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) }, { easing: "elasticOut" })
         .call(() => {
           let currentPos = this.node.getWorldPosition();
           if (currentPos.y <= this.positionYBottom) {
@@ -143,27 +154,28 @@ export class SymbolView extends Component {
         })
         .start();
     };
+
     tween(this.node)
       .delay(timeDelay)
       .call(action_startSpinning)
-      .delay(0.5)
+      .delay(0.5 / timeScale)
       .call(action_spinning)
-      .delay(0.4)
+      .delay(0.4 / timeScale)
       .call(() => {
         if (this.rowIndex == 11 && this.columnIndex == 2) {
-          EventBus.dispatchEvent(GAME_EVENT.ON_SPIN_EFFECT_VER2);
+          EventBus.dispatchEvent(GAME_EVENT.ON_SPIN_EFFECT_VER2, timeScale);
         }
       })
-      .delay(0.89)
+      .delay(0.89 / timeScale)
       .call(action_stopSpining)
-      .delay(0.2)
+      .delay(0.2 / timeScale)
       .call(() => {
         if (this.rowIndex == 11 && this.columnIndex == 2) {
-          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex, timeScale);
         } else if (this.rowIndex == 11 && this.columnIndex == 1) {
-          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex, timeScale);
         } else if (this.rowIndex == 11 && this.columnIndex == 0) {
-          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex);
+          EventBus.dispatchEvent(GAME_EVENT.SPINING_STOP, this.columnIndex, timeScale);
         }
       })
       .start();
@@ -195,6 +207,7 @@ export class SymbolView extends Component {
     let skeletonNode = this.symbolAnim.getComponent(sp.Skeleton);
 
     skeletonNode.skeletonData = this.AnimJsonDataList[this.symbolIndex - 1];
+
     if (this.symbolIndex == 6) {
       skeletonNode.setAnimation(0, "Girl-Nice", true);
     } else {
@@ -211,6 +224,7 @@ export class SymbolView extends Component {
 
   showAnimWin() {
     if (this.isShowAnim) {
+      console.log("symbol pos", this.rowIndex, this.columnIndex);
       this.symbolAnim.active = true;
       if (this.symbolIndex == 6) {
         this.symbolAnim.getComponent(sp.Skeleton).setAnimation(0, "Girl-Nice", false);

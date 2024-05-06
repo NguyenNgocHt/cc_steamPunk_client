@@ -304,7 +304,7 @@ export class BetResultsServiceMock implements IBetResultsServiceMock {
 
   getNumberBasedOnProbability(): number {
     const randomNumber = Math.random() * 100;
-    if (randomNumber < 30) {
+    if (randomNumber == 1) {
       return Global.instance.RandomNumber(5, 15);
     } else {
       return 0;

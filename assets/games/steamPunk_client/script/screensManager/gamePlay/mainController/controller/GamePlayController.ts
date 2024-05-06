@@ -2,9 +2,7 @@ import { GameInfoData, PendingData } from "./../../../../dataModel/GameInfoDataT
 import { _decorator } from "cc";
 import BaseScreen from "../../../../../../../framework/ui/BaseScreen";
 import Utils from "../../../../../../../framework/utils/Utils";
-import { LogUtil } from "../../../../../../../framework/utils/LogUtil";
-import { SocketIoClient } from "../../../../../../../framework/network/SocketIoClient";
-import { GAME_EVENT, SOCKET_EVENT } from "../../../../network/networkDefine";
+import { GAME_EVENT } from "../../../../network/networkDefine";
 import { PlayerController } from "../../player/controller/PlayerController";
 import GameInfo from "../../../../common/GameInfo";
 import { playerInfo } from "../../../../dataModel/PlayerDataType";
@@ -15,14 +13,13 @@ import { landingController } from "../../landing/controller/LandingController";
 import { PlayScreenView } from "../view/PlayScreenView";
 import { BetController } from "../../bets/controller/BetController";
 import { BetData, BetResultsData } from "../../../../dataModel/BetDataType";
-import { IBetResultService, IHistoryService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
+import { IBetResultService, IGameLogicController, IHistoryService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 import { BetResultService } from "../service/BetResultService";
 import { GameLayerController } from "../../mainLayer/controller/GameLayerController";
 import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
-import { SocketIOMock } from "../../../../mock/SocketIOMock";
 import { GameData } from "../../../../common/GameData";
 import { HistoryService } from "../service/HistoryService";
-import { utils } from "cc";
+import { MockGameLogicController } from "./MockGameLogicController";
 
 const { ccclass, property } = _decorator;
 
@@ -56,6 +53,8 @@ export class gamePlayController extends BaseScreen {
   betInfoData: BetData = null;
   _socketIOInstance: ISocketIOClient = null;
 
+  defaultGameLogicController: IGameLogicController = null;
+
   public dataGame: any = null;
 
   onLoad() {
@@ -68,13 +67,13 @@ export class gamePlayController extends BaseScreen {
   }
 
   start() {
+    this.registerEventGame();
     this.init();
-    this.initSocketIOClient();
-    this.connectServer();
     this.registerPlayerInfo();
     this.registerGameInfo();
     this.registerGameData();
     this.registerHistorySevice();
+    this.initGameLogicController();
     this.requestData();
   }
 
@@ -85,11 +84,8 @@ export class gamePlayController extends BaseScreen {
 
     this.betResulService = new BetResultService();
     this.historyService = new HistoryService();
-  }
-
-  initSocketIOClient() {
-    this._socketIOInstance = SocketIoClient.instance;
-    // this._socketIOInstance = SocketIOMock.instance;
+    // this.defaultGameLogicController = new DefaultGameLogicController();
+    this.defaultGameLogicController = new MockGameLogicController();
   }
 
   registerPlayerInfo() {
@@ -107,44 +103,16 @@ export class gamePlayController extends BaseScreen {
     this.historyService.initGameData();
   }
 
-  protected initEventNetwork(socketIOClient: ISocketIOClient) {
-    socketIOClient.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.CONNECT, this.onConnect.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.DISCONNECT, this.ondisconnect.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.CONNECT_ERROR, this.onConnectError.bind(this), true);
-
-    socketIOClient.on(SOCKET_EVENT.UPDATE_COIN, this.onUpdateCoin.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.BALANCE, this.onUpdateBalance.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.GAME_INFO, this.onGameInfo.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this), true);
-    socketIOClient.on(SOCKET_EVENT.BET, this.onBetHandler.bind(this), true);
+  initGameLogicController() {
+    this.defaultGameLogicController.initGameStart();
   }
 
-  protected connectServer() {
-    let auth = this.getAuthLogin(window.location.href);
-    if (!auth || !auth.server) {
-      LogUtil.log("Server not found!");
-      return;
-    }
-
-    this._socketIOInstance.connectServer(auth.server, { auth: auth, path: auth.subpath });
-    this.initEventNetwork(this._socketIOInstance);
-    if (auth) {
-      console.log("auth", auth);
-    }
+  registerEventGame() {
+    EventBus.on(GAME_EVENT.SEND_BET_RESULT_DATA_TO_GAME_CONTROLLER, this.placeBetResponseHandle.bind(this));
+    EventBus.on(GAME_EVENT.SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER, this.setGameInfo.bind(this));
   }
 
-  protected getAuthLogin(url_string: string) {
-    let dataDecode = Utils.parseUrlData(url_string);
-    if (!dataDecode) {
-      return;
-    }
-    LogUtil.ENV = dataDecode.env;
-    return dataDecode;
-  }
-
-  onBetHandler(msg) {
-    console.log("msg bet", msg);
+  placeBetResponseHandle(msg) {
     let betData: BetData = null;
     betData = msg as BetData;
     this.betInfoData = betData;
@@ -158,6 +126,7 @@ export class gamePlayController extends BaseScreen {
 
     this.betControl.changeBetbtnSatus();
     EventBus.dispatchEvent(GAME_EVENT.SEND_BET_RESULT_DATA, betData);
+
     this.requestData();
   }
 
@@ -171,7 +140,7 @@ export class gamePlayController extends BaseScreen {
     console.log("come in onLogin", msg);
   }
 
-  onGameInfo(data) {
+  setGameInfo(data) {
     console.log("game data", data);
     this.gameInfoData = data as GameInfoData;
     let pendingData = this.gameInfoData.pending as PendingData;

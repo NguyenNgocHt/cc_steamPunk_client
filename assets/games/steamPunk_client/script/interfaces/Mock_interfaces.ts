@@ -1,5 +1,8 @@
+import GameInfo from "../common/GameInfo";
+import { GameInfoData } from "../dataModel/GameInfoDataType";
 import { GameInfoMock } from "../dataModel/MockConfigData";
 import { betResultMock } from "../dataModel/MockConfigData";
+import { IGameInfo } from "./Common_interfaces";
 
 export interface ISocketIOClient {
   on(socketEvent: string, callbackData: Function, isOff: boolean);
@@ -11,7 +14,7 @@ export interface IConnectSeverServiceMock {}
 
 export interface IGameInfoServiceMock {
   init();
-  getGameInfo(): GameInfoMock;
+  getGameInfo(): GameInfoData;
 }
 
 export interface IBetResultsServiceMock {

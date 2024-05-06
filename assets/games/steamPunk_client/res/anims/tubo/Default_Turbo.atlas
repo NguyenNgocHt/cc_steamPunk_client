@@ -1,0 +1,90 @@
+
+Default_Turbo.png
+size: 1024,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Gear-Big
+  rotate: false
+  xy: 814, 196
+  size: 188, 193
+  orig: 188, 193
+  offset: 0, 0
+  index: -1
+Layer-9
+  rotate: false
+  xy: 1, 1
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-8
+  rotate: false
+  xy: 1, 533
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-7
+  rotate: false
+  xy: 543, 533
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-6
+  rotate: false
+  xy: 1, 799
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-5
+  rotate: false
+  xy: 272, 1
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-4
+  rotate: false
+  xy: 272, 267
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-3
+  rotate: false
+  xy: 1, 267
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-2
+  rotate: false
+  xy: 543, 267
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-10
+  rotate: false
+  xy: 543, 1
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Layer-1
+  rotate: false
+  xy: 272, 533
+  size: 269, 264
+  orig: 269, 264
+  offset: 0, 0
+  index: -1
+Gear-Small
+  rotate: false
+  xy: 814, 1
+  size: 188, 193
+  orig: 188, 193
+  offset: 0, 0
+  index: -1

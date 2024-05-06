@@ -1,13 +1,11 @@
 export type GameInfoData = {
-  min_bet: number;
-  max_bet: number;
-  client_seed: string;
-  server_seed_hash: string;
-  PayoutRates: number[];
-  server_seed: string;
-  settings?: any;
+  balance: number;
+  betlines: number;
+  currency: string;
   pending?: any;
+  settings?: any;
   denominations?: number[];
+  username: string;
 };
 export type PendingData = {
   freeSpins: number;

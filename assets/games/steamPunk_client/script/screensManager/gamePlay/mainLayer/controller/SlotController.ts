@@ -1,10 +1,10 @@
 import { PaylinesService } from "./../service/PaylinesService";
 import { _decorator, Component, Node } from "cc";
-import { SlotView } from "../view/SlotView";
+import { SymbolGroupController } from "../controller/SymbolGroupController";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 import { PoolController } from "../../../../common/PoolController";
-import { BetResultsData, NewBetResultList } from "../../../../dataModel/BetDataType";
+import { BetResultsData, NewBetResultList, Results } from "../../../../dataModel/BetDataType";
 import { IPaylinesService, ISymbolService } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
 import { SymbolService } from "../service/SymbolService";
 enum WIN_LOSE_STATE {
@@ -16,8 +16,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass("SlotController")
 export class SlotController extends Component {
-  @property(SlotView)
-  slotView: SlotView = null;
+  @property(SymbolGroupController)
+  symbolGroupController: SymbolGroupController = null;
 
   symbolIndexList: number[][] = [];
   newSymbolIndexList: number[][] = [];
@@ -49,7 +49,7 @@ export class SlotController extends Component {
 
   unRegisterEvent() {
     EventBus.off(GAME_EVENT.SPINING_STOP, this.resetAllSymbolGroup.bind(this));
-    EventBus.on(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP, this.setWinLoseGame.bind(this));
+    EventBus.off(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP, this.setWinLoseGame.bind(this));
   }
 
   initSymbolGroup(poolControl: PoolController) {
@@ -57,7 +57,7 @@ export class SlotController extends Component {
 
     this.symbolIndexList = this._symbolService.generateRandomSymbolList();
 
-    this.slotView.initSlotGroup(this.symbolIndexList, poolControler);
+    this.symbolGroupController.initSlotGroup(this.symbolIndexList, poolControler);
   }
 
   getBetResult(betResult: BetResultsData) {
@@ -76,7 +76,7 @@ export class SlotController extends Component {
 
     this.newSymbolIndexList = this._symbolService.changeNewSymbolIndexList(this.symbolIndexList, newList);
 
-    this.slotView.changeSymbolsIndex(this.newSymbolIndexList);
+    this.symbolGroupController.changeSymbolsIndex(this.newSymbolIndexList);
 
     this.checkPaylinesData(betResult);
   }
@@ -92,19 +92,20 @@ export class SlotController extends Component {
       let paylinesConvertList = this._paylinesService.getPaylineData(this.paylineList);
 
       for (let i = 0; i < paylinesConvertList.length; i++) {
-        this.slotView.updateResultsPaylines(paylinesConvertList[i]);
+        this.symbolGroupController.updateResultsPaylines(paylinesConvertList[i]);
       }
     }
   }
 
-  resetAllSymbolGroup(columnIndex: number) {
-    this.slotView.resetAllSymbolGroup(columnIndex);
+  resetAllSymbolGroup(columnIndex: number, timeScale: number) {
+    this.symbolGroupController.resetAllSymbolGroup(columnIndex, timeScale);
   }
-  setWinLoseGame() {
-    if (this.winLoseGameStatus == WIN_LOSE_STATE.WIN_GAME) {
-      EventBus.dispatchEvent(GAME_EVENT.WIN_GAME, this.paylineList);
 
-      this.slotView.onAnimWinGameInSymbol();
+  setWinLoseGame(timeScale: number) {
+    if (this.winLoseGameStatus == WIN_LOSE_STATE.WIN_GAME) {
+      EventBus.dispatchEvent(GAME_EVENT.WIN_GAME, this.paylineList, timeScale);
+
+      this.symbolGroupController.onAnimWinGameInSymbol();
     } else if (this.winLoseGameStatus == WIN_LOSE_STATE.LOSE_GAME) {
       EventBus.dispatchEvent(GAME_EVENT.LOSE_GAME);
     }

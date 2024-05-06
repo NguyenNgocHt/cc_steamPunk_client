@@ -65,10 +65,14 @@ export class EffectLayerView extends Component {
 
   openingEnding() {
     this.onLamp_leftRight();
+
     this.onLightStart();
+
     this.scheduleOnce(function () {
       this.offLightStart();
+
       this.onSpinGear();
+
       this.onLightContinuously();
     }, 0.5);
   }
@@ -77,11 +81,13 @@ export class EffectLayerView extends Component {
 
   offLamp_leftRight() {
     this.lampLeft.offLamp();
+
     this.lampRight.offLamp();
   }
 
   onLamp_leftRight() {
     this.lampLeft.onLamp();
+
     this.lampRight.onLamp();
   }
 
@@ -124,27 +130,36 @@ export class EffectLayerView extends Component {
 
   onLightContinuously() {
     this.lightLeftView.turnsOnLightContinuously();
+
     this.lightRightView.turnsOnLightContinuously();
   }
 
-  onEffectWinGame(effectIndex: number) {
-    this.lineWinView.onEffect(effectIndex);
-    this.lightLeftView.onLight(effectIndex, 1.0);
-    this.lightRightView.onLight(effectIndex, 1.0);
+  onEffectWinGame(effectIndex: number, timeScale: number) {
+    this.lineWinView.onEffect(effectIndex, timeScale);
+
+    this.lightLeftView.onLight(effectIndex, 1.0 / timeScale);
+
+    this.lightRightView.onLight(effectIndex, 1.0 / timeScale);
   }
   //show bonus
   showWinGameBonus(coinBonus: number, multiplier: number, tagetNode: Node) {
     let tagetPos = tagetNode.getWorldPosition();
+
     this.winGameBonusView.updateCoinAndMultiplier(coinBonus, multiplier);
+
     this.winGameBonusView.showEffectMoneyWin(tagetPos, 0.5, 0.3);
   }
   //spinEffect
   onSpinEffectV1() {
     this.spinEffectV1.node.active = true;
+
     this.spinEffectV1.setAnimation(0, "Sprite", false);
   }
-  onSpinEffectV2() {
+  onSpinEffectV2(timeScale: number) {
     this.spinEffectV2.node.active = true;
+
     this.spinEffectV2.setAnimation(0, "Sprite", false);
+
+    this.spinEffectV2.timeScale = timeScale;
   }
 }

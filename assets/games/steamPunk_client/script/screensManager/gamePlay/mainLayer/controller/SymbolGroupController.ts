@@ -1,7 +1,7 @@
 import { _decorator, Component, Node } from "cc";
 import { IPoolController } from "../../../../interfaces/Common_interfaces";
 import { PoolController } from "../../../../common/PoolController";
-import { SymbolView } from "./SymbolView";
+import { SymbolView } from "../view/SymbolView";
 import { Vec3 } from "cc";
 import { Vec2 } from "cc";
 import { Size } from "cc";
@@ -12,8 +12,8 @@ import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
-@ccclass("SlotView")
-export class SlotView extends Component {
+@ccclass("SymbolGroupController")
+export class SymbolGroupController extends Component {
   @property(Node)
   symbolGroup: Node = null;
 
@@ -136,7 +136,7 @@ export class SlotView extends Component {
     }
   }
 
-  resetAllSymbolGroup(columnIndex: number) {
+  resetAllSymbolGroup(columnIndex: number, timeScale: number) {
     let posOrigin = this.posStart.getWorldPosition();
     for (let i = 0; i < this.row; i++) {
       for (let j = 0; j < this.column; j++) {
@@ -149,7 +149,7 @@ export class SlotView extends Component {
                 .to(1, { worldPosition: new Vec3(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0) }, { easing: "bounceOut" })
                 .call(() => {
                   if (i == 6 && j == 2) {
-                    EventBus.dispatchEvent(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP);
+                    EventBus.dispatchEvent(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP, timeScale);
                   }
                 })
                 .start();
@@ -175,12 +175,12 @@ export class SlotView extends Component {
       }
     }
   }
+
   traverse2DArray() {
-     for (let i = 0; i < this.row; i++) {
-       for (let j = 0; j < this.column; j++) {
-         let k = this.column * i + j;
-        
-       }
-     }
+    for (let i = 0; i < this.row; i++) {
+      for (let j = 0; j < this.column; j++) {
+        let k = this.column * i + j;
+      }
+    }
   }
 }

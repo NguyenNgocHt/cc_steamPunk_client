@@ -10,6 +10,12 @@ import { BetLineGroupView } from "../view/BetLineGroupView";
 import { BtnBetGroupView } from "../view/BtnBetGroupView";
 import { _decorator, Component, Node } from "cc";
 import { HistoryView } from "../view/HistoryView";
+import { instantiate } from "cc";
+import ScreenManager from "../../../../../../../framework/ui/ScreenManager";
+import { PATH } from "../../../../common/define";
+import { Prefab } from "cc";
+import { TuboView } from "../view/TuboView";
+import { Game } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("BetController")
@@ -31,6 +37,9 @@ export class BetController extends Component {
 
   @property(PopupHistoryView)
   popupHistoryView: PopupHistoryView = null;
+
+  @property(TuboView)
+  tuboView: TuboView = null;
 
   @property(Node)
   historyPopupStartNode: Node = null;
@@ -59,6 +68,10 @@ export class BetController extends Component {
     EventBus.on(GAME_EVENT.ON_HISTORY_BUTTON, this.showHistoryPopup.bind(this));
 
     EventBus.on(GAME_EVENT.ON_CLOSE_HISTORY_POPUP, this.offHistoryPopup.bind(this));
+
+    EventBus.on(GAME_EVENT.ON_CLICK_AUTO_PLAY, this.showPopupAutoPlaySettings.bind(this));
+
+    EventBus.on(GAME_EVENT.ON_CLICK_TUBO_BUTTON, this.setPlayTubo.bind(this));
   }
 
   unRegisterEvent() {
@@ -70,9 +83,13 @@ export class BetController extends Component {
 
     EventBus.off(GAME_EVENT.LOSE_GAME, this.setBetBtnToOriginalState.bind(this));
 
-    EventBus.on(GAME_EVENT.ON_HISTORY_BUTTON, this.showHistoryPopup.bind(this));
+    EventBus.off(GAME_EVENT.ON_HISTORY_BUTTON, this.showHistoryPopup.bind(this));
 
-    EventBus.on(GAME_EVENT.ON_CLOSE_HISTORY_POPUP, this.offHistoryPopup.bind(this));
+    EventBus.off(GAME_EVENT.ON_CLOSE_HISTORY_POPUP, this.offHistoryPopup.bind(this));
+
+    EventBus.off(GAME_EVENT.ON_CLICK_AUTO_PLAY, this.showPopupAutoPlaySettings.bind(this));
+
+    EventBus.off(GAME_EVENT.ON_CLICK_TUBO_BUTTON, this.setPlayTubo.bind(this));
   }
 
   initGameInfoService() {
@@ -87,6 +104,7 @@ export class BetController extends Component {
     this.autoPlayView.setNodeToStartPoint();
     this.historyView.setNodeToStartPoint();
     this.popupHistoryView.setNodeToStartPoint(this.historyPopupStartNode);
+    this.tuboView.setOffTubo();
   }
 
   onStartGame() {
@@ -119,6 +137,11 @@ export class BetController extends Component {
       },
     });
   }
+
+  onClickBetBtn() {
+    this.btnBetGroupView.onClickBtnBet();
+  }
+
   changeBetbtnSatus() {
     this.btnBetGroupView.changeBetBtnWhenPress();
   }
@@ -127,12 +150,12 @@ export class BetController extends Component {
     this.btnBetGroupView.changeBetBtnWhenNetural();
   }
 
-  showTextWinFreeSpine() {
-    this.btnBetGroupView.showTextWinFreeSpine();
+  showTextWinFreeSpin() {
+    this.btnBetGroupView.showTextWinFreeSpin();
   }
 
-  showFreeSpineValue(value: number) {
-    this.btnBetGroupView.showFreeSpineValue(value);
+  showFreeSpinValue(value: number) {
+    this.btnBetGroupView.showFreeSpinValue(value);
   }
   //historyController
   showHistoryPopup() {
@@ -145,5 +168,40 @@ export class BetController extends Component {
 
   showHistoryContent(data) {
     this.popupHistoryView.showHistoryContent(data);
+  }
+  //autoPlay controler
+  showPopupAutoPlaySettings() {
+    let autoPlayStPrefab = ScreenManager.instance.assetBundle.get(PATH.AUTO_PLAY_SETTINGS, Prefab)!;
+    if (autoPlayStPrefab) {
+      let autoPlayStNode = instantiate(autoPlayStPrefab);
+      if (autoPlayStNode) {
+        this.autoPlayView.showPoupAutoPlaySt(autoPlayStNode);
+      }
+    }
+  }
+
+  onAutoPlay() {
+    this.autoPlayView.onAutoPlay();
+  }
+
+  offAutoPlay() {
+    this.autoPlayView.offAutoPlay();
+  }
+
+  //tuboController
+  setPlayTubo(valueIndex: number) {
+    if (valueIndex == 0) {
+      this.tuboView.setOffTubo();
+
+      this.btnBetGroupView.changeTimeLoopSpiningBigGrear(5);
+
+      this.btnBetGroupView.setTimeScale(1);
+    } else if (valueIndex == 1) {
+      this.tuboView.setOnTubo();
+
+      this.btnBetGroupView.changeTimeLoopSpiningBigGrear(2);
+
+      this.btnBetGroupView.setTimeScale(2);
+    }
   }
 }

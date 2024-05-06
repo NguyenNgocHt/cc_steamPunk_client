@@ -32,11 +32,15 @@ export class GameLayerController extends Component {
     this.effectLayerControl.showWinGameBonus(coinBonus, multiplier, tagetNode);
   }
 
-  showFreeSpineAnim() {
-    this.gameLayerView.showFreeSpineAnim();
+  showFreeSpinAnim() {
+    this.gameLayerView.showFreeSpinAnim();
   }
 
   showJackpotAnim() {
     this.gameLayerView.showJackpotAnim();
+  }
+
+  setGreenOverlapActive(active: boolean) {
+    this.gameLayerView.setGreenOverlapActive(active);
   }
 }

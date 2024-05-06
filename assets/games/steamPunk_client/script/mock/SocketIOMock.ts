@@ -4,12 +4,13 @@ import { IBetResultsServiceMock, IConnectSeverServiceMock, IGameInfoServiceMock,
 import { ConnectSeverServiceMock } from "./ConnectSeverServiceMock";
 import { GameInfoServiceMock } from "./GameInfoServiceMock";
 import { BetResultsServiceMock } from "./BetResultsServiceMock";
+import { IGameInfoService } from "../interfaces/Common_interfaces";
 const { ccclass, property } = _decorator;
 
 @ccclass("SocketIOMock")
 export class SocketIOMock implements ISocketIOClient {
   connectServerService: IConnectSeverServiceMock = null;
-  gameInfoService: IGameInfoServiceMock = null;
+  gameInfoService: IGameInfoService = null;
   betResultService: IBetResultsServiceMock = null;
 
   private static _instance: SocketIOMock | null = null;
