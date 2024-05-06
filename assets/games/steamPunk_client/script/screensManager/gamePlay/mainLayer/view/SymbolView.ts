@@ -224,12 +224,14 @@ export class SymbolView extends Component {
 
   showAnimWin() {
     if (this.isShowAnim) {
-      console.log("symbol pos", this.rowIndex, this.columnIndex);
       this.symbolAnim.active = true;
+      let skeleton = this.symbolAnim.getComponent(sp.Skeleton);
       if (this.symbolIndex == 6) {
-        this.symbolAnim.getComponent(sp.Skeleton).setAnimation(0, "Girl-Nice", false);
+        skeleton.setAnimation(0, "Girl-Nice", false);
+        skeleton.timeScale = 0.8;
       } else {
-        this.symbolAnim.getComponent(sp.Skeleton).setAnimation(0, "animtion0", false);
+        skeleton.setAnimation(0, "animtion0", false);
+        skeleton.timeScale = 1;
       }
     }
   }

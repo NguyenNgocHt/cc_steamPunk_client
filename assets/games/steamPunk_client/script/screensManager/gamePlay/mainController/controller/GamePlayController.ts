@@ -13,13 +13,15 @@ import { landingController } from "../../landing/controller/LandingController";
 import { PlayScreenView } from "../view/PlayScreenView";
 import { BetController } from "../../bets/controller/BetController";
 import { BetData, BetResultsData } from "../../../../dataModel/BetDataType";
-import { IBetResultService, IGameLogicController, IHistoryService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
+import { IBetResultService, IGameLogicController, IHistoryService, IPlayerInfoService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 import { BetResultService } from "../service/BetResultService";
 import { GameLayerController } from "../../mainLayer/controller/GameLayerController";
 import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
 import { GameData } from "../../../../common/GameData";
 import { HistoryService } from "../service/HistoryService";
 import { MockGameLogicController } from "./MockGameLogicController";
+import { PlayerInfoService } from "../service/PlayerInfoService";
+import { DefaultGameLogicController } from "./DefaultGameLogicController";
 
 const { ccclass, property } = _decorator;
 
@@ -49,6 +51,7 @@ export class gamePlayController extends BaseScreen {
 
   betResulService: IBetResultService = null;
   historyService: IHistoryService = null;
+  playerInfoService: IPlayerInfoService = null;
 
   betInfoData: BetData = null;
   _socketIOInstance: ISocketIOClient = null;
@@ -79,11 +82,17 @@ export class gamePlayController extends BaseScreen {
 
   init() {
     this._playerInfo = new PlayerInfo();
+
     this._gameInfo = new GameInfo();
+
     this._gameData = new GameData();
 
+    this.playerInfoService = new PlayerInfoService();
+
     this.betResulService = new BetResultService();
+
     this.historyService = new HistoryService();
+
     // this.defaultGameLogicController = new DefaultGameLogicController();
     this.defaultGameLogicController = new MockGameLogicController();
   }
@@ -136,10 +145,6 @@ export class gamePlayController extends BaseScreen {
     });
   }
 
-  onLogin(msg) {
-    console.log("come in onLogin", msg);
-  }
-
   setGameInfo(data) {
     console.log("game data", data);
     this.gameInfoData = data as GameInfoData;
@@ -158,29 +163,5 @@ export class gamePlayController extends BaseScreen {
     EventBus.dispatchEvent(GAME_EVENT.SEND_TO_GAME_INFO, this.gameInfoData);
 
     this.PlayerControl.setPlayerInfo(this.playerInfoData);
-  }
-
-  onUpdateBalance() {
-    console.log("onUpdate balance");
-  }
-
-  onUpdateCoin(msg) {
-    console.log("update coin");
-  }
-
-  onConnectError() {
-    console.log("onConect err");
-  }
-
-  ondisconnect() {
-    console.log("on disconect");
-  }
-
-  onConnect() {
-    console.log("come in onConnect");
-  }
-
-  onConnection() {
-    console.log("on connecttion");
   }
 }

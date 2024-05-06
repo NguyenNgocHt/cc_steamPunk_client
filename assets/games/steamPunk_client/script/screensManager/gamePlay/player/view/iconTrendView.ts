@@ -1,6 +1,5 @@
 import { Label } from "cc";
-import { _decorator, Component, Node } from "cc";
-import { landingController } from "../../landing/controller/LandingController";
+import { _decorator, Component } from "cc";
 import { IIconTrendView } from "../../../../interfaces/gamePlay/player_interfaces";
 const { ccclass, property } = _decorator;
 

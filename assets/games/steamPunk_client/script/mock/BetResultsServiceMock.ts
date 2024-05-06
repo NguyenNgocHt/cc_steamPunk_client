@@ -5,17 +5,18 @@ import { betResultMock } from "../dataModel/MockConfigData";
 import { SendBet } from "../dataModel/BetDataType";
 import { Global } from "../common/Global";
 import { PAY_OUT_RATE, SYMBOL_LIST } from "../common/define";
-import { IPLayerInfo } from "../interfaces/Common_interfaces";
-import { PlayerInfo } from "../common/PlayerInfo";
+import { IPlayerInfoService } from "../interfaces/gamePlay/GamePlayInterfaces";
+import { PlayerInfoService } from "../screensManager/gamePlay/mainController/service/PlayerInfoService";
+
 const { ccclass, property } = _decorator;
 
 @ccclass("BetResultsServiceMock")
 export class BetResultsServiceMock implements IBetResultsServiceMock {
-  currentMoney: IPLayerInfo = null;
+  currentMoney: IPlayerInfoService = null;
   freeSpine: number = 0;
 
   init() {
-    this.currentMoney = new PlayerInfo();
+    this.currentMoney = new PlayerInfoService();
   }
 
   getBetResults(data): betResultMock {

@@ -1,17 +1,17 @@
-import { StartScene } from "./../../../../boot/StartScene";
-import { UIOpacity } from "cc";
 import { _decorator, Component, Node, Tween, labelAssembler, Label, tween, Vec3 } from "cc";
 import { ISpiningAnim } from "../interfaces/Common_interfaces";
+import { CCInteger } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("SpiningAnim")
 export class SpiningAnim extends Component implements ISpiningAnim {
   private tweenSpin!: Tween<Node>;
-  @property(Number)
+  @property(CCInteger)
   timeLoopSpinning: number = 0;
   onLoad() {
     this.initSpinningGear();
   }
+
   initSpinningGear() {
     let moving = tween(this.node)
       .by(this.timeLoopSpinning, { eulerAngles: new Vec3(0, 0, -360) })
@@ -19,15 +19,18 @@ export class SpiningAnim extends Component implements ISpiningAnim {
     this.tweenSpin = tween(this.node).then(moving);
     console.log("init tween stop", this.tweenSpin);
   }
+
   spinningStop() {
     console.log("tween stop", this.tweenSpin);
     this.tweenSpin.stop();
   }
+
   spinningStart() {
     this.scheduleOnce(function () {
       this.tweenSpin.start();
     }, 0.1);
   }
+
   changeTimeLoopSpinning(newTimeLoop: number) {
     this.timeLoopSpinning = newTimeLoop;
     this.initSpinningGear();

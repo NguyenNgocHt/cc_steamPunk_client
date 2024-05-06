@@ -31,44 +31,4 @@ export class PlayerInfo implements IPLayerInfo {
 
     sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO, JSON.stringify(this.playerInfo));
   }
-  getPlayerInfo(): playerInfo {
-    let playerInfo = JSON.parse(sys.localStorage.getItem(LOCAL_STORAGE_KEY_WORD.PLAYER_INFO));
-    if (playerInfo) {
-      return playerInfo;
-    }
-  }
-  getPlayerName(): string {
-    let playerInfo = this.getPlayerInfo();
-    if (playerInfo) {
-      return playerInfo.userName;
-    }
-  }
-
-  getCurrentMoney(): number {
-    let playerInfo = this.getPlayerInfo();
-    if (playerInfo) {
-      return playerInfo.money;
-    }
-  }
-
-  getCurrency(): string {
-    let playerInfo = this.getPlayerInfo();
-    if (playerInfo) {
-      return playerInfo.currency;
-    }
-  }
-
-  updateCurrentMoney(currentMoney: number) {
-    let playerInfo = this.getPlayerInfo();
-
-    let newPlayerInfo: playerInfo = null;
-
-    newPlayerInfo = {
-      userName: playerInfo.userName,
-      money: currentMoney,
-      currency: playerInfo.currency,
-    };
-
-    this.handlePlayerInfo(newPlayerInfo);
-  }
 }

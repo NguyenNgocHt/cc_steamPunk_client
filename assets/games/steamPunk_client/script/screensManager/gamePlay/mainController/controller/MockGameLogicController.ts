@@ -17,6 +17,7 @@ export class MockGameLogicController extends DefaultGameLogicController {
   betResultService: IBetResultsServiceMock = null;
 
   initGameStart() {
+    console.log("init start game");
     super.initGameStart();
     this.init();
   }
@@ -35,7 +36,9 @@ export class MockGameLogicController extends DefaultGameLogicController {
   }
 
   setGameInfo() {
+    console.log("set game info");
     let gameInfo = this.getGameInfo();
+    console.log("game info", gameInfo);
     EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER, gameInfo);
   }
 

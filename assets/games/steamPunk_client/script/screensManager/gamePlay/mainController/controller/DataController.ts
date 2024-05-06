@@ -12,6 +12,7 @@ const { ccclass, property } = _decorator;
 export class DataController extends gamePlayController {
   @property(PoolController)
   poolControl: PoolController = null;
+
   isFreeSpin: boolean = false;
   betResultData: BetResultsData = null;
   pendingData: PendingData = null;
@@ -127,7 +128,7 @@ export class DataController extends gamePlayController {
   }
 
   updateMoneyPlayer() {
-    let balance = this._playerInfo.getCurrentMoney();
+    let balance = this.playerInfoService.getCurrentMoney();
     if (this.betResultData.payout > 0) {
       balance = balance + this.betResultData.payout;
     }
@@ -140,6 +141,7 @@ export class DataController extends gamePlayController {
 
     this.scheduleOnce(function () {
       this.checkFreeSpin();
+
       if (this.selectedNumber != 0 && !this.isFreeSpin) {
         this.checkAutoPlay();
       }
@@ -171,8 +173,11 @@ export class DataController extends gamePlayController {
             this.freeSpinValue = 0;
           }
           this.sendBetFreeSpin();
+
           this.setOnClickBet();
+
           this.showFreeSpinValue();
+
           this.timeDelayOnBetBtn = 0.5;
         })
         .start();
@@ -254,46 +259,3 @@ export class DataController extends gamePlayController {
     }
   }
 }
-
-// type PlaceBetResponse = {};
-
-// interface IGameLogic {
-//   placeBet(data: any): PlaceBetResponse;
-// }
-
-// class DefaultGameLogic implements IGameLogic {
-//   _socketIOInstance: ISocketIOClient = null;
-
-//   constructor() {
-//     EventBus.on("placebet", this.onPlaceBet);
-
-//     this._socketIOInstance.on(SOCKET_EVENT.BET, this.onPlaceBetResponseHandle.bind(this), true);
-//   }
-
-//   onPlaceBetResponseHandle(msg: any) {
-
-//   }
-
-//   //virtual
-//   onPlaceBet(data: any): void {
-//     this._socketIOInstance.emit(SOCKET_EVENT.BET, data);
-//   }
-
-//   placeBet(data: any): PlaceBetResponse {
-//     throw new Error("Method not implemented.");
-//   }
-// }
-
-// class MockGameLogic extends DefaultGameLogic {
-//   onPlaceBet(data: any): void {
-//     //construct bet result
-
-//     this.onPlaceBetResponseHandle(null);
-//   }
-// }
-
-// class MockGameLogic implements IGameLogic {
-//   placeBet(data: any): PlaceBetResponse {
-//     throw new Error("Method not implemented.");
-//   }
-// }

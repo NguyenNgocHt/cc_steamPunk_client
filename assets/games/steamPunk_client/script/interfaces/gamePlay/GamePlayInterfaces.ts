@@ -1,8 +1,8 @@
-import { BetResult } from "./../../dataModel/BetDataType";
-import { BetData, Result } from "../../dataModel/BetDataType";
+import { BetData } from "../../dataModel/BetDataType";
 import { BetResultsData } from "../../dataModel/BetDataType";
 import { PayLinesDaTa } from "../../dataModel/BetDataType";
-import { Results } from "../../dataModel/BetDataType";
+import { playerInfo } from "../../dataModel/PlayerDataType";
+
 export interface IBetResultService {
   handleBetResultData(betInfo: BetData);
 
@@ -23,4 +23,18 @@ export interface IHistoryService {
 
 export interface IGameLogicController {
   initGameStart();
+}
+
+export interface IPlayerInfoService {
+  handlePlayerInfo(data: playerInfo);
+
+  getPlayerInfo(): playerInfo;
+
+  getPlayerName(): string;
+
+  getCurrentMoney(): number;
+
+  getCurrency(): string;
+
+  updateCurrentMoney(currentMoney: number);
 }

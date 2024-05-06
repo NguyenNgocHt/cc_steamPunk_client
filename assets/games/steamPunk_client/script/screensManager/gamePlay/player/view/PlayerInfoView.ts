@@ -27,18 +27,23 @@ export class PlayerInfoView extends Component {
   private _animAvatar: sp.Skeleton = null;
 
   setPlayerInfo(data: playerInfo) {
-    console.log("player info in player view", data);
     this.userName.string = data.userName;
+
     this.money.string = data.money.toString();
+
     this.setAvatar();
   }
 
   setAvatar() {
     this.avatar.enabled = false;
     this.avatar.spriteFrame = null;
+
     let nodeAvatar = instantiate(this.avatarPrefab).getComponent(sp.Skeleton);
+
     this.avatar.node.addChild(nodeAvatar.node);
+
     this._animAvatar = nodeAvatar;
+
     this._animAvatar.setAnimation(0, ANIM_NAME.ANIM_IDLE, true);
   }
 
@@ -46,6 +51,7 @@ export class PlayerInfoView extends Component {
     if (this._animAvatar) {
       let that = this;
       this._animAvatar.setAnimation(0, ANIM_NAME.ANIM_BIG_WIN, false);
+
       this._animAvatar.setCompleteListener(() => {
         that._animAvatar.setAnimation(0, ANIM_NAME.ANIM_IDLE, true);
       });
@@ -54,15 +60,19 @@ export class PlayerInfoView extends Component {
 
   showCurrentMoney(currentMoney: number) {
     this.money.string = currentMoney.toString();
+
     tween(this.money.node)
       .to(0.1, { scale: new Vec3(1.3, 1.3, 1.3) }, { easing: "backIn" })
+
       .to(0.2, { scale: new Vec3(1, 1, 1) }, { easing: "backOut" })
+
       .start();
   }
 
   showMinusMoneyBet(currentMoney: number) {
     this.money.string = currentMoney.toString();
   }
+
   getBonusGroupDesitinationNode(): Node {
     return this.bonusGroupDestination;
   }

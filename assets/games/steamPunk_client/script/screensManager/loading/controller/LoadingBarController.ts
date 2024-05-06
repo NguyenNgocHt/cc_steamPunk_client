@@ -27,12 +27,14 @@ export class LoadingBarControler extends Component implements ILoadingController
   start() {
     this.loadingStart();
   }
+
   init(iloadingView: ILoadingView_loading) {
     this.init_isMe(iloadingView);
     this.init_audioSevice();
     this.init_assetsSevice();
     this.init_loadingView();
   }
+
   init_isMe(iLoadingView: ILoadingView_loading) {
     this._audioSevice = new AudioSevice();
     this._assetsSevice = new AssetsSevice();

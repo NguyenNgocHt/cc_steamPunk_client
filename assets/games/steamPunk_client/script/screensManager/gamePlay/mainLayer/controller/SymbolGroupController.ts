@@ -10,6 +10,7 @@ import { paylineConvert } from "../../../../dataModel/BetDataType";
 import { MAP_CONVERTED_ROW } from "../../../../common/define";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
+import { CCFloat } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolGroupController")
@@ -23,7 +24,7 @@ export class SymbolGroupController extends Component {
   @property(Vec3)
   positionStart: Vec3 = null;
 
-  @property(Number)
+  @property(CCFloat)
   symbolScaleList: Number[] = [];
 
   @property(Vec2)

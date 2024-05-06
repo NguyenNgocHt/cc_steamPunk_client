@@ -7,16 +7,18 @@ import { PlayerInfo } from "../common/PlayerInfo";
 import GameInfo from "../common/GameInfo";
 import { GameInfoData, PendingData } from "../dataModel/GameInfoDataType";
 import { Settings } from "cc";
+import { IPlayerInfoService } from "../interfaces/gamePlay/GamePlayInterfaces";
+import { PlayerInfoService } from "../screensManager/gamePlay/mainController/service/PlayerInfoService";
 
 const { ccclass, property } = _decorator;
 
 @ccclass("GameInfoServiceMock")
 export class GameInfoServiceMock implements IGameInfoService {
   denomination = [0.05, 0.1, 0.15, 0.25, 0.4, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 35, 50];
-  currentMoney: IPLayerInfo = null;
+  currentMoney: IPlayerInfoService = null;
 
   init() {
-    this.currentMoney = new PlayerInfo();
+    this.currentMoney = new PlayerInfoService();
   }
   getGameInfo(): GameInfoData {
     let pendingData: PendingData = {
