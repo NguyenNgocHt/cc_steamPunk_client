@@ -89,11 +89,6 @@ export class SlotController extends Component {
       return;
     } else {
       this.winLoseGameStatus = WIN_LOSE_STATE.WIN_GAME;
-      let paylinesConvertList = this._paylinesService.getPaylineData(this.paylineList);
-
-      for (let i = 0; i < paylinesConvertList.length; i++) {
-        this.symbolGroupController.updateResultsPaylines(paylinesConvertList[i]);
-      }
     }
   }
 
@@ -105,9 +100,19 @@ export class SlotController extends Component {
     if (this.winLoseGameStatus == WIN_LOSE_STATE.WIN_GAME) {
       EventBus.dispatchEvent(GAME_EVENT.WIN_GAME, this.paylineList, timeScale);
 
+      this.updateWinAnimStatus();
+
       this.symbolGroupController.onAnimWinGameInSymbol();
     } else if (this.winLoseGameStatus == WIN_LOSE_STATE.LOSE_GAME) {
       EventBus.dispatchEvent(GAME_EVENT.LOSE_GAME);
+    }
+  }
+
+  updateWinAnimStatus() {
+    let paylinesConvertList = this._paylinesService.getPaylineData(this.paylineList);
+
+    for (let i = 0; i < paylinesConvertList.length; i++) {
+      this.symbolGroupController.updateResultsPaylines(paylinesConvertList[i]);
     }
   }
 }

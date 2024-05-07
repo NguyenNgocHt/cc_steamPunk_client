@@ -7,8 +7,8 @@ import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { IGameLogicController } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 const { ccclass, property } = _decorator;
 
-@ccclass("DefaultGameLogicController")
-export class DefaultGameLogicController implements IGameLogicController {
+@ccclass("GameLogicController")
+export class GameLogicController implements IGameLogicController {
   initGameStart() {
     this.registerEvent();
     this.connectServer();

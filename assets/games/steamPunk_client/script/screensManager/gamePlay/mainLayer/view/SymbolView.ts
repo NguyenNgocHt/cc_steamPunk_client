@@ -1,7 +1,6 @@
 import { Vec3 } from "cc";
 import { SpriteFrame } from "cc";
 import { Sprite } from "cc";
-import { JsonAsset } from "cc";
 import { tween } from "cc";
 import { _decorator, Component, Node, sp } from "cc";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
@@ -98,9 +97,6 @@ export class SymbolView extends Component {
   }
 
   setAnimStatus(status: boolean) {
-    if (status) {
-      console.log("symbol pos status", this.rowIndex, this.columnIndex, status);
-    }
     this.isShowAnim = status;
   }
 

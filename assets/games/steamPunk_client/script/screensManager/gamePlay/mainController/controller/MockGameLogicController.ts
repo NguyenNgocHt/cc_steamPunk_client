@@ -1,5 +1,5 @@
-import { _decorator, Component, Node } from "cc";
-import { DefaultGameLogicController } from "./DefaultGameLogicController";
+import { _decorator } from "cc";
+import { GameLogicController } from "./GameLogicController";
 import { IBetResultsServiceMock } from "../../../../interfaces/Mock_interfaces";
 import { betResultMock } from "../../../../dataModel/MockConfigData";
 import { GameInfoData } from "../../../../dataModel/GameInfoDataType";
@@ -12,7 +12,7 @@ import { GAME_EVENT } from "../../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("MockGameLogicController")
-export class MockGameLogicController extends DefaultGameLogicController {
+export class MockGameLogicController extends GameLogicController {
   gameInfoService: IGameInfoService = null;
   betResultService: IBetResultsServiceMock = null;
 
