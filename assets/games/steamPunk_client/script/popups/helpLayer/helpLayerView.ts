@@ -37,8 +37,10 @@ export class helpLayerView extends BasePopup {
 
   setUrl() {
     let gameData = this._gameData.getGameData();
+    console.log("game data", gameData);
     if (gameData) {
       let url = `${gameData.server}${gameData.subpath}/guide?language=${gameData.language}`;
+      console.log("url webview", url);
       this.webView.url = url;
     }
   }

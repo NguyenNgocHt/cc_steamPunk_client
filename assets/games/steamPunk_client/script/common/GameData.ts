@@ -24,9 +24,9 @@ export class GameData implements IGameData {
   }
 
   setGameData(data: gameData) {
-    console.log("come in game info", data);
-    let gameData: gameData = null;
-    gameData = {
+    console.log("data game data", data );
+    let v: gameData = null;
+    v = {
       api: data.api,
       currency: data.currency,
       env: data.env,
@@ -43,7 +43,7 @@ export class GameData implements IGameData {
       token: data.token,
       username: data.username,
     };
-    sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.GAME_DATA, JSON.stringify(gameData));
+    sys.localStorage.setItem(LOCAL_STORAGE_KEY_WORD.GAME_DATA, JSON.stringify(v));
   }
 
   getGameData(): gameData {

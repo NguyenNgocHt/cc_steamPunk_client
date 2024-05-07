@@ -27,41 +27,47 @@ export class TrendHistoryView extends Component {
     this.poolControl = poolControl;
   }
 
-  pushBlueIconInConten(iconValue: number) {
-    let trendBlueNode = this.poolControl.getTrendBlueNode();
+  pushBlueIconInConten(iconValue: number): void {
+    let trendBlueNode = this.poolControl.getTrendNode(1);
 
-    if (trendBlueNode) {
-      trendBlueNode.active = true;
-      let iconView = trendBlueNode.getComponent(iconTrendView);
-
-      this._iconTrendView = iconView;
-
-      this._iconTrendView.updateValue(iconValue);
-
-      this.changeNodePositionInLayout(trendBlueNode);
+    //early return
+    console.log("trendBlueNode", trendBlueNode);
+    if (!trendBlueNode) {
+      return;
     }
-  }
-  pushGreenIconInConten(iconValue: number) {
-    let trendGreenNode = this.poolControl.getTrendGreenNode();
 
+    trendBlueNode.active = true;
+
+    let iconView = trendBlueNode.getComponent(iconTrendView);
+    this._iconTrendView = iconView;
+    console.log("icon trend view", this._iconTrendView);
+    this._iconTrendView.updateValue(iconValue);
+
+    this.changeNodePositionInLayout(trendBlueNode);
+  }
+
+  pushGreenIconInConten(iconValue: number) {
+    let trendGreenNode = this.poolControl.getTrendNode(2);
+    console.log("trendBlueNode", trendGreenNode);
     if (trendGreenNode) {
       trendGreenNode.active = true;
 
       let iconView = trendGreenNode.getComponent(iconTrendView);
 
       this._iconTrendView = iconView;
+      console.log("icon trend view", this._iconTrendView);
 
       this._iconTrendView.updateValue(iconValue);
 
       this.changeNodePositionInLayout(trendGreenNode);
     }
   }
+
   changeNodePositionInLayout(iconNode: Node) {
     let layout = this.conten.getComponent(Layout);
 
     if (layout) {
       this.moveIcons(iconNode);
-
       this.moveNewIcon(iconNode);
     }
   }
@@ -84,22 +90,22 @@ export class TrendHistoryView extends Component {
       })
       .start();
   }
-  moveIcons(iconNode: Node) {
-    let uiTransformIconNode = iconNode.getComponent(UITransform);
 
-    let childen = this.conten.children;
+  //update
+  //append
+  moveIcons(newNode: Node): void {
+    let children = this.conten.children;
+    if (children.length == 0) return;
 
     let spacing = this.conten.getComponent(Layout).spacingX;
+    let component = newNode.getComponent(UITransform);
 
-    let xOffset = uiTransformIconNode.width + spacing;
-    if (childen.length >= 1) {
-      for (let i = 0; i < childen.length; i++) {
-        let iconNode = childen[i];
+    for (let i = 0; i < children.length; i++) {
+      let node = children[i];
 
-        tween(iconNode)
-          .to(0.5, { position: new Vec3(iconNode.position.x + 100, iconNode.position.y, 0) })
-          .start();
-      }
+      tween(node)
+        .to(0.5, { position: new Vec3(node.position.x + component.width + spacing, node.position.y, 0) })
+        .start();
     }
   }
 }

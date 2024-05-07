@@ -27642,97 +27642,105 @@
     "__prefab": {
       "__id__": 1299
     },
-    "aPrefab": {
-      "__uuid__": "acc440f1-4a59-4731-b2ea-861db56b9550",
-      "__expectedType__": "cc.Prefab"
-    },
-    "freeSpinPrefab": {
-      "__uuid__": "52d03c6f-90cc-4c4c-b3b9-52afc541eb38",
-      "__expectedType__": "cc.Prefab"
-    },
-    "gearPrefab": {
-      "__uuid__": "106fffd3-52f3-427b-9737-503fe6dec1e2",
-      "__expectedType__": "cc.Prefab"
-    },
-    "girlPrefab": {
-      "__uuid__": "9a812bc5-5be9-477e-9464-43b01ee5ad07",
-      "__expectedType__": "cc.Prefab"
-    },
-    "guysPrefab": {
-      "__uuid__": "c421ec88-42c3-4353-be1d-2ef912037ece",
-      "__expectedType__": "cc.Prefab"
-    },
-    "jPrefab": {
-      "__uuid__": "7c0e14e2-6b2a-40a9-9801-649a7dd358a7",
-      "__expectedType__": "cc.Prefab"
-    },
-    "qPrefab": {
-      "__uuid__": "88b2b5b6-8a04-4c05-b9b1-ede80ae19bbc",
-      "__expectedType__": "cc.Prefab"
-    },
-    "kPrefab": {
-      "__uuid__": "3f36ec74-4d0a-42ca-b552-c60553ffa50e",
-      "__expectedType__": "cc.Prefab"
-    },
-    "wildPrefab": {
-      "__uuid__": "f5e211c9-1246-4d7f-8d9e-cc26720bab08",
-      "__expectedType__": "cc.Prefab"
-    },
-    "jackpotPrefab": {
-      "__uuid__": "cc91a2a9-0909-4c1f-8b3d-657c58aaaa8b",
-      "__expectedType__": "cc.Prefab"
-    },
-    "aGroup": {
-      "__id__": 1244
-    },
-    "freeSpinGroup": {
-      "__id__": 1248
-    },
-    "gearGroup": {
-      "__id__": 1252
-    },
-    "girlGroup": {
-      "__id__": 1256
-    },
-    "guysGroup": {
-      "__id__": 1260
-    },
-    "jGroup": {
-      "__id__": 1264
-    },
-    "jackpotGroup": {
-      "__id__": 1268
-    },
-    "qGroup": {
-      "__id__": 1276
-    },
-    "kGroup": {
-      "__id__": 1272
-    },
-    "wildGroup": {
-      "__id__": 1280
-    },
-    "trendGreenPrefab": {
-      "__uuid__": "05bc4c44-216b-470e-a1cb-c3fa3ad39e0f",
-      "__expectedType__": "cc.Prefab"
-    },
-    "trendBluePrefab": {
-      "__uuid__": "76357140-6057-47fd-b8e5-9165a188dfd9",
-      "__expectedType__": "cc.Prefab"
-    },
-    "trendYellowPrefab": {
-      "__uuid__": "64bccb6c-021d-43d3-9c8b-f6f29fc0fc19",
-      "__expectedType__": "cc.Prefab"
-    },
-    "trendBlueGroupNode": {
-      "__id__": 1284
-    },
-    "trendGreenGroupNode": {
-      "__id__": 1288
-    },
-    "trendYellowGroupNode": {
-      "__id__": 1292
-    },
+    "listSymbolPrefab": [
+      {
+        "__uuid__": "acc440f1-4a59-4731-b2ea-861db56b9550",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "7c0e14e2-6b2a-40a9-9801-649a7dd358a7",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "88b2b5b6-8a04-4c05-b9b1-ede80ae19bbc",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "3f36ec74-4d0a-42ca-b552-c60553ffa50e",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "106fffd3-52f3-427b-9737-503fe6dec1e2",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "9a812bc5-5be9-477e-9464-43b01ee5ad07",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "c421ec88-42c3-4353-be1d-2ef912037ece",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "f5e211c9-1246-4d7f-8d9e-cc26720bab08",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "cc91a2a9-0909-4c1f-8b3d-657c58aaaa8b",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "52d03c6f-90cc-4c4c-b3b9-52afc541eb38",
+        "__expectedType__": "cc.Prefab"
+      }
+    ],
+    "listSymbolGroup": [
+      {
+        "__id__": 1244
+      },
+      {
+        "__id__": 1264
+      },
+      {
+        "__id__": 1276
+      },
+      {
+        "__id__": 1272
+      },
+      {
+        "__id__": 1252
+      },
+      {
+        "__id__": 1256
+      },
+      {
+        "__id__": 1260
+      },
+      {
+        "__id__": 1280
+      },
+      {
+        "__id__": 1268
+      },
+      {
+        "__id__": 1248
+      }
+    ],
+    "listTrendPrefab": [
+      {
+        "__uuid__": "76357140-6057-47fd-b8e5-9165a188dfd9",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "05bc4c44-216b-470e-a1cb-c3fa3ad39e0f",
+        "__expectedType__": "cc.Prefab"
+      },
+      {
+        "__uuid__": "64bccb6c-021d-43d3-9c8b-f6f29fc0fc19",
+        "__expectedType__": "cc.Prefab"
+      }
+    ],
+    "listTrendGroupNode": [
+      {
+        "__id__": 1284
+      },
+      {
+        "__id__": 1288
+      },
+      {
+        "__id__": 1292
+      }
+    ],
     "_id": ""
   },
   {

@@ -5,178 +5,99 @@ import { _decorator, Component, Node } from "cc";
 import { IPoolController } from "../interfaces/Common_interfaces";
 const { ccclass, property } = _decorator;
 
+/*
+Pool -> stateless
+
+interface Pool<T> where T:IDisposal{
+  T Get();
+  Return<T>(T object);
+}
+
+class XXX:IPool<T>{
+  public XXX(Func<T> create){
+
+  }
+}
+
+Pool [] _pools = new Pool[2];
+
+Math.Add(int a,int b);
+*/
+
 @ccclass("PoolController")
 export class PoolController extends Component implements IPoolController {
   @property(Prefab)
-  aPrefab: Prefab = null;
+  listSymbolPrefab: Prefab[] = [];
+
+  @property(Node)
+  listSymbolGroup: Node[] = [];
 
   @property(Prefab)
-  freeSpinPrefab: Prefab = null;
-
-  @property(Prefab)
-  gearPrefab: Prefab = null;
-
-  @property(Prefab)
-  girlPrefab: Prefab = null;
-
-  @property(Prefab)
-  guysPrefab: Prefab = null;
-
-  @property(Prefab)
-  jPrefab: Prefab = null;
-
-  @property(Prefab)
-  qPrefab: Prefab = null;
-
-  @property(Prefab)
-  kPrefab: Prefab = null;
-
-  @property(Prefab)
-  wildPrefab: Prefab = null;
-
-  @property(Prefab)
-  jackpotPrefab: Prefab = null;
+  listTrendPrefab: Prefab[] = [];
 
   @property(Node)
-  aGroup: Node = null;
+  listTrendGroupNode: Node[] = [];
 
-  @property(Node)
-  freeSpinGroup: Node = null;
+  listSymbolNodes: any[] = [];
 
-  @property(Node)
-  gearGroup: Node = null;
-
-  @property(Node)
-  girlGroup: Node = null;
-
-  @property(Node)
-  guysGroup: Node = null;
-
-  @property(Node)
-  jGroup: Node = null;
-
-  @property(Node)
-  jackpotGroup: Node = null;
-
-  @property(Node)
-  qGroup: Node = null;
-
-  @property(Node)
-  kGroup: Node = null;
-
-  @property(Node)
-  wildGroup: Node = null;
-
-  @property(Prefab)
-  trendGreenPrefab: Prefab = null;
-
-  @property(Prefab)
-  trendBluePrefab: Prefab = null;
-
-  @property(Prefab)
-  trendYellowPrefab: Prefab = null;
-
-  @property(Node)
-  trendBlueGroupNode: Node = null;
-
-  @property(Node)
-  trendGreenGroupNode: Node = null;
-
-  @property(Node)
-  trendYellowGroupNode: Node = null;
-
-  aList: Node[] = [];
-  freeSpinList: Node[] = [];
-  gearList: Node[] = [];
-  girlList: Node[] = [];
-  guysList: Node[] = [];
-  jList: Node[] = [];
-  qList: Node[] = [];
-  kList: Node[] = [];
-  wildList: Node[] = [];
-  jackpotList: Node[] = [];
+  listTrendNodes: any[] = [];
 
   trendBlueList: Node[] = [];
   trendGreenList: Node[] = [];
   trendYellowList: Node[] = [];
 
+  /*
+  list -> remove
+  -> limit | max ,....
+  -> const 
+  -> variable -> inject into constructor
+  */
   symbolListLenght: number = 30;
+  listSymbolLenght: number = 10;
+  listTrendLenght: number = 3;
 
   init() {
-    this.initPoolA();
-    this.initPoolFreeSpin();
-    this.initPoolGear();
-    this.initPoolGirl();
-    this.initPoolGuys();
-    this.initPoolJ();
-    this.initPoolQ();
-    this.initPoolK();
-    this.initPoolWild();
-    this.initPoolJackpot();
-
-    this.initPoolTrendBlue();
-    this.initPoolTrendGreen();
-    this.initPoolTrendYellow();
+    this.initListSymbolNodes();
+    this.initListTrendNodes();
+    this.initSymbolPools();
+    this.initTrendPools();
   }
 
-  initPoolA() {
-    this.initPool(this.aPrefab, this.aList, this.aGroup, MAP_SYMBOL.a);
+  private initListSymbolNodes() {
+    for (let i = 0; i < this.listSymbolLenght; i++) {
+      let symbolNodes: Node[] = [];
+      this.listSymbolNodes.push(symbolNodes);
+    }
   }
 
-  initPoolFreeSpin() {
-    this.initPool(this.freeSpinPrefab, this.freeSpinList, this.freeSpinGroup, MAP_SYMBOL.freespin);
+  private initListTrendNodes() {
+    for (let i = 0; i < this.listTrendLenght; i++) {
+      let trendNodes: Node[] = [];
+      this.listTrendNodes.push(trendNodes);
+    }
   }
 
-  initPoolGear() {
-    this.initPool(this.gearPrefab, this.gearList, this.gearGroup, MAP_SYMBOL.gear);
+  private initSymbolPools() {
+    this.initPools(this.listSymbolPrefab, this.listSymbolNodes, this.listSymbolGroup);
   }
 
-  initPoolGirl() {
-    this.initPool(this.girlPrefab, this.girlList, this.girlGroup, MAP_SYMBOL.girl);
+  private initTrendPools() {
+    this.initPools(this.listTrendPrefab, this.listTrendNodes, this.listTrendGroupNode);
   }
 
-  initPoolGuys() {
-    this.initPool(this.guysPrefab, this.guysList, this.guysGroup, MAP_SYMBOL.guys);
+  private initPools(listPrefab: Prefab[], listSymbol: any[], listNode: Node[]) {
+    for (let i = 0; i < listPrefab.length; i++) {
+      this.initPool(listPrefab[i], listSymbol[i], listNode[i], i + 1);
+    }
   }
 
-  initPoolJ() {
-    this.initPool(this.jPrefab, this.jList, this.jGroup, MAP_SYMBOL.j);
-  }
-
-  initPoolQ() {
-    this.initPool(this.qPrefab, this.qList, this.qGroup, MAP_SYMBOL.q);
-  }
-
-  initPoolK() {
-    this.initPool(this.kPrefab, this.kList, this.kGroup, MAP_SYMBOL.k);
-  }
-  initPoolWild() {
-    this.initPool(this.wildPrefab, this.wildList, this.wildGroup, MAP_SYMBOL.wild);
-  }
-
-  initPoolJackpot() {
-    this.initPool(this.jackpotPrefab, this.jackpotList, this.jackpotGroup, MAP_SYMBOL.jackpot);
-  }
-
-  initPoolTrendBlue() {
-    this.initPool(this.trendBluePrefab, this.trendBlueList, this.trendBlueGroupNode, 1);
-  }
-
-  initPoolTrendGreen() {
-    this.initPool(this.trendGreenPrefab, this.trendGreenList, this.trendGreenGroupNode, 2);
-  }
-
-  initPoolTrendYellow() {
-    this.initPool(this.trendYellowPrefab, this.trendYellowList, this.trendYellowGroupNode, 3);
-  }
-
-  initPool(iconPrefab: Prefab, nodeList: Node[], iconGroup: Node, iconIndex: number) {
+  private initPool(iconPrefab: Prefab, nodeList: Node[], iconGroup: Node, iconIndex: number) {
     for (let i = 0; i < this.symbolListLenght; i++) {
       this.instantiateNode(iconPrefab, nodeList, iconGroup, iconIndex);
     }
   }
 
-  instantiateNode(symbolPrefab: Prefab, symbolListNode: Node[], symbolNodeGroup: Node, symbolIndex: number) {
+  private instantiateNode(symbolPrefab: Prefab, symbolListNode: Node[], symbolNodeGroup: Node, symbolIndex: number) {
     let symbolNode = instantiate(symbolPrefab);
     if (symbolNode) {
       symbolNode.name = symbolIndex.toString();
@@ -186,134 +107,56 @@ export class PoolController extends Component implements IPoolController {
     }
   }
 
-  getSymbolNode(symbolNumber: number): Node {
-    switch (symbolNumber) {
-      case MAP_SYMBOL.a:
-        return this.getNode(this.aList, this.initPoolA);
-        break;
-      case MAP_SYMBOL.freespin:
-        return this.getNode(this.freeSpinList, this.initPoolFreeSpin);
-        break;
-      case MAP_SYMBOL.gear:
-        return this.getNode(this.gearList, this.initPoolGear);
-        break;
-      case MAP_SYMBOL.girl:
-        return this.getNode(this.girlList, this.initPoolGirl);
-        break;
-      case MAP_SYMBOL.guys:
-        return this.getNode(this.guysList, this.initPoolGuys);
-        break;
-      case MAP_SYMBOL.j:
-        return this.getNode(this.jList, this.initPoolJ);
-        break;
-      case MAP_SYMBOL.jackpot:
-        return this.getNode(this.jackpotList, this.initPoolJackpot);
-        break;
-      case MAP_SYMBOL.q:
-        return this.getNode(this.qList, this.initPoolQ);
-        break;
-      case MAP_SYMBOL.k:
-        return this.getNode(this.kList, this.initPoolK);
-        break;
-      case MAP_SYMBOL.wild:
-        return this.getNode(this.wildList, this.initPoolWild);
-    }
+  getSymbolNode(symbolIndex: number): Node {
+    return this.findNode(symbolIndex, this.listSymbolPrefab, this.listSymbolNodes, this.listSymbolGroup);
+  }
+
+  getTrendNode(trendIndex: number): Node {
+    return this.findNode(trendIndex, this.listTrendPrefab, this.listTrendNodes, this.listTrendGroupNode);
   }
 
   pushSymbolNode(symbolName: string, symbolNode: Node) {
-    switch (symbolName) {
-      case MAP_SYMBOL.a.toString():
-        this.pushNode(symbolNode, this.aList, this.aGroup);
-        break;
+    this.pushNode(symbolName, symbolNode, this.listSymbolNodes, this.listSymbolGroup);
+  }
 
-      case MAP_SYMBOL.freespin.toString():
-        this.pushNode(symbolNode, this.freeSpinList, this.freeSpinGroup);
+  pushTrendNode(symbolName: string, symbolNode: Node) {
+    this.pushNode(symbolName, symbolNode, this.listTrendNodes, this.listTrendGroupNode);
+  }
 
-        break;
+  //findNode
+  private findNode(symbolNumber: number, symbolPrefab: Prefab[], symbolListNodes: any[], symbolNodeGroup: Node[]): Node {
+    for (let i = 0; i < symbolListNodes.length; i++) {
+      if (symbolNumber == i + 1) {
+        let symbolNodes = symbolListNodes[i] as Node[];
 
-      case MAP_SYMBOL.gear.toString():
-        this.pushNode(symbolNode, this.gearList, this.gearGroup);
-        break;
-
-      case MAP_SYMBOL.girl.toString():
-        this.pushNode(symbolNode, this.girlList, this.girlGroup);
-        break;
-
-      case MAP_SYMBOL.guys.toString():
-        this.pushNode(symbolNode, this.guysList, this.guysGroup);
-        break;
-
-      case MAP_SYMBOL.j.toString():
-        this.pushNode(symbolNode, this.jList, this.jGroup);
-        break;
-
-      case MAP_SYMBOL.jackpot.toString():
-        this.pushNode(symbolNode, this.jackpotList, this.jackpotGroup);
-        break;
-
-      case MAP_SYMBOL.q.toString():
-        this.pushNode(symbolNode, this.qList, this.qGroup);
-        break;
-
-      case MAP_SYMBOL.k.toString():
-        this.pushNode(symbolNode, this.kList, this.kGroup);
-        break;
-
-      case MAP_SYMBOL.wild.toString():
-        this.pushNode(symbolNode, this.wildList, this.wildGroup);
-        break;
+        if (symbolNodes) {
+          if (symbolNodes.length > 0) {
+            let symbolNode = symbolNodes.pop();
+            symbolNode.removeFromParent();
+            return symbolNode;
+          } else {
+            this.initPool(symbolPrefab[i], symbolListNodes[i], symbolNodeGroup[i], symbolNumber);
+            let symbolNodes = symbolListNodes[i] as Node[];
+            let symbolNode = symbolNodes.pop();
+            symbolNode.removeFromParent();
+            return symbolNode;
+          }
+        }
+      }
     }
   }
 
-  getTrendBlueNode(): Node {
-    return this.getNode(this.trendBlueList, this.initPoolTrendBlue);
-  }
-
-  getTrendGreenNode(): Node {
-    return this.getNode(this.trendGreenList, this.initPoolTrendGreen);
-  }
-
-  getTrendYellowNode(): Node {
-    return this.getNode(this.trendYellowList, this.initPoolTrendYellow);
-  }
-
-  pushTrendBlueNode(iconNode: Node) {
-    this.pushNode(iconNode, this.trendBlueList, this.trendBlueGroupNode);
-  }
-
-  pushTrendGreenNode(iconNode: Node) {
-    this.pushNode(iconNode, this.trendGreenList, this.trendGreenGroupNode);
-  }
-
-  pushTrendYellowNode(iconNode: Node) {
-    this.pushNode(iconNode, this.trendYellowList, this.trendYellowGroupNode);
-  }
-
-  resetNodePropertyesToOrigin(symbolNode: Node) {}
-
-  getNode(symbolList: Node[], initNewPool: Function): Node {
-    if (symbolList.length > 0) {
-      let symbolNode = symbolList.pop();
-      symbolNode.removeFromParent();
-      return symbolNode;
-    } else {
-      initNewPool();
-      let symbolNode = this.freeSpinList.pop();
-      symbolNode.removeFromParent();
-      return symbolNode;
+  private pushNode(NodeName: string, iconNode: Node, listIconNodes: any[], listIconGroup: Node[]) {
+    this.resetNodePropertyesToOrigin(iconNode);
+    let symbolIndex = parseInt(NodeName);
+    if (iconNode.parent) {
+      iconNode.removeFromParent();
     }
+    listIconNodes[symbolIndex - 1].push(iconNode);
+
+    listIconGroup[symbolIndex - 1].addChild(iconNode);
+    iconNode.active = false;
   }
 
-  pushNode(symbolNode: Node, symbolList: Node[], symbolGroup: Node) {
-    this.resetNodePropertyesToOrigin(symbolNode);
-
-    if (symbolNode.parent) {
-      symbolNode.removeFromParent();
-    }
-    symbolGroup.addChild(symbolNode);
-
-    symbolList.push(symbolNode);
-
-    symbolNode.active = false;
-  }
+  private resetNodePropertyesToOrigin(symbolNode: Node) {}
 }

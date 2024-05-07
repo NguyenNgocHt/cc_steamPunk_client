@@ -61,17 +61,12 @@ export class gamePlayController extends BaseScreen {
   public dataGame: any = null;
 
   onLoad() {
-    this.landingGroup.node.active = true;
-    let dataDecode = Utils.parseUrlData();
-    if (dataDecode) {
-      this.dataGame = Object.assign(dataDecode);
-      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_DATA, this.dataGame);
-    }
   }
 
   start() {
     this.registerEventGame();
     this.init();
+    this.setDataDecode();
     this.registerPlayerInfo();
     this.registerGameInfo();
     this.registerGameData();
@@ -114,6 +109,17 @@ export class gamePlayController extends BaseScreen {
 
   initGameLogicController() {
     this.GameLogicController.initGameStart();
+  }
+
+
+  setDataDecode(){
+    this.landingGroup.node.active = true;
+    let dataDecode = Utils.parseUrlData();
+    console.log("data decode", dataDecode);
+    if (dataDecode) {
+      this.dataGame = Object.assign(dataDecode);
+      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_DATA, this.dataGame);
+    }
   }
 
   registerEventGame() {

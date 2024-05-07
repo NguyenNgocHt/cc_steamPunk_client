@@ -1,6 +1,6 @@
-import { _decorator, Component, Node } from "cc";
+import { _decorator } from "cc";
 import { IBetResultService } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
-import { BetData, BetResult, BetResultsData, PayLinesDaTa, Result, Results } from "../../../../dataModel/BetDataType";
+import { BetData, BetResultsData, PayLinesDaTa } from "../../../../dataModel/BetDataType";
 const { ccclass, property } = _decorator;
 
 @ccclass("BetResultService")
