@@ -6,7 +6,7 @@ import { GAME_EVENT } from "../../../../network/networkDefine";
 import { PoolController } from "../../../../common/PoolController";
 import { BetResultsData, NewBetResultList, Results } from "../../../../dataModel/BetDataType";
 import { IPaylinesService, ISymbolService } from "../../../../interfaces/gamePlay/MainLayer_interfaces";
-import { SymbolService } from "../service/SymbolService";
+import { SymbolGroupService } from "../service/SymbolGroupService";
 enum WIN_LOSE_STATE {
   NO_STATE = 0,
   WIN_GAME = 1,
@@ -24,7 +24,7 @@ export class SlotController extends Component {
   paylineList: any[] = [];
 
   _paylinesService: IPaylinesService = null;
-  _symbolService: ISymbolService = null;
+  _symbolGroupService: ISymbolService = null;
 
   winLoseGameStatus: WIN_LOSE_STATE = WIN_LOSE_STATE.NO_STATE;
 
@@ -39,7 +39,7 @@ export class SlotController extends Component {
 
   initSlotService() {
     this._paylinesService = new PaylinesService();
-    this._symbolService = new SymbolService();
+    this._symbolGroupService = new SymbolGroupService();
   }
 
   registerEvent() {
@@ -55,7 +55,7 @@ export class SlotController extends Component {
   initSymbolGroup(poolControl: PoolController) {
     let poolControler = poolControl;
 
-    this.symbolIndexList = this._symbolService.generateRandomSymbolList();
+    this.symbolIndexList = this._symbolGroupService.generateRandomSymbolList();
 
     this.symbolGroupController.initSlotGroup(this.symbolIndexList, poolControler);
   }
@@ -72,9 +72,9 @@ export class SlotController extends Component {
 
     newList.push(newBetResultList.reel3);
 
-    this.symbolIndexList = this._symbolService.generateRandomSymbolList();
+    this.symbolIndexList = this._symbolGroupService.generateRandomSymbolList();
 
-    this.newSymbolIndexList = this._symbolService.changeNewSymbolIndexList(this.symbolIndexList, newList);
+    this.newSymbolIndexList = this._symbolGroupService.changeNewSymbolIndexList(this.symbolIndexList, newList);
 
     this.symbolGroupController.changeSymbolsIndex(this.newSymbolIndexList);
 

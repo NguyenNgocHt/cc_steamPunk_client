@@ -11,10 +11,14 @@ import { MAP_CONVERTED_ROW } from "../../../../common/define";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 import { CCFloat } from "cc";
+import { SymbolService } from "../service/SymbolService";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolGroupController")
 export class SymbolGroupController extends Component {
+  @property(SymbolService)
+  symbolService: SymbolService = null;
+
   @property(Node)
   symbolGroup: Node = null;
 
@@ -23,15 +27,6 @@ export class SymbolGroupController extends Component {
 
   @property(Vec3)
   positionStart: Vec3 = null;
-
-  @property(CCFloat)
-  symbolScaleList: Number[] = [];
-
-  @property(Vec2)
-  symbolPos: Vec2[] = [];
-
-  @property(Size)
-  symbolSize: Size[] = [];
 
   distanceColumn: number = 300;
   distanceRow: number = 240;
@@ -81,11 +76,15 @@ export class SymbolGroupController extends Component {
 
     symbolView.setSymbolIndex(symbolIndexList[row][collumn]);
 
-    symbolView.setNodeScaleList(this.symbolScaleList);
+    symbolView.setNodeScaleList(this.symbolService.getSymbolScaleList());
 
-    symbolView.setSymbolPosList(this.symbolPos);
+    symbolView.setSymbolPosList(this.symbolService.getSymbolPosition());
 
-    symbolView.setSymbolSizeList(this.symbolSize);
+    symbolView.setSymbolSizeList(this.symbolService.getSymbolSize());
+
+    symbolView.setSkeletonDataList(this.symbolService.getSkeletonDataList());
+
+    symbolView.setSymbolImageList(this.symbolService.getSymbolImageList());
   }
 
   getSymbolNodeList(): Node[] {

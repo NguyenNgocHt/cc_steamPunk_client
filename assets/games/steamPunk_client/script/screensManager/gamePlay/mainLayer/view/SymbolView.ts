@@ -18,10 +18,8 @@ export class SymbolView extends Component {
   @property(Node)
   symbolAnim: Node = null;
 
-  @property(sp.SkeletonData)
   AnimJsonDataList: sp.SkeletonData[] = [];
 
-  @property(SpriteFrame)
   symbolImageList: SpriteFrame[] = [];
 
   nodeScaleList: Number[] = [];
@@ -32,13 +30,11 @@ export class SymbolView extends Component {
 
   rowIndex: number = 0;
   columnIndex: number = 0;
+  symbolIndex: number = 0;
 
   distanceRow: number = 240;
-
   positionYTop: number = 1815;
   positionYBottom: number = -825;
-
-  symbolIndex: number = 0;
 
   isShowAnim: boolean = false;
 
@@ -98,6 +94,14 @@ export class SymbolView extends Component {
 
   setAnimStatus(status: boolean) {
     this.isShowAnim = status;
+  }
+
+  setSkeletonDataList(skeletonData: sp.SkeletonData[]) {
+    this.AnimJsonDataList = skeletonData;
+  }
+
+  setSymbolImageList(imageList: SpriteFrame[]) {
+    this.symbolImageList = imageList;
   }
 
   spinning(loopIndex: number, timeScale: number) {

@@ -1,65 +1,40 @@
-import { _decorator, Component, Node } from 'cc';
-import { Global } from '../../../../common/Global';
-import { MAP_SYMBOL } from '../../../../common/define';
+import { _decorator, Component, CCFloat, Vec2, Size, sp, SpriteFrame } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolService")
 export class SymbolService extends Component {
-  row: number = 12;
-  column: number = 3;
+  @property(CCFloat)
+  symbolScaleList: number[] = [];
 
-  generateRandomSymbolList(): number[][] {
-    let SymbolList: number[][] = [];
-    for (let i = 0; i < this.row; i++) {
-      let row: number[] = [];
-      for (let j = 0; j < this.column; j++) {
-        let randomNumber = Global.instance.RandomNumber(MAP_SYMBOL.a, MAP_SYMBOL.freespin);
-        row.push(randomNumber);
-      }
+  @property(Vec2)
+  symbolPos: Vec2[] = [];
 
-      SymbolList.push(row);
-    }
-    return SymbolList;
+  @property(Size)
+  symbolSize: Size[] = [];
+
+  @property(sp.SkeletonData)
+  skeletonDataList: sp.SkeletonData[] = [];
+
+  @property(SpriteFrame)
+  symbolImageList: SpriteFrame[] = [];
+
+  getSymbolScaleList(): number[] {
+    return this.symbolScaleList ? this.symbolScaleList : [];
   }
 
-  changeNewSymbolIndexList(oldSymbolIndexList: number[][], newList: number[][]): number[][] {
-    let newSymbolList: number[][] = [];
+  getSymbolPosition(): Vec2[] {
+    return this.symbolPos ? this.symbolPos : [];
+  }
 
-    for (let i = 0; i < this.row; i++) {
-      let row: number[] = [];
-      for (let j = 0; j < this.column; j++) {
-        if (j == 0) {
-          if (i >= 3 && i <= 5) {
-            oldSymbolIndexList[i][j] = newList[0][i - 3];
+  getSymbolSize(): Size[] {
+    return this.symbolSize ? this.symbolSize : [];
+  }
 
-            row.push(oldSymbolIndexList[i][j]);
-          } else {
-            row.push(oldSymbolIndexList[i][j]);
-          }
-        } else if (j == 1) {
-          if (i >= 3 && i <= 5) {
-            oldSymbolIndexList[i][j] = newList[1][i - 3];
+  getSkeletonDataList(): sp.SkeletonData[] {
+    return this.skeletonDataList ? this.skeletonDataList : [];
+  }
 
-            row.push(oldSymbolIndexList[i][j]);
-          } else {
-            row.push(oldSymbolIndexList[i][j]);
-          }
-        } else if (j == 2) {
-          if (i >= 3 && i <= 5) {
-            oldSymbolIndexList[i][j] = newList[2][i - 3];
-
-            row.push(oldSymbolIndexList[i][j]);
-          } else {
-            row.push(oldSymbolIndexList[i][j]);
-          }
-        } else {
-          row.push(oldSymbolIndexList[i][j]);
-        }
-      }
-      newSymbolList.push(row);
-    }
-    return newSymbolList;
+  getSymbolImageList(): SpriteFrame[] {
+    return this.symbolImageList ? this.symbolImageList : [];
   }
 }
-
-

@@ -39,9 +39,10 @@ export const GAME_EVENT = {
   LOSE_GAME: "lose game",
   //btn Bet
   ON_CLICK_BET_BUTTON: "on click bet button",
-  //symbol view
+  //symbol controller
   SPINING_STOP: "spinning stop",
   ON_SPIN_EFFECT_VER2: "on spin effect ver2",
+  SYMBOL_UP_TOP: "symbol up top",
   //slot view
   FINISH_RESET_POSITION_ALL_SYMBOL_GROUP: "finish reset position all symbol group",
   //connect to server
