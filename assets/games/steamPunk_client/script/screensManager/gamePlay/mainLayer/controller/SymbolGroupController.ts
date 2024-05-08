@@ -12,6 +12,7 @@ import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 import { CCFloat } from "cc";
 import { SymbolService } from "../service/SymbolService";
+import { SymbolController } from "./SymbolController";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolGroupController")
@@ -53,14 +54,14 @@ export class SymbolGroupController extends Component {
         symbolNode = this._poolControl.getSymbolNode(symbolIndexList[i][j]);
         if (symbolNode) {
           symbolNode.active = true;
-
+          console.log("symbol name", symbolNode.name, i, j);
           this.symbolGroup.addChild(symbolNode);
 
           symbolNode.setWorldPosition(this.positionStart.x + j * this.distanceColumn, this.positionStart.y - i * this.distanceRow, 0);
 
-          let symbolView = symbolNode.getComponent(SymbolView);
-          if (symbolView) {
-            this.initSymbolView(symbolView, i, j, symbolIndexList);
+          let symbolControl = symbolNode.getComponent(SymbolController);
+          if (symbolControl) {
+            this.initSymbolView(symbolControl, i, j, symbolIndexList);
           }
           this._symbolNodeList.push(symbolNode);
         }
@@ -69,22 +70,22 @@ export class SymbolGroupController extends Component {
     }
   }
 
-  initSymbolView(symbolView: SymbolView, row: number, collumn: number, symbolIndexList) {
-    symbolView.setRowIndex(row);
+  initSymbolView(symbolControl: SymbolController, row: number, collumn: number, symbolIndexList) {
+    symbolControl.setRowIndex(row);
 
-    symbolView.setColumnIndex(collumn);
+    symbolControl.setColumnIndex(collumn);
 
-    symbolView.setSymbolIndex(symbolIndexList[row][collumn]);
+    symbolControl.setSymbolIndex(symbolIndexList[row][collumn]);
 
-    symbolView.setNodeScaleList(this.symbolService.getSymbolScaleList());
+    symbolControl.setNodeScaleList(this.symbolService.getSymbolScaleList());
 
-    symbolView.setSymbolPosList(this.symbolService.getSymbolPosition());
+    symbolControl.setSymbolPosList(this.symbolService.getSymbolPosition());
 
-    symbolView.setSymbolSizeList(this.symbolService.getSymbolSize());
+    symbolControl.setSymbolSizeList(this.symbolService.getSymbolSize());
 
-    symbolView.setSkeletonDataList(this.symbolService.getSkeletonDataList());
+    symbolControl.setSkeletonDataList(this.symbolService.getSkeletonDataList());
 
-    symbolView.setSymbolImageList(this.symbolService.getSymbolImageList());
+    symbolControl.setSymbolImageList(this.symbolService.getSymbolImageList());
   }
 
   getSymbolNodeList(): Node[] {
@@ -95,9 +96,9 @@ export class SymbolGroupController extends Component {
     for (let i = 0; i < this.row; i++) {
       for (let j = 0; j < this.column; j++) {
         let k = this.column * i + j;
-        let symbolView = this._symbolNodeList[k].getComponent(SymbolView);
-        if (symbolView) {
-          symbolView.setSymbolIndex(newSymbolIndexlist[i][j]);
+        let symbolControl = this._symbolNodeList[k].getComponent(SymbolController);
+        if (symbolControl) {
+          symbolControl.setSymbolIndex(newSymbolIndexlist[i][j]);
         }
       }
     }
@@ -108,26 +109,26 @@ export class SymbolGroupController extends Component {
     for (let i = 0; i < this.row; i++) {
       for (let j = 0; j < this.column; j++) {
         let k = this.column * i + j;
-        let symbolView = this._symbolNodeList[k].getComponent(SymbolView);
-        if (symbolView) {
+        let symbolControl = this._symbolNodeList[k].getComponent(SymbolController);
+        if (symbolControl) {
           if (i >= 3 && i <= 5) {
             if (paylineConvert.rowIndex == i || paylineConvert.rowIndex == i || paylineConvert.rowIndex == i) {
-              symbolView.setAnimStatus(true);
+              symbolControl.setAnimStatus(true);
             } else if (paylineConvert.rowIndex == MAP_CONVERTED_ROW.DIAGONAL_4) {
               if (i == 3 && j == 2) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               } else if (i == 4 && j == 1) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               } else if (i == 5 && j == 0) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               }
             } else if (paylineConvert.rowIndex == MAP_CONVERTED_ROW.DIAGONAL_5) {
               if (i == 3 && j == 0) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               } else if (i == 4 && j == 1) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               } else if (i == 5 && j == 2) {
-                symbolView.setAnimStatus(true);
+                symbolControl.setAnimStatus(true);
               }
             }
           }
@@ -146,7 +147,11 @@ export class SymbolGroupController extends Component {
           if (j == columnIndex) {
             if (i == 2 || i == 3 || i == 4 || i == 5 || i == 6) {
               tween(symbolNode)
-                .to(1, { worldPosition: new Vec3(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0) }, { easing: "bounceOut" })
+                .to(
+                  1,
+                  { worldPosition: new Vec3(posOrigin.x + j * this.distanceColumn, posOrigin.y - i * this.distanceRow, 0) },
+                  { easing: "bounceOut" }
+                )
                 .call(() => {
                   if (i == 6 && j == 2) {
                     EventBus.dispatchEvent(GAME_EVENT.FINISH_RESET_POSITION_ALL_SYMBOL_GROUP, timeScale);
@@ -166,10 +171,10 @@ export class SymbolGroupController extends Component {
     for (let i = 0; i < this.row; i++) {
       for (let j = 0; j < this.column; j++) {
         let k = this.column * i + j;
-        let symbolView = this._symbolNodeList[k].getComponent(SymbolView);
-        if (symbolView) {
+        let symbolControl = this._symbolNodeList[k].getComponent(SymbolController);
+        if (symbolControl) {
           if (i >= 3 && i <= 5) {
-            symbolView.showAnimWin();
+            symbolControl.showAnimWin();
           }
         }
       }

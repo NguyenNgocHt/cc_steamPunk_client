@@ -1,6 +1,7 @@
 import { _decorator, Component, Node } from "cc";
 import { SymbolView } from "../view/SymbolView";
 import { SymbolGroupController } from "../controller/SymbolGroupController";
+import { SymbolController } from "./SymbolController";
 const { ccclass, property } = _decorator;
 
 @ccclass("SpinningMachineController")
@@ -22,9 +23,9 @@ export class SpinningMachineController extends Component {
     this.symbolNodeList = this.slotView.getSymbolNodeList();
     if (this.symbolNodeList) {
       for (let i = 0; i < this.symbolNodeList.length; i++) {
-        let symbolView = this.symbolNodeList[i].getComponent(SymbolView);
-        if (symbolView) {
-          symbolView.spinning(this.loopIndex, this.timeSCale);
+        let symbolControl = this.symbolNodeList[i].getComponent(SymbolController);
+        if (symbolControl) {
+          symbolControl.spinning(this.loopIndex, this.timeSCale);
         }
       }
     }
