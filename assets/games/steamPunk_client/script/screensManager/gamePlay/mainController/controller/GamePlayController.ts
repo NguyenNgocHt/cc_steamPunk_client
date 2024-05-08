@@ -65,10 +65,10 @@ export class gamePlayController extends BaseScreen {
   start() {
     this.registerEventGame();
     this.init();
-    this.setDataDecode();
     this.registerPlayerInfo();
     this.registerGameInfo();
     this.registerGameData();
+    this.setDataDecode();
     this.registerHistorySevice();
     this.initGameLogicController();
     this.requestData();

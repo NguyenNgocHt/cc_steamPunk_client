@@ -6,7 +6,7 @@ const { ccclass, property } = _decorator;
 export class PrefabModel implements IPrefabModel_loading {
   _prefabDirs = ["res/anims/prefabs/", "res/prefabs/popup/"];
 
-  _prefabs = ["res/prefabs/transition/transition_cloud", "res/prefabs/screen/play_screen"];
+  _prefabs = ["res/prefabs/screen/play_screen"];
 
   getPrefabDirds(): string[] {
     return this._prefabDirs;

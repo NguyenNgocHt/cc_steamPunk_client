@@ -3,6 +3,7 @@
     "__type__": "cc.Prefab",
     "_name": "winGameBonus",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_native": "",
     "data": {
       "__id__": 1
@@ -69,6 +70,7 @@
     "__type__": "cc.Node",
     "_name": "coin",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 1
     },
@@ -125,6 +127,7 @@
     "__type__": "cc.Node",
     "_name": "multipler",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 2
     },
@@ -174,6 +177,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 3
     },
@@ -201,6 +205,7 @@
     "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 3
     },
@@ -261,6 +266,7 @@
     "__type__": "cc.Node",
     "_name": "iconCoin",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 2
     },
@@ -310,6 +316,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 9
     },
@@ -319,8 +326,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 146,
-      "height": 148
+      "width": 150,
+      "height": 150
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -337,6 +344,7 @@
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 9
     },
@@ -355,7 +363,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "ec17fce3-5582-45f8-8b8a-3b2c822a2ec5@f9941",
+      "__uuid__": "c4a9aff6-0328-422e-8091-1e0cedf08083@49e0f",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -394,6 +402,7 @@
     "__type__": "cc.Node",
     "_name": "lbMoney",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 2
     },
@@ -443,6 +452,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 15
     },
@@ -470,6 +480,7 @@
     "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 15
     },
@@ -530,6 +541,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 2
     },
@@ -570,6 +582,7 @@
     "__type__": "cc.Node",
     "_name": "multiplier",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 1
     },
@@ -623,6 +636,7 @@
     "__type__": "cc.Node",
     "_name": "lbMultiply",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 24
     },
@@ -672,6 +686,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 25
     },
@@ -699,6 +714,7 @@
     "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 25
     },
@@ -759,6 +775,7 @@
     "__type__": "cc.Node",
     "_name": "lbIcon",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_parent": {
       "__id__": 24
     },
@@ -808,6 +825,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 31
     },
@@ -835,6 +853,7 @@
     "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 31
     },
@@ -895,6 +914,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 24
     },
@@ -935,6 +955,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -962,6 +983,7 @@
     "__type__": "852b5ICSnRMu4Fs8QmJVwA2",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -969,18 +991,15 @@
     "__prefab": {
       "__id__": 43
     },
-    "coinGroup": {
-      "__id__": 2
-    },
-    "multiplierGroup": {
-      "__id__": 24
-    },
+    "moneyGroup": null,
     "lbCoin": {
       "__id__": 18
     },
     "lbMultiplier": {
       "__id__": 28
     },
+    "startNode": null,
+    "originNode": null,
     "_id": ""
   },
   {
@@ -996,6 +1015,7 @@
       "__id__": 0
     },
     "fileId": "bc0yzm9WZP24iQYyIobUxu",
+    "instance": null,
     "targetOverrides": null
   }
 ]

@@ -1,5 +1,11 @@
 import { _decorator, Component, Prefab, tween } from "cc";
-import { ILoadingController, IAssetsSevice_loading, IAudioSevice_loading, ILoadingView_loading, ILanguegeService } from "../../../interfaces/Loading_interfaces";
+import {
+  ILoadingController,
+  IAssetsSevice_loading,
+  IAudioSevice_loading,
+  ILoadingView_loading,
+  ILanguegeService,
+} from "../../../interfaces/Loading_interfaces";
 import { AudioSevice } from "../sevice/AudioSevice";
 import { AssetsSevice } from "../sevice/AssetsSevice";
 import { LoadingBarView } from "../view/LoadingBarView";
@@ -90,18 +96,11 @@ export class LoadingBarControler extends Component implements ILoadingController
     let resultLoadingLanguage = this._languageService.getResultLoadLanguage();
     let languageData = StorageUtil.instance.read(BStorageKey.LANGUAGE_DATA);
     if (resultLoadingLanguage && languageData) {
-      console.log("next landing view");
-      console.log("languageData", JSON.parse(languageData));
-      this,
-        setTimeout(() => {
-          this.screenChange();
-        }, 1000);
+      this, this.screenChange();
     }
   }
   screenChange() {
-    console.log("load home screen");
     let play_screen = ScreenManager.instance.assetBundle.get(PATH.PLAY_SCREEN, Prefab);
-    console.log("play screen", play_screen);
     ScreenManager.instance.pushScreen(play_screen, (screen: BaseScreen) => {}, true);
   }
 }

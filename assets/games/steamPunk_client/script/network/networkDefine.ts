@@ -78,6 +78,8 @@ export const GAME_EVENT = {
 
   //tubo view
   ON_CLICK_TUBO_BUTTON: "on click tubo button",
+  //langugeManager
+  LANGUAGE_CHANGED: "language change",
 };
 export const SOCKET_EVENT = {
   //sys event---------

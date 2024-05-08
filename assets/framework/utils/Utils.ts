@@ -45,7 +45,8 @@ export default class Utils {
     const h = Utils.addZero(d.getHours());
     const m = Utils.addZero(d.getMinutes());
     const s = Utils.addZero(d.getSeconds());
-    const t = Utils.addZero(d.getDate()) + "/" + Utils.addZero(d.getMonth() + 1) + (hasYear ? "/" + d.getFullYear() : "") + " " + h + ":" + m + ":" + s;
+    const t =
+      Utils.addZero(d.getDate()) + "/" + Utils.addZero(d.getMonth() + 1) + (hasYear ? "/" + d.getFullYear() : "") + " " + h + ":" + m + ":" + s;
     return t;
   }
 
@@ -59,7 +60,14 @@ export default class Utils {
   /**
    * target scale will set with `startRate`, then scale to `scaleUpRate` during `duration`, then scale to `toRate` during `duration`, after all call `finishedCallback`
    */
-  public static animateScaleUp(target: cc.Node, scaleUpRate: number, duration: number = 0.2, toRate: number = 1, startRate: number = 1, finishedCallback: VoidFunction | null = null) {
+  public static animateScaleUp(
+    target: cc.Node,
+    scaleUpRate: number,
+    duration: number = 0.2,
+    toRate: number = 1,
+    startRate: number = 1,
+    finishedCallback: VoidFunction | null = null
+  ) {
     let scale0 = { scale: new Vec3(startRate, startRate, startRate) };
     let scale1 = tween().to(duration, { scale: new Vec3(scaleUpRate, scaleUpRate, scaleUpRate) }, { easing: "fade" });
     let scale2 = tween().to(duration, { scale: new Vec3(toRate, toRate, toRate) }, { easing: "fade" });
@@ -123,7 +131,7 @@ export default class Utils {
   public static cloneArray<T>(a: T[]): T[] {
     return [...a];
   }
-  
+
   public static parseUrlData(url: string = null) {
     if (!url) {
       url = window.location.href;
@@ -135,5 +143,12 @@ export default class Utils {
       return JSON.parse(dataDecode);
     }
     return null;
+  }
+
+  public static capitalizeFirstLetter(string: string) {
+    if (string === undefined || string.length <= 0) {
+      return "";
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

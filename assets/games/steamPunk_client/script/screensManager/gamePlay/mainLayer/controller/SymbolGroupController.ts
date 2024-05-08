@@ -54,7 +54,6 @@ export class SymbolGroupController extends Component {
         symbolNode = this._poolControl.getSymbolNode(symbolIndexList[i][j]);
         if (symbolNode) {
           symbolNode.active = true;
-          console.log("symbol name", symbolNode.name, i, j);
           this.symbolGroup.addChild(symbolNode);
 
           symbolNode.setWorldPosition(this.positionStart.x + j * this.distanceColumn, this.positionStart.y - i * this.distanceRow, 0);

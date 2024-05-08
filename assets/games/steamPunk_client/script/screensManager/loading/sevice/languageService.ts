@@ -42,7 +42,7 @@ export class languageService implements ILanguegeService {
           } else {
             setTimeout(() => {
               this.loadLanguage(dataDecode);
-            }, 2000);
+            }, 500);
           }
         }).bind(this)
       );

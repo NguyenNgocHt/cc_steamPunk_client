@@ -7,6 +7,8 @@ import { HttpClient } from "../network/HttpClient";
 import { LogUtil } from "../utils/LogUtil";
 import { NotifyUtil } from "../utils/NotifyUtil";
 import { BNotifyType } from "../../games/steamPunk_client/script/common/Enum";
+import { EventBus } from "../common/EventBus";
+import { GAME_EVENT } from "../../games/steamPunk_client/script/network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("LanguageManager")
@@ -59,7 +61,7 @@ export class LanguageManager extends Component {
   }
   private _handleData(data: any, callback: Function) {
     LanguageManager._data = data;
-    NotifyUtil.instance.emit(BNotifyType.LANGUAGE_CHANGED);
+    EventBus.dispatchEvent(GAME_EVENT.LANGUAGE_CHANGED);
     LogUtil.log(JSON.stringify(data));
     console.log("data", data);
     callback && callback(true);

@@ -17,11 +17,9 @@ export class SpiningAnim extends Component implements ISpiningAnim {
       .by(this.timeLoopSpinning, { eulerAngles: new Vec3(0, 0, -360) })
       .repeatForever();
     this.tweenSpin = tween(this.node).then(moving);
-    console.log("init tween stop", this.tweenSpin);
   }
 
   spinningStop() {
-    console.log("tween stop", this.tweenSpin);
     this.tweenSpin.stop();
   }
 

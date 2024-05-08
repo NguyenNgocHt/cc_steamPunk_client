@@ -5,7 +5,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass("ImageModel")
 export class ImageModel implements IImageModel_loading {
-  private _imageDirs = ["res/fonts/", "res/images/bgr/", "res/images/texturePacker/avatar/"];
+  private _imageDirs = [];
 
   getImagesDirsData(): string[] {
     return this._imageDirs;
