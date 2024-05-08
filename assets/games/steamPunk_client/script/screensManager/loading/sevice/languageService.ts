@@ -10,9 +10,7 @@ export class languageService implements ILanguegeService {
   private isLoadLanguage: boolean = false;
   loadingLanguage() {
     let dataDecode = Utils.parseUrlData();
-    console.log("dataDecode", dataDecode);
     this.getSetting(dataDecode, () => {
-      console.log("come in get setting ok");
       this.loadLanguage(dataDecode);
     });
     if (window["onGameInitSuccess"]) {

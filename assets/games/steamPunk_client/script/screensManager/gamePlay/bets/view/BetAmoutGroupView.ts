@@ -19,16 +19,6 @@ export class BetAmoutGroupView extends Component {
   _listDenominationsIndexMax: number = 14;
   _listDenominationsIndexMin: number = 0;
 
-  start() {
-    this.scheduleOnce(function () {
-      this.callGetGameInfo();
-      this.initDefaultValue();
-    }, 1);
-  }
-  callGetGameInfo() {
-    EventBus.dispatchEvent(GAME_EVENT.GET_GAME_INFO);
-  }
-
   initDefaultValue() {
     this.defaultLineValue = this._listDenominations[0];
     this.currentBetLineValue = this.defaultLineValue;
@@ -36,43 +26,70 @@ export class BetAmoutGroupView extends Component {
     this._listDenominationLenght = this._listDenominations.length;
   }
 
-  getListDenominations(data: number[]) {
-    this._listDenominations = data;
-  }
-
-  getListSettings(data: SettingsData) {
-    this._listSettings = data;
+  setGameInfoData(denominations: number[], settings: SettingsData) {
+    this._listDenominations = denominations;
+    this._listSettings = settings;
+    this.initDefaultValue();
   }
 
   onClickAddLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominanyationsIndexMax, listDenominationsIndexMin) {
+    this.onChangeBetValue(function computeNewLineValue(
+      defaultListDenominationsIndex,
+      listDenominationLenght,
+      listDenominanyationsIndexMax,
+      listDenominationsIndexMin
+    ) {
       defaultListDenominationsIndex += 1;
 
-      defaultListDenominationsIndex = defaultListDenominationsIndex >= listDenominationLenght - 1 ? listDenominationLenght - 1 : defaultListDenominationsIndex;
+      defaultListDenominationsIndex =
+        defaultListDenominationsIndex >= listDenominationLenght - 1 ? listDenominationLenght - 1 : defaultListDenominationsIndex;
       return defaultListDenominationsIndex;
     });
   }
+
   onClickSubLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
+    this.onChangeBetValue(function computeNewLineValue(
+      defaultListDenominationsIndex,
+      listDenominationLenght,
+      listDenominationsIndexMax,
+      listDenominationsIndexMin
+    ) {
       defaultListDenominationsIndex -= 1;
 
       defaultListDenominationsIndex = defaultListDenominationsIndex <= 0 ? 0 : defaultListDenominationsIndex;
       return defaultListDenominationsIndex;
     });
   }
+
   onClickMinLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
+    this.onChangeBetValue(function computeNewLineValue(
+      defaultListDenominationsIndex,
+      listDenominationLenght,
+      listDenominationsIndexMax,
+      listDenominationsIndexMin
+    ) {
       return listDenominationsIndexMin;
     });
   }
+
   oncClickMaxLineValue() {
-    this.onChangeBetValue(function computeNewLineValue(defaultListDenominationsIndex, listDenominationLenght, listDenominationsIndexMax, listDenominationsIndexMin) {
+    this.onChangeBetValue(function computeNewLineValue(
+      defaultListDenominationsIndex,
+      listDenominationLenght,
+      listDenominationsIndexMax,
+      listDenominationsIndexMin
+    ) {
       return listDenominationsIndexMax;
     });
   }
 
   onChangeBetValue(computeNewLineValue: (...args: any[]) => number) {
-    this.defaultListDenominationsIndex = computeNewLineValue(this.defaultListDenominationsIndex, this._listDenominationLenght, this._listDenominationsIndexMax, this._listDenominationsIndexMin);
+    this.defaultListDenominationsIndex = computeNewLineValue(
+      this.defaultListDenominationsIndex,
+      this._listDenominationLenght,
+      this._listDenominationsIndexMax,
+      this._listDenominationsIndexMin
+    );
 
     this.currentBetLineValue = this._listDenominations[this.defaultListDenominationsIndex];
 

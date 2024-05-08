@@ -60,8 +60,7 @@ export class gamePlayController extends BaseScreen {
 
   public dataGame: any = null;
 
-  onLoad() {
-  }
+  onLoad() {}
 
   start() {
     this.registerEventGame();
@@ -111,8 +110,7 @@ export class gamePlayController extends BaseScreen {
     this.GameLogicController.initGameStart();
   }
 
-
-  setDataDecode(){
+  setDataDecode() {
     this.landingGroup.node.active = true;
     let dataDecode = Utils.parseUrlData();
     console.log("data decode", dataDecode);
@@ -140,6 +138,7 @@ export class gamePlayController extends BaseScreen {
     this.PlayerControl.minusMoneyBet(betResultData.stake);
 
     this.betControl.changeBetbtnSatus();
+
     EventBus.dispatchEvent(GAME_EVENT.SEND_BET_RESULT_DATA, betData);
 
     this.requestData();
@@ -167,6 +166,8 @@ export class gamePlayController extends BaseScreen {
     EventBus.dispatchEvent(GAME_EVENT.SEND_TO_PLAYER_INFO, this.playerInfoData);
 
     EventBus.dispatchEvent(GAME_EVENT.SEND_TO_GAME_INFO, this.gameInfoData);
+
+    this.betControl.setGameInfo();
 
     this.PlayerControl.setPlayerInfo(this.playerInfoData);
   }

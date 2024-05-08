@@ -57,8 +57,6 @@ export class BetController extends Component {
   }
 
   registerEvent() {
-    EventBus.on(GAME_EVENT.GET_GAME_INFO, this.getGameInfo.bind(this));
-
     EventBus.on(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
 
     EventBus.on(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
@@ -75,8 +73,6 @@ export class BetController extends Component {
   }
 
   unRegisterEvent() {
-    EventBus.off(GAME_EVENT.GET_GAME_INFO, this.getGameInfo.bind(this));
-
     EventBus.off(GAME_EVENT.CURRENT_BET_VALUE, this.setTotalBet.bind(this));
 
     EventBus.off(GAME_EVENT.ON_CLICK_BET_BUTTON, this.sendBetData.bind(this));
@@ -113,19 +109,15 @@ export class BetController extends Component {
     this.historyView.moveNodeToTagetPoint();
   }
 
-  getGameInfo() {
+  setGameInfo() {
     let listDenominations = this._gameInfoService.getListDenominations();
 
     let listSettings = this._gameInfoService.getlistSettings();
-    console.log(listDenominations, listSettings);
 
-    this.betAmoutGroupView.getListDenominations(listDenominations);
-
-    this.betAmoutGroupView.getListSettings(listSettings);
+    this.betAmoutGroupView.setGameInfoData(listDenominations, listSettings);
   }
 
   setTotalBet(currentBetLineValue: number) {
-    console.log("current bet line value", currentBetLineValue);
     this.betLineGroupView.setCurrentBetLineValue(currentBetLineValue);
   }
 

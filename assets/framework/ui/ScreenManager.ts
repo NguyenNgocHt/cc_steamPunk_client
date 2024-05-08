@@ -17,7 +17,7 @@ export enum VD_GUI_TYPE {
   SCREEN = 2,
 }
 
-const VD_ANIMATED_TIME = 0.3;
+const VD_ANIMATED_TIME = 0;
 
 export enum VD_ZINDEX {
   BACK_GROUND = 0,
@@ -358,11 +358,17 @@ export default class ScreenManager extends cc.Component {
   // private _screenCached: any = {};
 
   get minScaleFactor(): number {
-    return Math.min(this.screenSize.width / cc.View.instance.getDesignResolutionSize().width, this.screenSize.height / cc.View.instance.getDesignResolutionSize().height);
+    return Math.min(
+      this.screenSize.width / cc.View.instance.getDesignResolutionSize().width,
+      this.screenSize.height / cc.View.instance.getDesignResolutionSize().height
+    );
   }
 
   get maxScaleFactor(): number {
-    return Math.max(this.screenSize.width / cc.View.instance.getDesignResolutionSize().width, this.screenSize.height / cc.View.instance.getDesignResolutionSize().height);
+    return Math.max(
+      this.screenSize.width / cc.View.instance.getDesignResolutionSize().width,
+      this.screenSize.height / cc.View.instance.getDesignResolutionSize().height
+    );
   }
 
   initWithRootScreen(screen: cc.Prefab, callback?: Function | null) {
@@ -805,7 +811,13 @@ export default class ScreenManager extends cc.Component {
     }
   }
 
-  showPopupFromPrefabName(resPath: string, callback: Function | null = null, hideWhenTouchOnBackground: boolean = true, animated: boolean = true, showBackgroundLayer: boolean = true) {
+  showPopupFromPrefabName(
+    resPath: string,
+    callback: Function | null = null,
+    hideWhenTouchOnBackground: boolean = true,
+    animated: boolean = true,
+    showBackgroundLayer: boolean = true
+  ) {
     if (this._showedMaxOrderPopup) return;
     let prefab = this.assetBundle.get(resPath, cc.Prefab);
     if (prefab) {
@@ -821,7 +833,13 @@ export default class ScreenManager extends cc.Component {
     }
   }
 
-  showPopupFromPrefab(prefab: cc.Prefab, callback: Function | null = null, hideWhenTouchOnBackground: boolean = true, animated: boolean = true, showBackgroundLayer: boolean = true) {
+  showPopupFromPrefab(
+    prefab: cc.Prefab,
+    callback: Function | null = null,
+    hideWhenTouchOnBackground: boolean = true,
+    animated: boolean = true,
+    showBackgroundLayer: boolean = true
+  ) {
     if (!prefab) {
       return;
     }
@@ -830,7 +848,13 @@ export default class ScreenManager extends cc.Component {
     this.showPopupFromNode(node, callback, hideWhenTouchOnBackground, animated, showBackgroundLayer);
   }
 
-  showPopupFromNode(nodePopup: cc.Node, callback: Function | null = null, hideWhenTouchOnBackground: boolean = true, animated: boolean = true, showBackgroundLayer: boolean = true) {
+  showPopupFromNode(
+    nodePopup: cc.Node,
+    callback: Function | null = null,
+    hideWhenTouchOnBackground: boolean = true,
+    animated: boolean = true,
+    showBackgroundLayer: boolean = true
+  ) {
     if (!nodePopup) {
       return;
     }
