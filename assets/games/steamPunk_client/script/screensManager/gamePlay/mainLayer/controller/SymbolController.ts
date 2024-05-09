@@ -3,6 +3,8 @@ import { SymbolView } from "../view/SymbolView";
 import { SpinSymbolView } from "../view/SpinSymbolView";
 import { GAME_EVENT } from "../../../../network/networkDefine";
 import { Collider, Vec2, sp, Size, SpriteFrame } from "cc";
+import { SymbolInfo } from "../../../../dataModel/SymbolDataType";
+import { SymbolService } from "../service/SymbolService";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolController")
@@ -13,6 +15,8 @@ export class SymbolController extends Component {
   @property(SpinSymbolView)
   spinSymbolview: SpinSymbolView = null;
 
+  symbolService: SymbolService = null;
+
   protected start(): void {
     this.registerEvent();
   }
@@ -22,6 +26,25 @@ export class SymbolController extends Component {
   }
   unRegisterEvent() {
     this.spinSymbolview.node.off(GAME_EVENT.SYMBOL_UP_TOP, this.changeSymbolImage.bind(this));
+  }
+
+  init(symbolInfo: SymbolInfo, symbolService: SymbolService) {
+    this.symbolService = symbolService;
+    this.setRowIndex(symbolInfo.rowIndex);
+
+    this.setColumnIndex(symbolInfo.columnIndex);
+
+    this.setSymbolIndex(symbolInfo.symbolIndex);
+
+    this.setNodeScaleList(this.symbolService.getSymbolScaleList());
+
+    this.setSymbolPosList(this.symbolService.getSymbolPosition());
+
+    this.setSymbolSizeList(this.symbolService.getSymbolSize());
+
+    this.setSkeletonDataList(this.symbolService.getSkeletonDataList());
+
+    this.setSymbolImageList(this.symbolService.getSymbolImageList());
   }
 
   //symbowView controller

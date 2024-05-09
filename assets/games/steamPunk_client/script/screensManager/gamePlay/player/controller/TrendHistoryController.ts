@@ -26,7 +26,6 @@ export class TrendHistoryController extends Component {
   }
 
   checkIconValue(value: number) {
-    console.log("value", value);
     if (value == 0) {
       this.trendHistoryView.pushGreenIconInConten(value);
     } else if (value > 0) {

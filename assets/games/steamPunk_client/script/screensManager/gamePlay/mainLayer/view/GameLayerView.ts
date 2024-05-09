@@ -27,6 +27,7 @@ export class GameLayerView extends Component {
 
   metalgateToUp() {
     this.moveMetalgate1();
+
     this.moveMetalgate2();
   }
 

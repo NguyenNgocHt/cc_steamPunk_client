@@ -8,6 +8,7 @@ export const GAME_EVENT = {
   INIT_AUDIOS: "init audios",
   RESOURCE_LOADING_ERR: "resource loading error",
   SCREEN_CHANGE: "screen change",
+  FINISH_LOADING: "finish loading",
 
   //game play controller
   SEND_TO_PLAYER_INFO: "send to player info",

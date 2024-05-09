@@ -19,9 +19,9 @@ import { GameLayerController } from "../../mainLayer/controller/GameLayerControl
 import { ISocketIOClient } from "../../../../interfaces/Mock_interfaces";
 import { GameData } from "../../../../common/GameData";
 import { HistoryService } from "../service/HistoryService";
-import { MockGameLogicController } from "./MockGameLogicController";
+import { MockGameLogicService } from "../service/MockGameLogicService";
 import { PlayerInfoService } from "../service/PlayerInfoService";
-import { GameLogicController } from "./GameLogicController";
+import { GameLogicService } from "../service/GameLogicService";
 
 const { ccclass, property } = _decorator;
 
@@ -56,7 +56,7 @@ export class gamePlayController extends BaseScreen {
   betInfoData: BetData = null;
   _socketIOInstance: ISocketIOClient = null;
 
-  GameLogicController: IGameLogicController = null;
+  gameLogicController: IGameLogicController = null;
 
   public dataGame: any = null;
 
@@ -87,8 +87,8 @@ export class gamePlayController extends BaseScreen {
 
     this.historyService = new HistoryService();
 
-    this.GameLogicController = new GameLogicController();
-    // this.GameLogicController = new MockGameLogicController();
+    this.gameLogicController = new GameLogicService();
+    // this.gameLogicController = new MockGameLogicController();
   }
 
   registerPlayerInfo() {
@@ -107,7 +107,7 @@ export class gamePlayController extends BaseScreen {
   }
 
   initGameLogicController() {
-    this.GameLogicController.initGameStart();
+    this.gameLogicController.initGameStart();
   }
 
   setDataDecode() {

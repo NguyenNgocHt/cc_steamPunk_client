@@ -66,7 +66,7 @@
   {
     "__type__": "cc.Node",
     "_name": "icon",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": {
       "__id__": 1
@@ -123,7 +123,7 @@
   {
     "__type__": "cc.Node",
     "_name": "lbX",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": {
       "__id__": 2
@@ -262,7 +262,7 @@
   {
     "__type__": "cc.Node",
     "_name": "lbValue",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": {
       "__id__": 2
@@ -323,8 +323,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 53,
-      "height": 12
+      "width": 48.58,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -362,12 +362,12 @@
     "_string": "100",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 12,
-    "_fontSize": 12,
+    "_actualFontSize": 11,
+    "_fontSize": 11,
     "_fontFamily": "Arial",
-    "_lineHeight": 12,
+    "_lineHeight": 30,
     "_overflow": 0,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_font": {
       "__uuid__": "d21aaa46-d580-4266-8fce-407d4c7811d0",
       "__expectedType__": "cc.BitmapFont"
@@ -378,7 +378,7 @@
     "_isBold": false,
     "_isUnderline": false,
     "_underlineHeight": 2,
-    "_cacheMode": 0,
+    "_cacheMode": 1,
     "_id": ""
   },
   {

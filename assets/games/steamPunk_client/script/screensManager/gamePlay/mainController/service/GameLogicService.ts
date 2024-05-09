@@ -7,8 +7,8 @@ import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { IGameLogicController } from "../../../../interfaces/gamePlay/GamePlayInterfaces";
 const { ccclass, property } = _decorator;
 
-@ccclass("GameLogicController")
-export class GameLogicController implements IGameLogicController {
+@ccclass("GameLogicService")
+export class GameLogicService implements IGameLogicController {
   initGameStart() {
     this.registerEvent();
     this.connectServer();
@@ -50,70 +50,28 @@ export class GameLogicController implements IGameLogicController {
   }
 
   initEventNetwork() {
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.CONNECTION,
-      this.onConnection.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.CONNECT,
-      this.onConnect.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.DISCONNECT,
-      this.ondisconnect.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.CONNECT_ERROR,
-      this.onConnectError.bind(this),
-      true
-    );
+    SocketIoClient.instance.on(SOCKET_EVENT.CONNECTION, this.onConnection.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.CONNECT, this.onConnect.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.DISCONNECT, this.ondisconnect.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.CONNECT_ERROR, this.onConnectError.bind(this), true);
 
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.UPDATE_COIN,
-      this.onUpdateCoin.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.BALANCE,
-      this.onUpdateBalance.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.GAME_INFO,
-      this.onGameInfo.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.LOGIN,
-      this.onLogin.bind(this),
-      true
-    );
-    SocketIoClient.instance.on(
-      SOCKET_EVENT.BET,
-      this.onPlaceBetResponseHandle.bind(this),
-      true
-    );
+    SocketIoClient.instance.on(SOCKET_EVENT.UPDATE_COIN, this.onUpdateCoin.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.BALANCE, this.onUpdateBalance.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.GAME_INFO, this.onGameInfo.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.LOGIN, this.onLogin.bind(this), true);
+    SocketIoClient.instance.on(SOCKET_EVENT.BET, this.onPlaceBetResponseHandle.bind(this), true);
   }
 
   onPlaceBetResponseHandle(msg) {
     console.log("msg", msg);
     if (msg) {
-      EventBus.dispatchEvent(
-        GAME_EVENT.SEND_BET_RESULT_DATA_TO_GAME_CONTROLLER,
-        msg
-      );
+      EventBus.dispatchEvent(GAME_EVENT.SEND_BET_RESULT_DATA_TO_GAME_CONTROLLER, msg);
     }
   }
 
   onGameInfo(data) {
     if (data) {
-      EventBus.dispatchEvent(
-        GAME_EVENT.SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER,
-        data
-      );
+      EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER, data);
     }
   }
 

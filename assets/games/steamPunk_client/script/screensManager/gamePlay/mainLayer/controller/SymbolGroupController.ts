@@ -1,18 +1,15 @@
 import { _decorator, Component, Node } from "cc";
 import { IPoolController } from "../../../../interfaces/Common_interfaces";
 import { PoolController } from "../../../../common/PoolController";
-import { SymbolView } from "../view/SymbolView";
 import { Vec3 } from "cc";
-import { Vec2 } from "cc";
-import { Size } from "cc";
 import { tween } from "cc";
 import { paylineConvert } from "../../../../dataModel/BetDataType";
 import { MAP_CONVERTED_ROW } from "../../../../common/define";
 import { EventBus } from "../../../../../../../framework/common/EventBus";
 import { GAME_EVENT } from "../../../../network/networkDefine";
-import { CCFloat } from "cc";
 import { SymbolService } from "../service/SymbolService";
 import { SymbolController } from "./SymbolController";
+import { SymbolInfo } from "../../../../dataModel/SymbolDataType";
 const { ccclass, property } = _decorator;
 
 @ccclass("SymbolGroupController")
@@ -70,21 +67,13 @@ export class SymbolGroupController extends Component {
   }
 
   initSymbolView(symbolControl: SymbolController, row: number, collumn: number, symbolIndexList) {
-    symbolControl.setRowIndex(row);
-
-    symbolControl.setColumnIndex(collumn);
-
-    symbolControl.setSymbolIndex(symbolIndexList[row][collumn]);
-
-    symbolControl.setNodeScaleList(this.symbolService.getSymbolScaleList());
-
-    symbolControl.setSymbolPosList(this.symbolService.getSymbolPosition());
-
-    symbolControl.setSymbolSizeList(this.symbolService.getSymbolSize());
-
-    symbolControl.setSkeletonDataList(this.symbolService.getSkeletonDataList());
-
-    symbolControl.setSymbolImageList(this.symbolService.getSymbolImageList());
+    let symbolInfo: SymbolInfo = null;
+    symbolInfo = {
+      symbolIndex: symbolIndexList[row][collumn],
+      rowIndex: row,
+      columnIndex: collumn,
+    };
+    symbolControl.init(symbolInfo, this.symbolService);
   }
 
   getSymbolNodeList(): Node[] {

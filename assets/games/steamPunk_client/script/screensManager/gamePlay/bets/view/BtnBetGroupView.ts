@@ -52,6 +52,7 @@ export class BtnBetGroupView extends Component {
 
   init() {
     this.initAnim();
+
     this.initNode();
   }
 
@@ -64,6 +65,7 @@ export class BtnBetGroupView extends Component {
     this.tapAnim.node.active = false;
     this.animBetRound.node.active = false;
     this.animBetPress.node.active = false;
+
     this.animBetPress.setCompleteListener(() => {
       this.animBetPress.node.active = false;
     });
@@ -71,6 +73,7 @@ export class BtnBetGroupView extends Component {
 
   registerEvent() {
     this.btnBet.on(Node.EventType.TOUCH_START, this.onBetTouchDown.bind(this));
+
     this.btnBet.on(Node.EventType.TOUCH_END, this.onBetTouchEnd.bind(this));
   }
 
@@ -78,6 +81,7 @@ export class BtnBetGroupView extends Component {
     if (!this.isPressButton) {
       this.isPressButton = true;
       this.changeBetBtnWhenPress;
+
       this.sendActionToBetControl();
     }
   }
@@ -110,7 +114,9 @@ export class BtnBetGroupView extends Component {
 
   changeBetBtnWhenPress() {
     let posUnion = this.union.node.getWorldPosition();
+
     this.originPosNodeUnion = posUnion;
+
     let spriteNode = this.btnBet.getComponent(Sprite);
 
     spriteNode.spriteFrame = this.btnBetPress;
@@ -147,7 +153,9 @@ export class BtnBetGroupView extends Component {
 
   changeBetBtnWhenNetural() {
     this.isPressButton = false;
+
     this.stopSpinGear();
+
     this.bigGear.changeTimeLoopSpinning(5);
 
     let spriteNode = this.btnBet.getComponent(Sprite);
@@ -160,7 +168,9 @@ export class BtnBetGroupView extends Component {
   onBetTouchDown(event: EventTouch) {
     if (!this.isPressButton) {
       this.startSpinSmallGear();
+
       this.bigGear.changeTimeLoopSpinning(2);
+
       this.changeBetBtnWhenPress();
     }
   }
@@ -173,6 +183,7 @@ export class BtnBetGroupView extends Component {
 
   showTextWinFreeSpin() {
     this.winFreeSpin.active = true;
+
     setTimeout(() => {
       this.winFreeSpin.active = false;
     }, 2000);
@@ -180,17 +191,20 @@ export class BtnBetGroupView extends Component {
 
   showFreeSpinValue(value: number) {
     this.freeSpinValue = value;
+
     this.setEffectNode(value);
   }
 
   setEffectNode(value: number) {
     tween(this.lbFreeSpin.node)
       .to(0.1, { scale: new Vec3(1.3, 1.3, 1.3) }, { easing: "backInOut" })
+
       .call(() => {
         this.lbFreeSpin.node.active = true;
         this.lbFreeSpin.string = value.toString();
       })
       .to(0.5, { scale: new Vec3(1, 1, 1) }, { easing: "backOut" })
+
       .start();
   }
 

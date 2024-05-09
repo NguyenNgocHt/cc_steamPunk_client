@@ -47,7 +47,7 @@ export class SpinSymbolView extends Component {
       .call(this.actionStartSpinning(timeScale, downIndex))
       .delay(0.5 / timeScale)
       .call(this.actionSpinning(numMoves, timeScale, downIndex, posStart))
-      .delay(0.4 / timeScale)
+      .delay(0.2 / timeScale)
       .call(() => {
         if (this.rowIndex == 11 && this.columnIndex == 2) {
           EventBus.dispatchEvent(GAME_EVENT.ON_SPIN_EFFECT_VER2, timeScale);
@@ -79,7 +79,7 @@ export class SpinSymbolView extends Component {
   }
 
   actionSpinning(numMoves: number, timeScale: number, downIndex: number, posStart: Vec3): Function {
-    let timeMove_spinning = 0.06 / timeScale;
+    let timeMove_spinning = 0.05 / timeScale;
     let action_spinning = () => {
       tween(this.node.parent)
         .by(timeMove_spinning, { worldPosition: new Vec3(0, downIndex * this.distanceRow, 0) })

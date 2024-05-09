@@ -12,6 +12,7 @@ export class LampView extends Component {
     this.lampOff.active = true;
     this.lampOn.active = false;
   }
+  
   onLamp() {
     this.lampOn.active = true;
     this.lampOff.active = false;

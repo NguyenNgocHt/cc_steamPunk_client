@@ -1,5 +1,5 @@
+import { GameLogicService } from "./GameLogicService";
 import { _decorator } from "cc";
-import { GameLogicController } from "./GameLogicController";
 import { IBetResultsServiceMock } from "../../../../interfaces/Mock_interfaces";
 import { betResultMock } from "../../../../dataModel/MockConfigData";
 import { GameInfoData } from "../../../../dataModel/GameInfoDataType";
@@ -11,13 +11,12 @@ import { GAME_EVENT } from "../../../../network/networkDefine";
 
 const { ccclass, property } = _decorator;
 
-@ccclass("MockGameLogicController")
-export class MockGameLogicController extends GameLogicController {
+@ccclass("MockGameLogicService")
+export class MockGameLogicService extends GameLogicService {
   gameInfoService: IGameInfoService = null;
   betResultService: IBetResultsServiceMock = null;
 
   initGameStart() {
-    console.log("init start game");
     super.initGameStart();
     this.init();
   }
@@ -36,9 +35,7 @@ export class MockGameLogicController extends GameLogicController {
   }
 
   setGameInfo() {
-    console.log("set game info");
     let gameInfo = this.getGameInfo();
-    console.log("game info", gameInfo);
     EventBus.dispatchEvent(GAME_EVENT.SEND_GAME_INFO_DATA_TO_GAME_CONTROLLER, gameInfo);
   }
 

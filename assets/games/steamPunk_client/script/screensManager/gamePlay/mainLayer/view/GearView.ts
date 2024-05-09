@@ -17,11 +17,6 @@ export class GearView extends Component {
   @property(Node)
   lbWinStatus: Node = null;
 
-  onLoad() {
-    this.init();
-  }
-  init() {}
-
   onSpinAnimGear() {
     this.GearBig.node.active = true;
     this.GearSmall.node.active = true;

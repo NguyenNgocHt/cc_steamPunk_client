@@ -31,7 +31,6 @@ export class TrendHistoryView extends Component {
     let trendBlueNode = this.poolControl.getTrendNode(1);
 
     //early return
-    console.log("trendBlueNode", trendBlueNode);
     if (!trendBlueNode) {
       return;
     }
@@ -40,7 +39,6 @@ export class TrendHistoryView extends Component {
 
     let iconView = trendBlueNode.getComponent(iconTrendView);
     this._iconTrendView = iconView;
-    console.log("icon trend view", this._iconTrendView);
     this._iconTrendView.updateValue(iconValue);
 
     this.changeNodePositionInLayout(trendBlueNode);
@@ -48,14 +46,12 @@ export class TrendHistoryView extends Component {
 
   pushGreenIconInConten(iconValue: number) {
     let trendGreenNode = this.poolControl.getTrendNode(2);
-    console.log("trendBlueNode", trendGreenNode);
     if (trendGreenNode) {
       trendGreenNode.active = true;
 
       let iconView = trendGreenNode.getComponent(iconTrendView);
 
       this._iconTrendView = iconView;
-      console.log("icon trend view", this._iconTrendView);
 
       this._iconTrendView.updateValue(iconValue);
 
@@ -68,6 +64,7 @@ export class TrendHistoryView extends Component {
 
     if (layout) {
       this.moveIcons(iconNode);
+
       this.moveNewIcon(iconNode);
     }
   }
@@ -98,6 +95,7 @@ export class TrendHistoryView extends Component {
     if (children.length == 0) return;
 
     let spacing = this.conten.getComponent(Layout).spacingX;
+
     let component = newNode.getComponent(UITransform);
 
     for (let i = 0; i < children.length; i++) {

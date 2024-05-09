@@ -6835,7 +6835,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 197.6,
+      "width": 197.5999755859375,
       "height": 100.8
     },
     "_anchorPoint": {
@@ -7340,7 +7340,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "084778ee-7c5b-44c8-aefb-b6fcf370b4ec@f9941",
+      "__uuid__": "a87fe2c2-b2ba-4433-9ce5-bf6ecc2a3a3e@59710",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -7709,7 +7709,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "084778ee-7c5b-44c8-aefb-b6fcf370b4ec@f9941",
+      "__uuid__": "a87fe2c2-b2ba-4433-9ce5-bf6ecc2a3a3e@59710",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -8078,7 +8078,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "084778ee-7c5b-44c8-aefb-b6fcf370b4ec@f9941",
+      "__uuid__": "a87fe2c2-b2ba-4433-9ce5-bf6ecc2a3a3e@59710",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -8447,7 +8447,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "084778ee-7c5b-44c8-aefb-b6fcf370b4ec@f9941",
+      "__uuid__": "a87fe2c2-b2ba-4433-9ce5-bf6ecc2a3a3e@59710",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -8816,7 +8816,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "084778ee-7c5b-44c8-aefb-b6fcf370b4ec@f9941",
+      "__uuid__": "a87fe2c2-b2ba-4433-9ce5-bf6ecc2a3a3e@59710",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -13684,7 +13684,7 @@
       "__uuid__": "c36a0c7a-79cd-4306-ae4f-6a5e13ecb5cf",
       "__expectedType__": "sp.SkeletonData"
     },
-    "defaultSkin": "",
+    "defaultSkin": "default",
     "defaultAnimation": "",
     "_premultipliedAlpha": false,
     "_timeScale": 1,
@@ -13821,7 +13821,7 @@
       "__uuid__": "9333e1e5-4473-4ead-af09-16aee85b4d82",
       "__expectedType__": "sp.SkeletonData"
     },
-    "defaultSkin": "",
+    "defaultSkin": "default",
     "defaultAnimation": "",
     "_premultipliedAlpha": false,
     "_timeScale": 1,

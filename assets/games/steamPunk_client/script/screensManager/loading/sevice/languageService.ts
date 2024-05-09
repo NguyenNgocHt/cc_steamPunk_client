@@ -8,10 +8,12 @@ const { ccclass, property } = _decorator;
 @ccclass("languageService")
 export class languageService implements ILanguegeService {
   private isLoadLanguage: boolean = false;
-  loadingLanguage() {
+  loadingLanguage(callBack: Function = null) {
     let dataDecode = Utils.parseUrlData();
     this.getSetting(dataDecode, () => {
-      this.loadLanguage(dataDecode);
+      this.loadLanguage(dataDecode, () => {
+        callBack && callBack(true);
+      });
     });
     if (window["onGameInitSuccess"]) {
       window["onGameInitSuccess"]();
@@ -31,7 +33,7 @@ export class languageService implements ILanguegeService {
     }
   }
 
-  async loadLanguage(dataDecode: any) {
+  async loadLanguage(dataDecode: any, callBack: Function = null) {
     if (dataDecode) {
       await new LanguageManager().getLanguage2(
         dataDecode,
@@ -39,7 +41,9 @@ export class languageService implements ILanguegeService {
           if (result) {
             console.log("loading language success");
             this.isLoadLanguage = result;
+            callBack && callBack(true);
           } else {
+            callBack && callBack(false);
             setTimeout(() => {
               this.loadLanguage(dataDecode);
             }, 500);

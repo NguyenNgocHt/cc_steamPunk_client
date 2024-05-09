@@ -1,5 +1,5 @@
 import { _decorator, Component, sys, Label } from "cc";
-import { ILoadingController, ILoadingView_loading } from "../../../interfaces/Loading_interfaces";
+import { ILoadingController, ILoadingView } from "../../../interfaces/Loading_interfaces";
 import { ProgressBar } from "cc";
 import ScreenManager from "../../../../../../framework/ui/ScreenManager";
 import { PATH } from "../../../common/define";
@@ -7,11 +7,12 @@ import BasePopup from "../../../../../../framework/ui/BasePopup";
 import { PopupNotify } from "../../../popups/PopupNotify";
 import { Path } from "../../../common/Path";
 import { LanguageManager } from "../../../../../../framework/languge/LanguageManager";
-import { WebView } from "cc";
+import { EventBus } from "../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("LoadingBarView")
-export class LoadingBarView extends Component implements ILoadingView_loading {
+export class LoadingBarView extends Component implements ILoadingView {
   @property(ProgressBar)
   loadingProgress: ProgressBar = null!;
 
@@ -21,23 +22,16 @@ export class LoadingBarView extends Component implements ILoadingView_loading {
   @property(Label)
   LbCache: Label = null;
 
-  private _loadingControler: ILoadingController = null;
-
   protected _strLoad: string[] = [".", "..", "..."];
   protected _indexStr: number = 0;
   private _timeAnim: number = 0;
-  onLoad() {
-    console.log("loading view", this.node);
-  }
-  init(loadingController: ILoadingController) {
-    this._loadingControler = loadingController;
-  }
+
   startView() {
     this.loadingProgress.progress = 0;
     this.updateProgressBar(0);
     ScreenManager.instance.assetBundle.load(Path.POPUP_NOTIFY, (err, data) => {
       if (!err) {
-        this._loadingControler.startLoadingAsset();
+        EventBus.dispatchEvent(GAME_EVENT.START_LOADING_ASSETS);
       } else {
         console.log("load error  " + err + " _loadAsset");
         if (sys.isBrowser) {
@@ -72,7 +66,7 @@ export class LoadingBarView extends Component implements ILoadingView_loading {
           () => {
             ScreenManager.instance.hidePopup(true);
 
-            this._loadingControler.startLoadingAsset();
+            EventBus.dispatchEvent(GAME_EVENT.START_LOADING_ASSETS);
           },
           () => {
             ScreenManager.instance.hidePopup(true);
@@ -83,10 +77,6 @@ export class LoadingBarView extends Component implements ILoadingView_loading {
       true,
       false
     );
-  }
-
-  onClick_screenChange() {
-    this._loadingControler.screenChange();
   }
 
   protected update(deltaTime: number) {

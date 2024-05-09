@@ -13,6 +13,7 @@ export class JackpotAnimView extends Component {
   start() {
     this.offAllAnim();
   }
+  
   offAllAnim() {
     this.jackpotAnim.node.active = false;
     this.objTextNode.active = false;

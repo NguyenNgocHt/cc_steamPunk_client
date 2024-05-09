@@ -54,11 +54,13 @@ export class BetLineGroupView extends Component {
 
     this.lbNumberBetLine.string = this.currentBetLine.toString();
     EventBus.dispatchEvent(GAME_EVENT.SEND_CURRENT_BET_LINE, this.currentBetLine);
+
     this.updateLbTotalBet(this.currentBetLine);
   }
 
   setCurrentBetLineValue(currentBetLineValue: number) {
     this.currentBetLineValue = currentBetLineValue;
+
     this.updateLbTotalBet(this.currentBetLine);
   }
 

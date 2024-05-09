@@ -10,6 +10,7 @@ export class iconTrendView extends Component implements IIconTrendView {
 
   updateValue(value: number) {
     let iconValue = value;
+    
     if (!Number.isInteger(iconValue)) {
       iconValue = parseFloat(iconValue.toFixed(2));
     }

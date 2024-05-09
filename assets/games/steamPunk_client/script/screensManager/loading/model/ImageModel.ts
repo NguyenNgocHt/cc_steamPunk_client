@@ -1,10 +1,9 @@
-import { _decorator, Component, Node } from "cc";
-import { RUNTIME_BASED } from "cc/env";
-import { IImageModel_loading } from "../../../interfaces/Loading_interfaces";
+import { _decorator } from "cc";
+import { IImageModel} from "../../../interfaces/Loading_interfaces";
 const { ccclass, property } = _decorator;
 
 @ccclass("ImageModel")
-export class ImageModel implements IImageModel_loading {
+export class ImageModel implements IImageModel {
   private _imageDirs = [];
 
   getImagesDirsData(): string[] {

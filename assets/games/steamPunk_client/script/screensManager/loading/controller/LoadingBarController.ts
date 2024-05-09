@@ -1,11 +1,5 @@
-import { _decorator, Component, Prefab, tween } from "cc";
-import {
-  ILoadingController,
-  IAssetsSevice_loading,
-  IAudioSevice_loading,
-  ILoadingView_loading,
-  ILanguegeService,
-} from "../../../interfaces/Loading_interfaces";
+import { _decorator, Component, Prefab } from "cc";
+import { ILoadingController, IAssetsService, IAudioService, ILoadingView, ILanguegeService } from "../../../interfaces/Loading_interfaces";
 import { AudioSevice } from "../sevice/AudioSevice";
 import { AssetsSevice } from "../sevice/AssetsSevice";
 import { LoadingBarView } from "../view/LoadingBarView";
@@ -15,37 +9,39 @@ import { PATH } from "../../../common/define";
 import { languageService } from "../sevice/languageService";
 import { StorageUtil } from "../../../../../../framework/utils/StorageUtil";
 import { BStorageKey } from "../../../common/Enum";
+import { EventBus } from "../../../../../../framework/common/EventBus";
+import { GAME_EVENT } from "../../../network/networkDefine";
 const { ccclass, property } = _decorator;
 
 @ccclass("LoadingBarControler")
-export class LoadingBarControler extends Component implements ILoadingController {
+export class LoadingBarControler extends Component {
   @property(LoadingBarView)
   LoadingBarView: LoadingBarView = null;
-  _audioSevice: IAudioSevice_loading = null;
-  _assetsSevice: IAssetsSevice_loading = null;
+
+  _audioSevice: IAudioService = null;
+  _assetsSevice: IAssetsService = null;
   _languageService: ILanguegeService = null;
-  _loadingView: ILoadingView_loading = null;
+
   progressCurrent: number = 0;
   onLoad() {
-    this.init(this.LoadingBarView);
+    this.init();
   }
 
   start() {
+    this.registerEvent();
     this.loadingStart();
   }
 
-  init(iloadingView: ILoadingView_loading) {
-    this.init_isMe(iloadingView);
+  init() {
+    this.init_isMe();
     this.init_audioSevice();
     this.init_assetsSevice();
-    this.init_loadingView();
   }
 
-  init_isMe(iLoadingView: ILoadingView_loading) {
+  init_isMe() {
     this._audioSevice = new AudioSevice();
     this._assetsSevice = new AssetsSevice();
     this._languageService = new languageService();
-    this._loadingView = iLoadingView;
   }
 
   init_audioSevice() {
@@ -53,21 +49,41 @@ export class LoadingBarControler extends Component implements ILoadingController
   }
 
   init_assetsSevice() {
-    this._assetsSevice.init(this);
+    this._assetsSevice.init();
   }
 
-  init_loadingView() {
-    this._loadingView.init(this);
-  }
   //controler audio sevice
+
+  registerEvent() {
+    EventBus.on(GAME_EVENT.PROGRESS_BAR_POINT, this.updateLoadingView_progressBar.bind(this));
+
+    EventBus.on(GAME_EVENT.FINISH_LOADING, this.checkResultLoadingAssets.bind(this));
+
+    EventBus.on(GAME_EVENT.GET_AUDIOS, this.getAudiosFromAudioSevice.bind(this));
+    EventBus.on(GAME_EVENT.INIT_AUDIOS, this.initAudios.bind(this));
+
+    EventBus.on(GAME_EVENT.RESOURCE_LOADING_ERR, this.showPopupMessage.bind(this));
+
+    EventBus.on(GAME_EVENT.START_LOADING_ASSETS, this.startLoadingAsset.bind(this));
+  }
+
+  unRegisterEvent() {
+    EventBus.off(GAME_EVENT.PROGRESS_BAR_POINT, this.updateLoadingView_progressBar.bind(this));
+    EventBus.off(GAME_EVENT.FINISH_LOADING, this.checkResultLoadingAssets.bind(this));
+    EventBus.off(GAME_EVENT.GET_AUDIOS, this.getAudiosFromAudioSevice.bind(this));
+    EventBus.off(GAME_EVENT.INIT_AUDIOS, this.initAudios.bind(this));
+    EventBus.off(GAME_EVENT.RESOURCE_LOADING_ERR, this.showPopupMessage.bind(this));
+  }
+
   loadingStart() {
-    this._audioSevice.loadingAudio();
-    this._languageService.loadingLanguage();
-    this.startLoadingView();
+    this._languageService.loadingLanguage(() => {
+      this.startLoadingView();
+    });
   }
 
   initAudios() {
-    this._audioSevice.initAudio();
+    let audios = this._audioSevice.getAudios();
+    this._audioSevice.initAudio(audios);
   }
 
   //controler assets sevice
@@ -82,16 +98,17 @@ export class LoadingBarControler extends Component implements ILoadingController
 
   //controler loading view
   updateLoadingView_progressBar(updatePoint: number) {
-    this._loadingView.updateProgressBar(updatePoint);
+    this.LoadingBarView.updateProgressBar(updatePoint);
   }
 
   showPopupMessage(message: string) {
-    this._loadingView.showMessenger(message);
+    this.LoadingBarView.showMessenger(message);
   }
 
   startLoadingView() {
-    this._loadingView.startView();
+    this.LoadingBarView.startView();
   }
+
   checkResultLoadingAssets() {
     let resultLoadingLanguage = this._languageService.getResultLoadLanguage();
     let languageData = StorageUtil.instance.read(BStorageKey.LANGUAGE_DATA);

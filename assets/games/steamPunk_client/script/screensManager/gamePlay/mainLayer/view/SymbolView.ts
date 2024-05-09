@@ -49,6 +49,7 @@ export class SymbolView extends Component {
       skeleton.setCompleteListener(() => {
         skeleton.clearTracks();
         skeleton.setToSetupPose();
+        this.symbolImage.active = true;
         this.symbolAnim.active = false;
         this.isShowAnim = false;
       });
@@ -103,6 +104,7 @@ export class SymbolView extends Component {
   }
 
   changeSymbolImage() {
+    this.symbolImage.active = true;
     let symbolPos = this.symbolPosList[this.symbolIndex - 1];
 
     let symbolUiTransform = this.symbolImage.getComponent(UITransform);
@@ -140,6 +142,7 @@ export class SymbolView extends Component {
   showAnimWin() {
     if (this.isShowAnim) {
       this.symbolAnim.active = true;
+      this.symbolImage.active = false;
       let skeleton = this.symbolAnim.getComponent(sp.Skeleton);
       if (this.symbolIndex == 6) {
         skeleton.setAnimation(0, "Girl-Nice", false);

@@ -16,59 +16,68 @@
         "inBundle": true
       }
     ],
-    "debug": true,
-    "sourceMaps": true,
-    "useSplashScreen": false,
+    "debug": false,
+    "sourceMaps": false,
+    "useSplashScreen": true,
     "buildPath": "project://build",
-    "outputName": "web-mobile",
+    "outputName": "web-desktop",
     "mainBundleCompressionType": "merge_dep",
-    "platform": "web-mobile"
+    "platform": "web-desktop",
+    "polyfills": {
+      "asyncFunctions": true
+    },
+    "name": "steamPunk"
   },
   "BuildTaskManager": {
     "taskMap": {
-      "1677221549932": {
+      "1715219455355": {
         "type": "build",
-        "id": "1677221549932",
+        "id": "1715219455355",
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2-24-2023 14:07:49 Build success in 8564 ms!",
+        "message": "5-9-2024 08:51:49 build success in 53651 ms!",
         "options": {
-          "name": "FrameworkCocos",
-          "platform": "web-mobile",
+          "name": "steamPunk",
+          "server": "",
+          "platform": "web-desktop",
           "buildPath": "project://build",
-          "debug": true,
+          "debug": false,
           "md5Cache": false,
           "skipCompressTexture": false,
-          "sourceMaps": true,
+          "sourceMaps": false,
           "polyfills": {
             "asyncFunctions": true
           },
           "experimentalEraseModules": false,
+          "startSceneAssetBundle": false,
+          "bundleConfigs": [],
           "useBuiltinServer": false,
           "mainBundleIsRemote": false,
           "mainBundleCompressionType": "merge_dep",
           "useSplashScreen": true,
+          "bundleCommonChunk": false,
           "packAutoAtlas": true,
           "startScene": "fc3c5944-03ea-49ff-9194-231e2f9ee56e",
-          "outputName": "web-mobile",
+          "outputName": "web-desktop",
+          "taskName": "web-desktop",
           "scenes": [
             {
-              "url": "db://assets/vd-boot/StartScene.scene",
-              "uuid": "fc3c5944-03ea-49ff-9194-231e2f9ee56e",
-              "inBundle": false
+              "url": "db://assets/boot/StartScene.scene",
+              "uuid": "fc3c5944-03ea-49ff-9194-231e2f9ee56e"
             },
             {
-              "url": "db://assets/vd-games/pvp-domino/res/scene/DomiScene.scene",
+              "url": "db://assets/games/steamPunk_client/res/steamPunk_Scene.scene",
               "uuid": "f003f78a-c18a-49b4-afe2-1f8df294b9b1",
-              "inBundle": true
+              "bundle": "db://assets/games/steamPunk_client"
             }
           ],
-          "web-desktop": [],
-          "__version__": "1.3.4",
-          "web-mobile": []
+          "packages": {},
+          "__version__": "1.3.6",
+          "buildMode": "normal",
+          "logDest": "project://temp/builder/log/web-desktop5-9-2024 08-50.log"
         },
-        "time": "2-24-2023 14:07",
+        "time": "5-9-2024 08:50:55",
         "dirty": false
       }
     }

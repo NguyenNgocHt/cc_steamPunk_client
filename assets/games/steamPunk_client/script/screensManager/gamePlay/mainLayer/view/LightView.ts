@@ -24,8 +24,11 @@ export class LightView extends Component {
     let timeStart = 0.1;
     for (let i = this.lightOn.length - 1; i >= 0; i--) {
       this.lightOn[i].active = true;
+
       this.lightOn[i].setOpacity(0);
+
       let uiOpacity = this.lightOn[i].getComponent(UIOpacity);
+
       tween(uiOpacity)
         .delay(timeStart)
         .to(0.1, { opacity: 255 })
@@ -35,6 +38,7 @@ export class LightView extends Component {
           this.lightOn[i].active = false;
         })
         .start();
+
       timeStart += delayAdd;
     }
   }
@@ -65,6 +69,7 @@ export class LightView extends Component {
     this.lightOn[index].active = true;
     this.lightOn[index].setOpacity(0);
     let uiOpacity = this.lightOn[index].getComponent(UIOpacity);
+
     tween(uiOpacity)
       .delay(0.1)
       .to(0.1, { opacity: 255 })
@@ -75,6 +80,7 @@ export class LightView extends Component {
       })
       .start();
   }
+
   turnOffAllLights() {
     for (let i = 0; i < this.lightOff.length; i++) {
       this.lightOff[i].active = true;

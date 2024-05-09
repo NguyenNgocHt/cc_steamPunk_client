@@ -1,3 +1,15 @@
 {
-  "__version__": "1.0.7"
+  "__version__": "1.0.7",
+  "builder": {
+    "taskOptionsMap": {
+      "1677221549932": {
+        "cleanupImageCache": "inheritProjectSetting"
+      },
+      "1715219455355": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.7"
+      }
+    },
+    "__version__": "1.3.6"
+  }
 }

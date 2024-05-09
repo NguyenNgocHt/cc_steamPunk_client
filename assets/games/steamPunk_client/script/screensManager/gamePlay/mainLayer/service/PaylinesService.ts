@@ -10,14 +10,8 @@ const { ccclass, property } = _decorator;
 @ccclass("PaylinesService")
 export class PaylinesService implements IPaylinesService {
   checkPayLines(betResult: BetResultsData): PayLinesDaTa[] {
-    let paylinesList: PayLinesDaTa[] = [];
     if (betResult.paylines.length > 0) {
-      let paylines = betResult.paylines;
-      for (let i = 0; i < paylines.length; i++) {
-        let paylineData = paylines[i] as PayLinesDaTa;
-        paylinesList.push(paylineData);
-      }
-      return paylinesList;
+      return betResult.paylines as PayLinesDaTa[];
     }
   }
 
