@@ -50,71 +50,83 @@ export class AssetsSevice implements IAssetsService {
   }
 
   private _loadAsset(index: number, totalPercent: number) {
+    this.checkFinishLoading(index);
+
+    let path = this._items[index];
+
+    if (this._isDirectory(path)) {
+      this.loadDir(path, index, totalPercent);
+    } else {
+      this.loadItem(path, index, totalPercent);
+    }
+  }
+
+  checkFinishLoading(index: number) {
     if (index >= this._items.length) {
       EventBus.dispatchEvent(GAME_EVENT.PROGRESS_BAR_POINT, 1.0);
       EventBus.dispatchEvent(GAME_EVENT.FINISH_LOADING);
 
       return;
     }
+  }
 
-    let path = this._items[index];
-
-    if (this._isDirectory(path)) {
-      ScreenManager.instance.assetBundle.loadDir(
-        path,
-        (finished, total) => {
-          let progress = index * totalPercent + (finished / total) * totalPercent;
-          if (progress > this.progressBar_current) {
-            this.progressBar_current = progress;
-            EventBus.dispatchEvent(GAME_EVENT.PROGRESS_BAR_POINT, progress);
-            this._onUpdateProgressFunc && this._onUpdateProgressFunc(progress);
-          }
-        },
-        (err, data) => {
-          if (sys.isNative && (path.endsWith("/bgm/") || path.endsWith("/sfx/"))) {
-            EventBus.dispatchEvent(GAME_EVENT.GET_AUDIOS);
-
-            console.log(`AudioClip loaded:${JSON.stringify(this._audios)}`);
-            let assets: Asset[] = data;
-            for (let as of assets) {
-              if (as instanceof AudioClip) {
-                this._audios[`${path}${as.name}`] = `${as._nativeAsset.url}`;
-              }
-            }
-
-            EventBus.dispatchEvent(GAME_EVENT.INIT_AUDIOS);
-          }
-
-          if (!err) {
-            this._loadAsset(index + 1, totalPercent);
-          } else {
-            console.log("load error  " + err + "    " + path);
-            if (sys.isBrowser) {
-              EventBus.dispatchEvent(GAME_EVENT.RESOURCE_LOADING_ERR, MESENGER.RESOURCE_LOADING_ERR);
-            }
-          }
-        }
-      );
-    } else {
-      ScreenManager.instance.assetBundle.load(
-        path,
-        (finished, total) => {
-          let progress = index * totalPercent + (finished / total) * totalPercent;
-
+  private loadDir(path: string, index: number, totalPercent: number) {
+    ScreenManager.instance.assetBundle.loadDir(
+      path,
+      (finished, total) => {
+        let progress = index * totalPercent + (finished / total) * totalPercent;
+        if (progress > this.progressBar_current) {
+          this.progressBar_current = progress;
           EventBus.dispatchEvent(GAME_EVENT.PROGRESS_BAR_POINT, progress);
-        },
-        (err, data) => {
-          if (!err) {
-            this._loadAsset(index + 1, totalPercent);
-          } else {
-            console.log("load error  " + err + "    " + path);
-            if (sys.isBrowser) {
-              EventBus.dispatchEvent(GAME_EVENT.RESOURCE_LOADING_ERR, MESENGER.RESOURCE_LOADING_ERR);
+          this._onUpdateProgressFunc && this._onUpdateProgressFunc(progress);
+        }
+      },
+      (err, data) => {
+        if (sys.isNative && (path.endsWith("/bgm/") || path.endsWith("/sfx/"))) {
+          EventBus.dispatchEvent(GAME_EVENT.GET_AUDIOS);
+
+          console.log(`AudioClip loaded:${JSON.stringify(this._audios)}`);
+          let assets: Asset[] = data;
+          for (let as of assets) {
+            if (as instanceof AudioClip) {
+              this._audios[`${path}${as.name}`] = `${as._nativeAsset.url}`;
             }
           }
+
+          EventBus.dispatchEvent(GAME_EVENT.INIT_AUDIOS);
         }
-      );
-    }
+
+        if (!err) {
+          this._loadAsset(index + 1, totalPercent);
+        } else {
+          console.log("load error  " + err + "    " + path);
+          if (sys.isBrowser) {
+            EventBus.dispatchEvent(GAME_EVENT.RESOURCE_LOADING_ERR, MESENGER.RESOURCE_LOADING_ERR);
+          }
+        }
+      }
+    );
+  }
+
+  private loadItem(path: string, index: number, totalPercent: number) {
+    ScreenManager.instance.assetBundle.load(
+      path,
+      (finished, total) => {
+        let progress = index * totalPercent + (finished / total) * totalPercent;
+
+        EventBus.dispatchEvent(GAME_EVENT.PROGRESS_BAR_POINT, progress);
+      },
+      (err, data) => {
+        if (!err) {
+          this._loadAsset(index + 1, totalPercent);
+        } else {
+          console.log("load error  " + err + "    " + path);
+          if (sys.isBrowser) {
+            EventBus.dispatchEvent(GAME_EVENT.RESOURCE_LOADING_ERR, MESENGER.RESOURCE_LOADING_ERR);
+          }
+        }
+      }
+    );
   }
 
   private _isDirectory(path: string | null): boolean {
